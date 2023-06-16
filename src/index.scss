@@ -1,0 +1,22 @@
+@import './style/base';
+
+html, body, #root, .app {
+  height: 100%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  
+  
+  * {
+    box-sizing: border-box;
+    font-family: $mainFont;
+    color: $darkColor;
+  }
+}
+
+#root {
+  max-width: 1440px;
+  margin: 0 auto;
+}

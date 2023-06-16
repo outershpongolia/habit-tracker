@@ -1,0 +1,16 @@
+.landing-page {
+    padding: 104px 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 72px;
+        flex-wrap: wrap;
+        padding: 0 24px;
+    }
+}

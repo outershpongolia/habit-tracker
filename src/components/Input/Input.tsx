@@ -5,7 +5,7 @@ import { BiCheckCircle } from 'react-icons/bi'
 interface IInputProps {
     value: string
     maxLength: number
-    onChange: (value: string) => void
+    onChange: (value: string, name: string) => void
     onClick: () => void
     name?: string
     placeholder?: string
@@ -14,8 +14,8 @@ interface IInputProps {
 
 export const Input: React.FC<IInputProps> = ({ value, name, maxLength, onChange, onClick, placeholder, className }) => {
     const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(e.target.value)
-    }, [ onChange ])
+        onChange(e.target.value, e.target.name)
+    }, [onChange])
 
     return (
         <div className='input__wrapper'>

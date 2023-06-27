@@ -1,0 +1,21 @@
+@import '../../style/base';
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 140px;
+    background-color: $darkColor;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 32px 20px;
+
+    &__link {
+        text-transform: uppercase;
+        color: $grayColor;
+        text-decoration: none;
+    }
+}

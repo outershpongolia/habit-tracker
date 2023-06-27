@@ -8,10 +8,11 @@ import { ETableRowType, ETableSize } from "../../constants"
 interface ITableRowProps {
     data: any[]
     tableSize: ETableSize
+    id?: string
     rowType?: ETableRowType
 }
 
-export const TableRow: React.FC<ITableRowProps> = ({ data, tableSize, rowType }) => {
+export const TableRow: React.FC<ITableRowProps> = ({ id, data, tableSize, rowType }) => {
     return (
         <div 
             className={clsx('table-row', {
@@ -19,7 +20,18 @@ export const TableRow: React.FC<ITableRowProps> = ({ data, tableSize, rowType })
                 'table-row_small': tableSize === ETableSize.SMALL
             })}
         >
-            {data && data.map(x => <TableItem key={uniqueId(x)} item={x} maxLength={16} clickable={rowType === ETableRowType.DATA} />)}
+            {data && data.map(x => {
+                return (
+                    <TableItem
+                        key={uniqueId(x)}
+                        id={id}
+                        index={data.indexOf(x)}
+                        value={x}
+                        maxLength={16}
+                        clickable={rowType === ETableRowType.DATA}
+                    />
+                )
+            })}
         </div>
     )
 }

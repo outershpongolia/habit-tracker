@@ -1,5 +1,4 @@
 import React, { useCallback, useContext } from 'react'
-import { PageContext } from '../../context/PageContext'
 import './TrackerPage.scss'
 import { Table } from '../../components/Table/Table'
 import { ETableDataType, ETableSize } from '../../constants'
@@ -8,7 +7,6 @@ import { TableContext } from '../../context/TableContext'
 interface ITrackerPageProps {}
 
 export const TrackerPage: React.FC<ITrackerPageProps> = () => {
-    const { month } = useContext(PageContext)
     const { tableData } = useContext(TableContext)
 
     const handleFindData = useCallback((title: ETableDataType) => {
@@ -22,7 +20,6 @@ export const TrackerPage: React.FC<ITrackerPageProps> = () => {
     return (
         <div className='tracker-page'>
             <div className='tracker-page__column'>
-                <div className='tracker-page__title'>{month}</div>
 
                 <Table
                     tableData={handleFindData(ETableDataType.INCOME)}

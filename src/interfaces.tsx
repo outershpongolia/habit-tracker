@@ -1,6 +1,7 @@
 import { ETableSize } from "./constants"
 
 export interface ITable {
+    id: string
     title: string
     headers: string[]
     size: ETableSize
@@ -9,6 +10,5 @@ export interface ITable {
 
 export interface ITableItem {
     id: string
-    label: string
     values: any[]
 }

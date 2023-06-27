@@ -1,6 +1,6 @@
 @import './style/base';
 
-html, body, #root, .app {
+html, body, #root, .app, main {
   height: 100%;
 }
 
@@ -19,4 +19,16 @@ body {
 #root {
   max-width: 1440px;
   margin: 0 auto;
+}
+
+.app {
+  position: relative;
+}
+
+main {
+  padding-left: 140px;
+
+  @media screen and (min-width: 1718px) {
+    padding-left: 0;
+  }
 }

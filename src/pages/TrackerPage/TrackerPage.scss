@@ -1,3 +1,23 @@
+@import '../../style/base';
+
 .tracker-page {
-    background-color: bisque;
+    padding: 44px;
+    display: grid;
+    grid-template-columns: 28% 34% 34%;
+    gap: 2%;
+
+    &__column {
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    
+    &__title {
+        font-family: $elegantFont;
+        font-size: 88px;
+        line-height: 126px;
+        text-align: center;
+        padding: 48px 0;
+    }
 }

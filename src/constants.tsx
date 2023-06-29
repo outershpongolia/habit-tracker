@@ -1,5 +1,5 @@
 import { uniqueId } from "lodash"
-import { ITable } from "./interfaces"
+import { IExpense } from "./interfaces"
 
 export enum ERoute {
     DASHBOARD = '/',
@@ -10,143 +10,46 @@ export enum ERoute {
 
 export const MONTH_LIST = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-export enum ETableSize {
-    SMALL = 'small',
-    BIG = 'big'
+export const DEFAULT_EXPENSE: IExpense = {
+    id: '',
+    category: '',
+    title: '',
+    description: '',
+    icon: '',
+    frequency: '',
+    date: '',
+    amount: 0,
 }
 
-export enum ETableDataType {
-    INCOME = 'income',
-    SUMMARY = 'summary',
-    PERCENTAGE = 'percentage',
-    BILLS = 'bills',
-    DEBT = 'debt',
-    EXPENSES = 'expenses',
-    INVESTEMENTS = 'investements',
-    SAVINGS = 'savings'
-}
-
-export enum EExpenseType {
-    NEEDS = 'needs',
-    WANTS = 'wants'
-}
-
-export enum ETableRowType {
-    HEADER = 'header',
-    DATA = 'data',
-    TOTAL = 'total'
-}
-
-export const DEFAULT_SMALL_TABLE_SIZE = 3
-export const DEFAULT_BIG_TABLE_SIZE = 4
-
-export const TABLE_DATA: ITable[] = [
+export const EXPENSES_LIST: IExpense[] = [
     {
-        id: uniqueId(ETableDataType.INCOME),
-        title: ETableDataType.INCOME,
-        headers: ['income', 'expected', 'actual'],
-        size: ETableSize.SMALL,
-        items: [
-            {
-                id: uniqueId('1'),
-                values: ['needs', 530, 580]
-            },
-            {
-                id: uniqueId('2'),
-                values: ['wants', 200, 180]
-            },
-            {
-                id: uniqueId('3'),
-                values: ['savings', 530, 580]
-            }
-        ]
+        id: uniqueId(),
+        category: 'important',
+        title: 'bills',
+        description: 'pay every month',
+        amount: 50,
+        icon: '',
+        frequency: 'monthly',
+        date: '12.09.2023.'
     },
-    // {
-    //     title: ETableDataType.SUMMARY,
-    //     headers: ['summary', 'budget', 'actual'],
-    //     size: ETableSize.SMALL,
-    //     items: []
-    // },
-    // {
-    //     title: ETableDataType.PERCENTAGE,
-    //     headers: ['type', '%', 'budget'],
-    //     size: ETableSize.SMALL,
-    //     items: []
-    // },
     {
-        id: uniqueId(ETableDataType.BILLS),
-        title: ETableDataType.BILLS,
-        headers: ['bills', 'budget', 'actual', 'type'],
-        size: ETableSize.BIG,
-        items: [
-            {
-                id: uniqueId('4'),
-                values: ['needs', 530, 580, EExpenseType.NEEDS]
-            },
-            {
-                id: uniqueId('5'),
-                values: ['wants', 200, 180, EExpenseType.WANTS]
-            },
-            {
-                id: uniqueId('6'),
-                values: ['savings', 530, 580, EExpenseType.NEEDS]
-            }
-        ]
+        id: uniqueId(),
+        category: 'personal wishes',
+        title: 'trip',
+        description: 'lets go traveling around the world!',
+        amount: 100,
+        icon: '',
+        frequency: 'yearly',
+        date: '03.01.2024.'
     },
-    // {
-    //     title: ETableDataType.DEBT,
-    //     headers: ['debt', 'budget', 'actual', 'type'],
-    //     size: ETableSize.BIG,
-    //     items: []
-    // },
-    // {
-    //     title: ETableDataType.EXPENSES,
-    //     headers: ['expenses', 'budget', 'actual', 'type'],
-    //     size: ETableSize.BIG,
-    //     items: []
-    // },
-    // {
-    //     title: ETableDataType.INVESTEMENTS,
-    //     headers: ['investements', 'budget', 'actual', 'type'],
-    //     size: ETableSize.BIG,
-    //     items: []
-    // },
-    // {
-    //     title: ETableDataType.SAVINGS,
-    //     headers: ['savings', 'budget', 'actual', 'type'],
-    //     size: ETableSize.BIG,
-    //     items: []
-    // }
+    {
+        id: uniqueId(),
+        category: 'life',
+        title: 'food',
+        description: 'meet, vegetables, fruit, fish...',
+        amount: 200,
+        icon: '',
+        frequency: 'weekly',
+        date: '14.07.2023.'
+    }
 ]
-
-export const DEFAULT_BIG_DATA: ITable = {
-    id: '',
-    title: '',
-    headers: [],
-    size: ETableSize.BIG,
-    items: [
-        {
-            id: '',
-            values: ['', '', '', '']
-        }
-    ]
-}
-
-export const DEFAULT_SMALL_DATA: ITable = {
-    id: '',
-    title: '',
-    headers: [],
-    size: ETableSize.SMALL,
-    items: [
-        {
-            id: '',
-            values: ['', '', '']
-        }
-    ]
-}
-
-export enum EFieldType {
-    TEXT = 'text',
-    INPUT = 'input',
-    DROPDOWN = 'dropdown'
-}

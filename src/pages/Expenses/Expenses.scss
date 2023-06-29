@@ -1,0 +1,12 @@
+@import '../../style/base';
+
+.expenses {
+    padding: 24px;
+    height: 100%;
+
+    &__list {
+        display: flex;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+}

@@ -3,22 +3,24 @@ import './Input.scss'
 import { BiCheckCircle } from 'react-icons/bi'
 
 interface IInputProps {
-    value: string
+    value: string | number
+    name: string
     maxLength: number
-    onChange: (value: string, name: string) => void
-    onClick: () => void
-    name?: string
+    onChange: (value: string | number, name: string) => void
+    label?: string
     placeholder?: string
     className?: string
 }
 
-export const Input: React.FC<IInputProps> = ({ value, name, maxLength, onChange, onClick, placeholder, className }) => {
+export const Input: React.FC<IInputProps> = ({ value, name, maxLength, onChange, label, placeholder, className }) => {
     const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e.target.value, e.target.name)
     }, [onChange])
 
     return (
         <div className='input__wrapper'>
+            {label && <div className='input__label'>{label}</div>}
+
             <input
                 className={`input ${className}`}
                 type="text"
@@ -29,8 +31,6 @@ export const Input: React.FC<IInputProps> = ({ value, name, maxLength, onChange,
                 maxLength={maxLength}
                 autoFocus
             />
-
-            <BiCheckCircle className='input__icon' onClick={onClick} />
         </div>
     )
 }

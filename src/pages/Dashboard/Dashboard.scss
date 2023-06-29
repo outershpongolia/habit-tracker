@@ -1,10 +1,11 @@
-.landing-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.dashboard {
+    padding: 24px;
     height: 100%;
 
-    &__link {
-        font-size: 56px;
+    &__popup {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
     }
 }

@@ -1,14 +1,10 @@
-import { ETableSize } from "./constants"
-
-export interface ITable {
+export interface IExpense {
     id: string
+    category: string
     title: string
-    headers: string[]
-    size: ETableSize
-    items: ITableItem[]
-}
-
-export interface ITableItem {
-    id: string
-    values: any[]
+    description: string
+    amount: number
+    icon: string
+    frequency: string
+    date: string
 }

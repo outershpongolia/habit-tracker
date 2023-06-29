@@ -1,14 +1,32 @@
-import React from "react"
+import React, { useCallback, useContext, useState } from "react"
 import './Dashboard.scss'
-import { ERoute } from "../../constants"
-import { NavLink } from "react-router-dom"
+import { Button } from "../../components/Button/Button"
+import { Popup } from "../../components/Popup/Popup"
+import { NewExpenseForm } from "../../components/NewExpenseForm/NewExpenseForm"
+import { ExpenseContext } from "../../context/ExpenseContext"
 
 interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
+    const { isPopupOpen, setIsPopupOpen } = useContext(ExpenseContext)
+
+    const handleOpenPopup = useCallback(() => {
+        setIsPopupOpen(true)
+    }, [setIsPopupOpen])
+
+    const handleClosePopup = useCallback(() => {
+        setIsPopupOpen(false)
+    }, [setIsPopupOpen])
+
     return (
-        <div className="landing-page">
-            <NavLink className='landing-page__link' to={ERoute.DASHBOARD}>Find your tracker here</NavLink>
+        <div className="dashboard">
+            <Button label='create new expense' onClick={handleOpenPopup} />
+
+            {isPopupOpen && 
+                <Popup className="dashboard__popup" close={handleClosePopup}>
+                    <NewExpenseForm />
+                </Popup>
+            }
         </div>
     )
 }

@@ -1,6 +1,7 @@
-.new-expense-form {
-    width: fit-content;
+.form {
+    width: 380px;
     height: fit-content;
+    min-width: fit-content;
     display: flex;
     flex-direction: column;
     gap: 24px;

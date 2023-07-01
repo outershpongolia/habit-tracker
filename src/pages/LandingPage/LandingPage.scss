@@ -1,0 +1,13 @@
+.landing-page {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // position: relative;
+
+    &__title {
+        font-size: 56px;
+        font-weight: 600;
+        color: rgb(142, 117, 117);
+    }
+}

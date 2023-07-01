@@ -1,25 +1,26 @@
 import React, { useCallback, useContext, useState } from "react"
-import './NewExpenseForm.scss'
-import { Input } from "../Input/Input"
-import { IExpense } from "../../interfaces"
-import { DEFAULT_EXPENSE } from "../../constants"
-import { Button } from "../Button/Button"
-import { ExpenseContext } from "../../context/ExpenseContext"
+import { Input } from "../../Input/Input"
+import { IExpense } from "../../../interfaces"
+import { DEFAULT_EXPENSE } from "../../../constants"
+import { ExpenseContext } from "../../../context/ExpenseContext"
 import { uniqueId } from "lodash"
+import { FormContext } from "../../../context/FormContext"
+import { Form } from "../Form"
 
 interface INewExpenseFormProps {}
 
 export const NewExpenseForm: React.FC<INewExpenseFormProps> = () => {
-    const { setExpenseData, setIsPopupOpen } = useContext(ExpenseContext)
+    const { setExpenseData } = useContext(ExpenseContext)
+    const { handleClosePopup } = useContext(FormContext)
 
     const [ inputValue, setInputValue ] = useState<IExpense>(DEFAULT_EXPENSE)
 
-    const handleInputOnChange = useCallback((value: string | number, name: string) => {
+    const handleInputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(inputValue => {
             return {
                 ...inputValue,
                 id: uniqueId(),
-                [name]: value
+                [e.target.name]: e.target.value
             }
         })
     }, [setInputValue])
@@ -32,13 +33,11 @@ export const NewExpenseForm: React.FC<INewExpenseFormProps> = () => {
             ]
         })
 
-        setIsPopupOpen(false)
-    }, [setExpenseData, inputValue, setIsPopupOpen])
+        handleClosePopup()
+    }, [setExpenseData, inputValue, handleClosePopup])
 
     return (
-        <div className="new-expense-form">
-            <div className="new-expense-form__title">Create your new expanse tracker card.</div>
-
+        <Form title="Create your new expanse tracker card." onClick={handleSubmitForm}>
             <Input
                 value={inputValue.category}
                 name='category'
@@ -46,6 +45,7 @@ export const NewExpenseForm: React.FC<INewExpenseFormProps> = () => {
                 placeholder="#important"
                 onChange={handleInputOnChange}
                 label='category'
+                autoFocus
             />
 
             <Input
@@ -58,19 +58,10 @@ export const NewExpenseForm: React.FC<INewExpenseFormProps> = () => {
             />
 
             <Input
-                value={inputValue.description}
-                name='description'
-                maxLength={88}
-                placeholder="electricity, water and greenery"
-                onChange={handleInputOnChange}
-                label='description'
-            />
-
-            <Input
                 value={inputValue.amount || ''}
                 name='amount'
                 maxLength={25}
-                placeholder="220"
+                placeholder="$220"
                 onChange={handleInputOnChange}
                 label='amount'
             />
@@ -84,9 +75,14 @@ export const NewExpenseForm: React.FC<INewExpenseFormProps> = () => {
                 label='date'
             />
 
-            <div className="new-expense-form__button">
-                <Button label="submit" onClick={handleSubmitForm} />
-            </div>
-        </div>
+            <Input
+                value={inputValue.description}
+                name='description'
+                maxLength={88}
+                placeholder="electricity, water and greenery"
+                onChange={handleInputOnChange}
+                label='description'
+            />
+        </Form>
     )
 }

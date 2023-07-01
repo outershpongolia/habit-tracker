@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react'
+import React, { useContext } from 'react'
 import './Expenses.scss'
 import { ExpenseContext } from '../../context/ExpenseContext'
 import { ExpenseCard } from '../../components/ExpenseCard/ExpenseCard'
@@ -17,10 +17,10 @@ export const Expenses: React.FC<IExpensesProps> = () => {
                             key={expense.id}
                             date={expense.date}
                             title={expense.title}
-                            description={expense.description}
+                            description={expense.description || ''}
                             category={expense.category}
                             amount={expense.amount}
-                            frequency={expense.frequency}
+                            frequency={expense.frequency || ''}
                         />
                     )
                 })}

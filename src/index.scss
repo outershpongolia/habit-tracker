@@ -25,10 +25,28 @@ body {
   position: relative;
 }
 
-main {
+.main {
   padding-left: 140px;
+
+  &_landing {
+    padding-left: 0;
+  }
 
   @media screen and (min-width: 1718px) {
     padding-left: 0;
   }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }

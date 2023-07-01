@@ -2,10 +2,18 @@ import { uniqueId } from "lodash"
 import { IExpense } from "./interfaces"
 
 export enum ERoute {
-    DASHBOARD = '/',
+    LANDING_PAGE = '/',
+    DASHBOARD = 'dashboard',
     EXPENSES = 'expenses',
     BUDGETING = 'budgeting',
     SETTINGS = 'settings'
+}
+
+export enum EPopup {
+    CLOSED = 'closed',
+    EXPENSE = 'expense-form',
+    LOGIN = 'login',
+    REGISTER = 'register'
 }
 
 export const MONTH_LIST = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]

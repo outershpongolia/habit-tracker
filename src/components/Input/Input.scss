@@ -4,25 +4,27 @@
     border: 0;
     outline: 0;
     font-size: 14px;
-    padding: 0;
     z-index: 1;
     padding: 16px;
-    border-radius: 2px;
-    background-color: $grayColor;
+    border-radius: 0 10px 10px 0;
+    background-color: $grayColor !important;
     width: 100%;
 
     &__wrapper {
-        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
     }
 
     &__label {
-        position: absolute;
-        top: 0px;
-        left: 4px;
-        transform: translateY(-112%);
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 500;
         text-transform: uppercase;
-        color: $ocherColor;
+        width: 128px;
+        min-width: 128px;
+        padding: 16px;
+        background-color: #30363cca;
+        color: $grayColor;
+        border-radius: 10px 0 0 10px;
     }
 }

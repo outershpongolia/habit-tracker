@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, createContext, useCallback, useState } from 'react'
 import { noop } from 'lodash'
-import { EPopup, EXPENSES_LIST } from '../constants'
+import { EXPENSES_LIST } from '../constants'
 import { IExpense } from '../interfaces'
 
 interface IExpenseContextProps {

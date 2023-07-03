@@ -3,18 +3,31 @@ import { IExpense } from "./interfaces"
 
 export enum ERoute {
     LANDING_PAGE = '/',
-    DASHBOARD = 'dashboard',
-    EXPENSES = 'expenses',
-    BUDGETING = 'budgeting',
-    SETTINGS = 'settings'
+    DASHBOARD = '/dashboard',
+    EXPENSES = '/expenses',
+    BUDGETING = '/budgeting',
+    SETTINGS = '/settings',
+    LOGIN = '/login',
+    REGISTER = '/register',
+    NEW_EXPENSE = '/new-expense'
 }
 
-export enum EPopup {
-    CLOSED = 'closed',
-    EXPENSE = 'expense-form',
-    LOGIN = 'login',
-    REGISTER = 'register'
+export enum EStatus {
+    SUCCESS = 'success',
+    ERROR = 'error',
+    INFO = 'info',
 }
+
+export const DEFAULT_LOGIN_FORM = {
+    email: '',
+    password: ''
+}
+
+export const DEFAULT_REGISTRATION_FORM = {
+    ...DEFAULT_LOGIN_FORM,
+    name: ''
+}
+
 
 export const MONTH_LIST = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 

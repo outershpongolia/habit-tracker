@@ -1,4 +1,4 @@
-import { ILogin } from "../interfaces"
+import { ILogin, IRegister } from "../interfaces"
 
 export const getAllUsers = () => {
     return fetch(`${process.env.REACT_APP_BASE_URL}/users/all/`, {
@@ -13,6 +13,16 @@ export const login = (auth: ILogin) => {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(auth),
+    }).then(res => {
+        return res.json()
+    })
+}
+
+export const register = (auth: IRegister) => {
+    return fetch(`${process.env.REACT_APP_BASE_URL}/auth/register/`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(auth)
     }).then(res => {
         return res.json()
     })

@@ -10,7 +10,8 @@
     align-items: center;
     
     &__container {
-        min-width: 60%;
+        max-width: 864px;
+        width: 80%;
         min-height: 68%;
         background-color: #ffff;
         position: relative;
@@ -20,6 +21,10 @@
         justify-content: center;
         align-items: center;
         height: fit-content;
+
+        @media screen and (max-width: 1024px) {
+            width: 90%;
+        }
     }
 
     &__close {

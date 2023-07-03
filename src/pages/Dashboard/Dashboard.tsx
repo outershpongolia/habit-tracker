@@ -1,16 +1,18 @@
-import React, { useContext } from "react"
+import React, { useCallback } from "react"
 import './Dashboard.scss'
 import { Button } from "../../components/Button/Button"
-import { Popup } from "../../components/Popup/Popup"
-import { NewExpenseForm } from "../../components/Form/NewExpenseForm/NewExpenseForm"
 import { BalanceCard } from "../../components/BalanceCard/BalanceCard"
-import { EPopup } from "../../constants"
-import { FormContext } from "../../context/FormContext"
+import { ERoute } from "../../constants"
+import { useNavigate } from "react-router-dom"
 
 interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
-    const { openPopup, handleOpenPopup } = useContext(FormContext)
+    const navigate = useNavigate()
+
+    const handleNavigateToForm = useCallback((route: ERoute) => {
+        return () => navigate(route)
+    }, [navigate])
 
     return (
         <div className="dashboard">
@@ -21,14 +23,8 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
             </div>
 
             <div className="footer">
-                <Button label='create new expense' onClick={handleOpenPopup(EPopup.EXPENSE)} />
+                <Button label='create new expense' onClick={handleNavigateToForm(ERoute.NEW_EXPENSE)} />
             </div>
-
-            {openPopup === EPopup.EXPENSE &&
-                <Popup>
-                    <NewExpenseForm />
-                </Popup>
-            }
         </div>
     )
 }

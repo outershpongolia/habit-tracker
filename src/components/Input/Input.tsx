@@ -12,7 +12,7 @@ export const Input: React.FC<IInputProps> = ({ value, name, type, maxLength, onC
 
             <input
                 className={`input ${className}`}
-                type={type}
+                type={type || 'text'}
                 name={name}
                 value={value}
                 onChange={onChange}

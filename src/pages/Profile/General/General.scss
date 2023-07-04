@@ -1,0 +1,46 @@
+@import '../../../style/base';
+
+.general {
+    height: 100%;
+    padding: 32px 0;
+    display: flex;
+
+    &__container {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    &__wrapper {
+        background-color: $grayColor;
+        border-radius: 10px;
+    }
+
+    &__file {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        padding: 0 4px 0 16px;
+    }
+    
+    &__file-input {
+        width: 50%;
+        word-wrap: break-word;
+    }
+
+    &__button {
+        background-color: #4e5862;
+        color: $grayColor;
+    }
+
+    &__save {
+        width: 100%;
+        margin-top: 16px;
+        display: flex;
+        justify-content: flex-end;
+    }
+}

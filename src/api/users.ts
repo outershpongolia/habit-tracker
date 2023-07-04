@@ -1,13 +1,5 @@
 import { ILogin, IRegister, IUpload } from "../interfaces"
 
-export const getAllUsers = () => {
-    return fetch(`${process.env.REACT_APP_BASE_URL}/users/all/`, {
-        method: 'GET'
-    }).then(res => {
-        return res.json()
-    })
-}
-
 export const login = (auth: ILogin) => {
     return fetch(`${process.env.REACT_APP_BASE_URL}/auth/login/`, {
         method: 'POST',

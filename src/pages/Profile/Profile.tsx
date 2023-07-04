@@ -1,42 +1,32 @@
-import React, { useCallback, useContext, useState } from "react"
+import React, { useContext, useEffect } from "react"
 import './Profile.scss'
 import { UserContext } from "../../context/UserContext"
-import { FileInput } from "../../components/FileInput/FileInput"
-import { Button } from "../../components/Button/Button"
-import { toBase64 } from "../../utilities"
-import { upload } from "../../api/users"
+import { Tab } from "../../components/Tab/Tab"
+import { ERoute } from "../../constants"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 
 interface IProfileProps {}
 
 export const Profile: React.FC<IProfileProps> = () => {
     const { user } = useContext(UserContext)
 
-    const [ selectedFile, setSelectedFile ] = useState<File | null>(null)
+    const { pathname } = useLocation()
+    const navigate = useNavigate()
 
-    const handleOnSelectFile = useCallback((file: File) => {
-        setSelectedFile(file)
-    }, [setSelectedFile])
-
-    const handleUploadFile = useCallback(async () => {
-        if (!user) return
-
-        if (selectedFile) {
-            const formData = await toBase64(selectedFile)
-
-            upload({userId: user.id, files: formData as string})
+    useEffect(() => {
+        if (pathname === ERoute.PROFILE) {
+            navigate(ERoute.SETUP)
         }
-    }, [selectedFile, user])
+    }, [pathname, navigate])
 
     if (!user) return <></>
 
     return (
         <div className="profile">
-            {/*Header section with profile info*/}
             <div className="profile__header">
                 <div className="profile__avatar">
-
-                    {selectedFile && 
-                        <img className="profile__avatar-img" src={URL.createObjectURL(selectedFile)} alt="Avatar" />
+                    {user.data && user.data.avatar && 
+                        <img className="profile__avatar-img" src={URL.createObjectURL(user.data.avatar)} alt="Avatar" />
                     }
                 </div>
 
@@ -46,9 +36,18 @@ export const Profile: React.FC<IProfileProps> = () => {
                 </div>
             </div>
 
-            {/*Tabs section with all settings options*/}
-            <FileInput onFileSelected={handleOnSelectFile} />
-            <Button label='Upload' onClick={handleUploadFile} />
+            <div className="profile__tabs">
+                <Tab label="profile setup" route={ERoute.SETUP}/>
+                <Tab label="general" route={ERoute.GENERAL}/>
+                <Tab label="user info" route={ERoute.INFO}/>
+                <Tab label="security" route={ERoute.SECURITY}/>
+            </div>
+
+            <div className="profile__wrapper">
+                <Outlet />
+            </div>
+
+            
         </div>
     )
 }

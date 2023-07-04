@@ -9,19 +9,19 @@ interface IUserContextProps {
 
 export const UserContext = createContext<IUserContextProps>({
     user: null,
-    setUser: noop
+    setUser: noop,
 })
 
 export const UserContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const [ user, setUser ] = useState<IUser | null>(null)
 
-    console.log({user})
+    // console.log({user})
 
     return (
         <UserContext.Provider
             value={{
                 user,
-                setUser
+                setUser,
             }}
         >
             {children}

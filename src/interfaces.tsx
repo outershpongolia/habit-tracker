@@ -25,6 +25,11 @@ export interface IUser {
     id: string
     email: string
     name: string
+    data?: IData | null
+}
+
+export interface IData {
+    avatar: File | null
 }
 
 export interface IUpload {

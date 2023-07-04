@@ -15,6 +15,7 @@ import { NewExpense } from './pages/NewExpense/NewExpense'
 import { UserContext, UserContextProvider } from './context/UserContext'
 import { Profile } from './pages/Profile/Profile'
 import { isEmpty } from 'lodash'
+import { General } from './pages/Profile/General/General'
 
 interface IAppProps {}
 
@@ -31,6 +32,10 @@ export const App: React.FC<IAppProps> = () => {
       || pathname === ERoute.REGISTER
       || pathname === ERoute.NEW_EXPENSE
       || pathname === ERoute.PROFILE
+      || ERoute.SETUP
+      || ERoute.PROFILE
+      || ERoute.INFO
+      || ERoute.SETUP
     ) {
       return 'main main_default'
     }
@@ -40,8 +45,6 @@ export const App: React.FC<IAppProps> = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user') || '{}')
-
-    console.log({user})
 
     if (isEmpty(user)) {
       navigate(ERoute.LOGIN)
@@ -65,13 +68,22 @@ export const App: React.FC<IAppProps> = () => {
 
             <main className={setMainClassName}>
               <Routes>
+                {/* No user pages */}
                 <Route element={<LandingPage />} path={ERoute.LANDING_PAGE} />
                 <Route element={<Login />} path={ERoute.LOGIN} />
                 <Route element={<Register />} path={ERoute.REGISTER} />
-                <Route element={<NewExpense />} path={ERoute.NEW_EXPENSE} />
+
+                {/* Menu pages */}
                 <Route element={<Dashboard />} path={ERoute.DASHBOARD} />
                 <Route element={<Expenses />} path={ERoute.EXPENSES} />
-                <Route element={<Profile />} path={ERoute.PROFILE} />
+                <Route element={<NewExpense />} path={ERoute.NEW_EXPENSE} />
+                <Route element={<Profile />} path={ERoute.PROFILE}>
+                  {/* Profile setup pages */}
+                  <Route element={<></>} path={ERoute.SETUP} />
+                  <Route element={<General />} path={ERoute.GENERAL} />
+                  <Route element={<></>} path={ERoute.INFO} />
+                  <Route element={<></>} path={ERoute.SECURITY} />
+                </Route>
               </Routes>
             </main>
 

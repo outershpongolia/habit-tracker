@@ -9,7 +9,8 @@ export enum ERoute {
     SETTINGS = '/settings',
     LOGIN = '/login',
     REGISTER = '/register',
-    NEW_EXPENSE = '/new-expense'
+    NEW_EXPENSE = '/new-expense',
+    PROFILE = '/profile'
 }
 
 export enum EStatus {

@@ -1,8 +1,7 @@
 import React, { useCallback, useContext, useState } from 'react'
 import { Input } from '../../components/Input/Input'
-import { ILogin, IUser } from '../../interfaces'
+import { ILogin } from '../../interfaces'
 import { login } from '../../api/users'
-import { checkCodeStatus } from '../../utilities'
 import { Form } from '../../components/Form/Form'
 import { useNavigate } from 'react-router-dom'
 import { DEFAULT_LOGIN_FORM, ERoute, EStatus } from '../../constants'
@@ -33,20 +32,21 @@ export const Login: React.FC<ILoginProps> = () => {
 
     const handleSubmitForm = useCallback(() => {
         login(inputValue)
-            .then(
-                checkCodeStatus<IUser>(setUser, setErrorMessage)
-            )
             .then((res) => {
                 if (res.status === 'error') {
                     handleToast(EStatus.ERROR, res.message)
+                    setErrorMessage(res.message)
                     return
                 }
+                
+                localStorage.setItem('user', JSON.stringify(res.data))
+                setUser(res.data)
 
                 handleToast(EStatus.SUCCESS, 'Login successful.')
                 navigate(ERoute.DASHBOARD)
             })
             .catch(console.error)
-    }, [inputValue, setErrorMessage, navigate, setUser, handleToast])
+    }, [inputValue, navigate, setUser, handleToast, setErrorMessage])
 
     return (
         <div className='form-page'>

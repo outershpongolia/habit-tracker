@@ -20,16 +20,14 @@ export interface IRegister {
     name: string
 }
 
-export interface IApiResponse<T=any> {
-    statusCode: number
-    status: 'error' | 'success'
-    data: T
-    message: string
-}
-
 export interface IUser {
     _id: string
     id: string
     email: string
     name: string
+}
+
+export interface IUpload {
+    userId: string
+    files: string
 }

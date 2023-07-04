@@ -35,6 +35,11 @@ export const Menu: React.FC<IMenuProps> = () => {
                 route={ERoute.BUDGETING}
             />
 
+            <MenuItem
+                title='Profile'
+                route={ERoute.PROFILE}
+            />
+
             <div className="menu__logout" onClick={handleLogoutUser}>LOG OUT</div>
         </div>
     )

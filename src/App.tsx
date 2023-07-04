@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { Dashboard } from './pages/Dashboard/Dashboard'
 import { ERoute } from './constants'
 import { Expenses } from './pages/Expenses/Expenses'
@@ -10,14 +10,19 @@ import 'react-toastify/dist/ReactToastify.css'
 import { AlertContextProvider } from './context/AlertContext'
 import { Login } from './pages/Login/Login'
 import { Register } from './pages/Register/Register'
-import { useMemo } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import { NewExpense } from './pages/NewExpense/NewExpense'
-import { UserContextProvider } from './context/UserContext'
+import { UserContext, UserContextProvider } from './context/UserContext'
+import { Profile } from './pages/Profile/Profile'
+import { isEmpty } from 'lodash'
 
 interface IAppProps {}
 
 export const App: React.FC<IAppProps> = () => {
+  const { setUser } = useContext(UserContext)
+
   const { pathname } = useLocation()
+  const navigate = useNavigate()
 
   const setMainClassName = useMemo(() => {
     if (
@@ -25,12 +30,27 @@ export const App: React.FC<IAppProps> = () => {
       || pathname ===ERoute.LOGIN
       || pathname === ERoute.REGISTER
       || pathname === ERoute.NEW_EXPENSE
+      || pathname === ERoute.PROFILE
     ) {
       return 'main main_default'
     }
 
     return 'main'
   }, [pathname])
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}')
+
+    console.log({user})
+
+    if (isEmpty(user)) {
+      navigate(ERoute.LOGIN)
+
+      return
+    }
+
+    setUser(user)
+  }, [setUser, navigate])
 
   return (
     <div className="app">
@@ -51,6 +71,7 @@ export const App: React.FC<IAppProps> = () => {
                 <Route element={<NewExpense />} path={ERoute.NEW_EXPENSE} />
                 <Route element={<Dashboard />} path={ERoute.DASHBOARD} />
                 <Route element={<Expenses />} path={ERoute.EXPENSES} />
+                <Route element={<Profile />} path={ERoute.PROFILE} />
               </Routes>
             </main>
 

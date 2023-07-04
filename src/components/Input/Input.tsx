@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import './Input.scss'
 
 interface IInputProps extends React.ComponentProps<'input'> {

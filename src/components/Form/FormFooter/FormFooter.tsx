@@ -14,7 +14,7 @@ export const FormFooter: React.FC<IFormFooterProps> = ({ text, link, route }) =>
 
     const handleNavigate = useCallback(() => {
         navigate(route)
-    }, [navigate])
+    }, [navigate, route])
 
     return (
         <div className='form-footer'>

@@ -13,4 +13,9 @@
     align-items: center;
     gap: 40px;
     padding: 32px 20px;
+
+    &__logout {
+        cursor: pointer;
+        color: $grayColor;
+    }
 }

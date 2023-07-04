@@ -8,13 +8,14 @@ import { checkCodeStatus } from '../../utilities'
 import { useNavigate } from 'react-router-dom'
 import { AlertContext } from '../../context/AlertContext'
 import { FormFooter } from '../../components/Form/FormFooter/FormFooter'
+import { UserContext } from '../../context/UserContext'
 
 interface IRegisterProps {}
 
 export const Register: React.FC<IRegisterProps> = () => {
     const { handleToast, errorMessage, setErrorMessage } = useContext(AlertContext)
+    const { setUser } = useContext(UserContext)
 
-    const [ user, setUser ] = useState<IUser>()
     const [ inputValue, setInputValue ] = useState<IRegister>(DEFAULT_REGISTRATION_FORM)
 
     const navigate = useNavigate()

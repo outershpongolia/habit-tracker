@@ -28,7 +28,6 @@ export const DEFAULT_REGISTRATION_FORM = {
     name: ''
 }
 
-
 export const MONTH_LIST = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 export const DEFAULT_EXPENSE: IExpense = {

@@ -8,13 +8,14 @@ import { useNavigate } from 'react-router-dom'
 import { DEFAULT_LOGIN_FORM, ERoute, EStatus } from '../../constants'
 import { AlertContext } from '../../context/AlertContext'
 import { FormFooter } from '../../components/Form/FormFooter/FormFooter'
+import { UserContext } from '../../context/UserContext'
 
 interface ILoginProps {}
 
 export const Login: React.FC<ILoginProps> = () => {
     const { handleToast, errorMessage, setErrorMessage } = useContext(AlertContext)
+    const { setUser } = useContext(UserContext)
 
-    const [ user, setUser ] = useState<IUser>()
     const [ inputValue, setInputValue ] = useState<ILogin>(DEFAULT_LOGIN_FORM)
 
     const navigate = useNavigate()

@@ -1,11 +1,12 @@
 import React, { useCallback } from "react"
+import './FileInput.scss'
 
 interface IFileInputProps {
+    label: string
     onFileSelected: (file: File) => void
-    className?: string
 }
 
-export const FileInput: React.FC<IFileInputProps> = ({ onFileSelected, className }) => {
+export const FileInput: React.FC<IFileInputProps> = ({ label, onFileSelected }) => {
     const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
 
@@ -15,11 +16,15 @@ export const FileInput: React.FC<IFileInputProps> = ({ onFileSelected, className
     }, [onFileSelected])
 
     return (
-        <input
-            className={className}
-            type='file'
-            accept="image/*"
-            onChange={handleFileChange}
-        />
+        <div className="file-input input__label">
+            {label}
+
+            <input
+                className="file-input__input"
+                type='file'
+                accept="image/*"
+                onChange={handleFileChange}
+            />
+        </div>
     )
 }

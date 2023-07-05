@@ -15,7 +15,6 @@ export const General: React.FC<IGeneralProps> = () => {
     const { user, setUser } = useContext(UserContext)
     const { handleToast } = useContext(AlertContext)
     
-    const [ selectedFile, setSelectedFile ] = useState<File | null>(null)
     const [ inputValue, setInputValue ] = useState<{name: string, avatar: File | null, email: string}>({
         name: '',
         avatar: null,
@@ -31,30 +30,28 @@ export const General: React.FC<IGeneralProps> = () => {
         })
     }, [setInputValue])
     
-    const handleOnSelectFile = useCallback((file: File) => {
-        setSelectedFile(file)
-    }, [setSelectedFile])
-
-    const handleUploadFile = useCallback(async () => {
+    const handleOnSelectFile = useCallback(async (file: File) => {
         if (!user) {
             return
         }
 
-        if (selectedFile) {
-            const formData = await toBase64(selectedFile)
+        const formData = await toBase64(file)
 
-            upload({userId: user.id, files: formData as string})
+        upload({userId: user.id, files: formData as string})
 
-            setInputValue(inputValue => {
-                return {
-                    ...inputValue,
-                    avatar: selectedFile
-                }
-            })
-        }
+        setInputValue(inputValue => {
+            return {
+                ...inputValue,
+                avatar: file
+            }
+        })
 
         handleToast(EStatus.SUCCESS, 'Image uploaded.')
-    }, [selectedFile, user, setInputValue])
+    }, [user, setInputValue, handleToast])
+
+    // const handleUploadFile = useCallback(async () => {
+        
+    // }, [selectedFile, user, setInputValue])
 
     const handleSaveChanges = useCallback(() => {
         setUser(user => {
@@ -64,13 +61,16 @@ export const General: React.FC<IGeneralProps> = () => {
 
             return {
                 ...user,
-                name: inputValue.name,
-                data: inputValue.avatar ? {...user.data, avatar: inputValue.avatar} : null
+                name: inputValue.name ? inputValue.name : user.name,
+                data: inputValue.avatar
+                    ? {...user.data, avatar: inputValue.avatar}
+                    : {
+                        ...user.data, 
+                        avatar: user?.data?.avatar ? user.data.avatar : null
+                    }
             }
         })
     }, [setUser, inputValue])
-
-    console.log(!selectedFile)
 
     if (!user) return <></>
 
@@ -85,21 +85,6 @@ export const General: React.FC<IGeneralProps> = () => {
                     name='name'
                 />
 
-                <div className="general__wrapper input__wrapper">
-                    <div className="input__label">Avatar</div>
-                    
-                    <div className="general__file">
-                        <FileInput className="general__file-input" onFileSelected={handleOnSelectFile} />
-
-                        <Button
-                            className="general__button"
-                            label='upload'
-                            onClick={handleUploadFile}
-                            isDisabled={!selectedFile}
-                        />
-                    </div>
-                </div>
-
                 <Input
                     label='Email'
                     type='email'
@@ -108,6 +93,15 @@ export const General: React.FC<IGeneralProps> = () => {
                     placeholder={user.email}
                     name='email'
                 />
+
+                <div className="general__wrapper">
+                    <div className="input__label">Avatar</div>
+
+                    <FileInput
+                        label='upload image'
+                        onFileSelected={handleOnSelectFile}
+                    />
+                </div>
 
                 <div className="general__save">
                     <Button label='save changes' onClick={handleSaveChanges} />

@@ -11,6 +11,9 @@
     border-radius: 8px;
     border: 0;
     background-color: $grayColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
         background-color: $cyclamenColor;

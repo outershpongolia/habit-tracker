@@ -1,0 +1,29 @@
+@import '../../style/base';
+
+.file-input {
+    position: relative;
+    min-width: fit-content;
+    color: $grayColor;
+    border-radius: 0 10px 10px 0;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -4px;
+        height: 100%;
+        width: 4px;
+        background-color: $grayColor;
+    }
+
+    &__input {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        max-width: 131px;
+        opacity: 0;
+    }
+}

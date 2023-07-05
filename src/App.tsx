@@ -27,15 +27,15 @@ export const App: React.FC<IAppProps> = () => {
 
   const setMainClassName = useMemo(() => {
     if (
-      pathname === ERoute.LANDING_PAGE
-      || pathname ===ERoute.LOGIN
-      || pathname === ERoute.REGISTER
-      || pathname === ERoute.NEW_EXPENSE
+      pathname === ERoute.LANDING_PAGE //....... no user page
+      || pathname === ERoute.LOGIN //........... form
+      || pathname === ERoute.REGISTER //........ form
+      || pathname === ERoute.NEW_EXPENSE //..... form
+      || pathname === ERoute.PROFILE //......... profile pages -->
+      || pathname === ERoute.SETUP
       || pathname === ERoute.PROFILE
-      || ERoute.SETUP
-      || ERoute.PROFILE
-      || ERoute.INFO
-      || ERoute.SETUP
+      || pathname === ERoute.INFO
+      || pathname === ERoute.SECURITY
     ) {
       return 'main main_default'
     }

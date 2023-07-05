@@ -1,5 +1,3 @@
-@import '../../../style/base';
-
 .general {
     height: 100%;
     padding: 32px 0;
@@ -14,27 +12,9 @@
     }
 
     &__wrapper {
-        background-color: $grayColor;
-        border-radius: 10px;
-    }
-
-    &__file {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        height: 100%;
-        padding: 0 4px 0 16px;
-    }
-    
-    &__file-input {
-        width: 50%;
-        word-wrap: break-word;
-    }
-
-    &__button {
-        background-color: #4e5862;
-        color: $grayColor;
+        gap: 4px;
+        border-radius: 10px;
     }
 
     &__save {

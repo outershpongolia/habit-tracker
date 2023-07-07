@@ -1,8 +1,8 @@
 import React, { useCallback, useContext, useState } from 'react'
 import { Form } from '../../components/Form/Form'
 import { Input } from '../../components/Input/Input'
-import { IRegister } from '../../interfaces'
-import { DEFAULT_REGISTRATION_FORM, ERoute, EStatus } from '../../constants'
+import { IRegister, IUser } from '../../interfaces'
+import { DEFAULT_REGISTRATION_FORM, EMPTY_USER_DATA, ERoute, EStatus } from '../../constants'
 import { register } from '../../api/users'
 import { useNavigate } from 'react-router-dom'
 import { AlertContext } from '../../context/AlertContext'
@@ -40,7 +40,10 @@ export const Register: React.FC<IRegisterProps> = () => {
                     return
                 }
 
-                setUser(res.data)
+                const userData: IUser = res.data
+                localStorage.setItem('user', JSON.stringify(userData))
+                setUser({...userData, data: {...EMPTY_USER_DATA}})
+
                 handleToast(EStatus.SUCCESS, "Registration completed.")
                 navigate(ERoute.DASHBOARD)
             })

@@ -1,5 +1,5 @@
 import { uniqueId } from "lodash"
-import { IExpense } from "./interfaces"
+import { IExpense, IUserData } from "./interfaces"
 
 export enum ERoute {
     LANDING_PAGE = '/',
@@ -32,6 +32,18 @@ export const DEFAULT_REGISTRATION_FORM = {
     ...DEFAULT_LOGIN_FORM,
     name: ''
 }
+
+export const DEFAULT_CATEGORIES = ['bills', 'food', 'taxes', 'clothes', 'traveling']
+
+export const EMPTY_USER_DATA: IUserData = {
+    avatar: null,
+    currency: null,
+    categories: DEFAULT_CATEGORIES,
+    totalBalance: 0,
+    totalIncome: 0,
+    totalExpenses: 0
+}
+
 
 export const MONTH_LIST = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 

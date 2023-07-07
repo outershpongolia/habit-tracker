@@ -1,10 +1,10 @@
 import React, { useCallback, useContext, useState } from 'react'
 import { Input } from '../../components/Input/Input'
-import { ILogin } from '../../interfaces'
+import { ILogin, IUser } from '../../interfaces'
 import { login } from '../../api/users'
 import { Form } from '../../components/Form/Form'
 import { useNavigate } from 'react-router-dom'
-import { DEFAULT_LOGIN_FORM, ERoute, EStatus } from '../../constants'
+import { DEFAULT_LOGIN_FORM, EMPTY_USER_DATA, ERoute, EStatus } from '../../constants'
 import { AlertContext } from '../../context/AlertContext'
 import { FormFooter } from '../../components/Form/FormFooter/FormFooter'
 import { UserContext } from '../../context/UserContext'
@@ -39,8 +39,9 @@ export const Login: React.FC<ILoginProps> = () => {
                     return
                 }
                 
-                localStorage.setItem('user', JSON.stringify(res.data))
-                setUser(res.data)
+                const userData: IUser = res.data
+                localStorage.setItem('user', JSON.stringify(userData))
+                setUser({...userData, data: {...EMPTY_USER_DATA}})
 
                 handleToast(EStatus.SUCCESS, 'Login successful.')
                 navigate(ERoute.DASHBOARD)

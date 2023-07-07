@@ -16,6 +16,7 @@ import { UserContext, UserContextProvider } from './context/UserContext'
 import { Profile } from './pages/Profile/Profile'
 import { isEmpty } from 'lodash'
 import { General } from './pages/Profile/General/General'
+import { Setup } from './pages/Profile/Setup/Setup'
 
 interface IAppProps {}
 
@@ -31,11 +32,7 @@ export const App: React.FC<IAppProps> = () => {
       || pathname === ERoute.LOGIN //........... form
       || pathname === ERoute.REGISTER //........ form
       || pathname === ERoute.NEW_EXPENSE //..... form
-      || pathname === ERoute.PROFILE //......... profile pages -->
-      || pathname === ERoute.SETUP
-      || pathname === ERoute.PROFILE
-      || pathname === ERoute.INFO
-      || pathname === ERoute.SECURITY
+      || pathname.includes(ERoute.PROFILE) //... profile pages (including subroutes)
     ) {
       return 'main main_default'
     }
@@ -79,7 +76,7 @@ export const App: React.FC<IAppProps> = () => {
                 <Route element={<NewExpense />} path={ERoute.NEW_EXPENSE} />
                 <Route element={<Profile />} path={ERoute.PROFILE}>
                   {/* Profile setup pages */}
-                  <Route element={<></>} path={ERoute.SETUP} />
+                  <Route element={<Setup />} path={ERoute.SETUP} />
                   <Route element={<General />} path={ERoute.GENERAL} />
                   <Route element={<></>} path={ERoute.INFO} />
                   <Route element={<></>} path={ERoute.SECURITY} />

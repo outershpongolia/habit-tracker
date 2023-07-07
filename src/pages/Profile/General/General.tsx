@@ -49,10 +49,6 @@ export const General: React.FC<IGeneralProps> = () => {
         handleToast(EStatus.SUCCESS, 'Image uploaded.')
     }, [user, setInputValue, handleToast])
 
-    // const handleUploadFile = useCallback(async () => {
-        
-    // }, [selectedFile, user, setInputValue])
-
     const handleSaveChanges = useCallback(() => {
         setUser(user => {
             if (!user) {
@@ -62,12 +58,7 @@ export const General: React.FC<IGeneralProps> = () => {
             return {
                 ...user,
                 name: inputValue.name ? inputValue.name : user.name,
-                data: inputValue.avatar
-                    ? {...user.data, avatar: inputValue.avatar}
-                    : {
-                        ...user.data, 
-                        avatar: user?.data?.avatar ? user.data.avatar : null
-                    }
+                data: inputValue.avatar ? {...user.data, avatar: inputValue.avatar} : {...user.data}
             }
         })
     }, [setUser, inputValue])

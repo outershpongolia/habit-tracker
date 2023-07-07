@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
 import { IUser } from '../interfaces'
 import { noop } from 'lodash'
+import { DEFAULT_CATEGORIES } from '../constants'
 
 interface IUserContextProps {
     user: IUser | null
@@ -15,7 +16,7 @@ export const UserContext = createContext<IUserContextProps>({
 export const UserContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const [ user, setUser ] = useState<IUser | null>(null)
 
-    // console.log({user})
+    console.log({user})
 
     return (
         <UserContext.Provider

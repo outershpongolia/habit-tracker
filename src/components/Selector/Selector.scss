@@ -1,0 +1,25 @@
+@import '../../style/base';
+
+.selector {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 16px;
+
+    &__wrapper {
+        background-color: $grayColor;
+        width: fit-content;
+        position: relative;
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        width: 100%;
+        background-color: $grayColor;
+        border-radius: 0 0 10px 10px;
+    }
+}

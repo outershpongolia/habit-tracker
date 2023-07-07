@@ -3,9 +3,9 @@
 .input {
     border: 0;
     outline: 0;
-    font-size: 14px;
+    font-size: 16px;
     z-index: 1;
-    padding: 16px;
+    padding: 11px 16px;
     border-radius: 0 10px 10px 0;
     background-color: $grayColor !important;
     width: 100%;
@@ -20,9 +20,9 @@
         font-size: 14px;
         font-weight: 500;
         text-transform: uppercase;
-        width: 128px;
-        min-width: 128px;
-        padding: 16px;
+        width: 148px;
+        min-width: 148px;
+        padding: 12px 16px;
         background-color: #30363cca;
         color: $grayColor;
         border-radius: 10px 0 0 10px;

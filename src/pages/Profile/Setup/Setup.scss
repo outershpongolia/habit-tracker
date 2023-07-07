@@ -1,0 +1,45 @@
+@import '../../../style/base';
+
+.setup {
+    height: 100%;
+    padding: 32px 0;
+    display: flex;
+    justify-content: space-between;
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        &_total {
+            width: 32%;
+        }
+
+        &_category {
+            width: 28%;
+        }
+    }
+
+    &__categories {
+        border-radius: 16px;
+        background-color: $grayColor;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    &__categories-info {
+        font-size: 20px;
+    }
+
+    &__categories-wrapper {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    &__button {
+        margin-left: auto;
+    }
+}

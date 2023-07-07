@@ -25,14 +25,30 @@ export interface IUser {
     id: string
     email: string
     name: string
-    data?: IData | null
+    data: IUserData
 }
 
-export interface IData {
+export interface IUserData {
     avatar: File | null
+    categories: string[]
+    currency: ICurrency | null
+    totalBalance: number
+    totalIncome: number
+    totalExpenses: number
 }
 
 export interface IUpload {
     userId: string
     files: string
+}
+
+export interface ICurrency {
+    code: string
+    name: string
+    symbol: string
+    decimalPlaces: number
+    decimalSeparator: string
+    thousandSeparator: string
+    symbolPlacement: string
+    negativePattern: string
 }

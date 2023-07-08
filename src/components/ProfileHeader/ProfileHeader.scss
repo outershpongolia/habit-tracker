@@ -39,14 +39,4 @@
     &__email {
         color: rgb(78, 78, 78);
     }
-
-    &__icon {
-        cursor: pointer;
-        font-size: 36px;
-        
-        & path {
-            stroke-width: 0.4px;
-            opacity: 0.75;
-        }
-    }
 }

@@ -8,6 +8,7 @@ import { UserContext } from "../../../context/UserContext"
 import { Input } from "../../../components/Input/Input"
 import { AlertContext } from "../../../context/AlertContext"
 import { EStatus } from "../../../constants"
+import { ProfileSetup } from "../../../components/ProfileSetup/ProfileSetup"
 
 interface IGeneralProps {}
 
@@ -67,7 +68,11 @@ export const General: React.FC<IGeneralProps> = () => {
 
     return (
         <div className="general">
-            <div className="general__container">
+            <ProfileSetup
+                title='Profile info'
+                description='Change your name, email and avatar.'
+                type='info'
+            >
                 <Input
                     label='Name'
                     value={inputValue.name}
@@ -97,7 +102,7 @@ export const General: React.FC<IGeneralProps> = () => {
                 <div className="general__save">
                     <Button label='save changes' onClick={handleSaveChanges} />
                 </div>
-            </div>
+            </ProfileSetup>
         </div>
     )
 }

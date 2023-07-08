@@ -32,7 +32,6 @@ export const App: React.FC<IAppProps> = () => {
       || pathname === ERoute.LOGIN //........... form
       || pathname === ERoute.REGISTER //........ form
       || pathname === ERoute.NEW_EXPENSE //..... form
-      || pathname.includes(ERoute.PROFILE) //... profile pages (including subroutes)
     ) {
       return 'main main_default'
     }
@@ -60,6 +59,7 @@ export const App: React.FC<IAppProps> = () => {
             {pathname === ERoute.DASHBOARD
             || pathname === ERoute.EXPENSES
             || pathname === ERoute.BUDGETING
+            || pathname.includes(ERoute.PROFILE)
             ? <Menu /> : null
             }
 

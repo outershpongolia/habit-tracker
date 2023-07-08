@@ -1,20 +1,11 @@
-import React, { useCallback, useContext } from 'react'
+import React, { useContext } from 'react'
 import './ProfileHeader.scss'
 import { UserContext } from '../../context/UserContext'
-import { ImExit } from 'react-icons/im'
-import { useNavigate } from 'react-router-dom'
-import { ERoute } from '../../constants'
 
 interface IProfileHeaderProps {}
 
 export const ProfileHeader: React.FC<IProfileHeaderProps> = () => {
     const { user } = useContext(UserContext)
-
-    const navigate = useNavigate()
-
-    const handleNavigate = useCallback(() => {
-        navigate(ERoute.DASHBOARD)
-    }, [navigate])
 
     if (!user) return <></>
 
@@ -37,9 +28,9 @@ export const ProfileHeader: React.FC<IProfileHeaderProps> = () => {
                 </div>
             </div>
 
-            <div className='profile-header__container'>
-                <ImExit className='profile-header__icon' onClick={handleNavigate} />
-            </div>
+            {/* <div className='profile-header__container'>
+                
+            </div> */}
         </div>
     )
 }

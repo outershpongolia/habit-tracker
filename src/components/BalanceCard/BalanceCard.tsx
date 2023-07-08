@@ -14,7 +14,7 @@ export const BalanceCard: React.FC<IBalanceCardProps> = ({ title, amount, onClic
             <div className='balance-card__title'>
                 <div className='balance-card__text'>total {title}</div>
 
-                <MdMoreHoriz className='balance-card__icon' onClick={onClick} />
+                <MdMoreHoriz className='more-icon' onClick={onClick} />
             </div>
 
             <div className='balance-card__amount'>${amount}</div>

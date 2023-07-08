@@ -8,6 +8,7 @@ import { uniqueId } from 'lodash'
 import currencies from '../../../assets/currencies.json'
 import { ICurrency } from '../../../interfaces'
 import { Selector } from '../../../components/Selector/Selector'
+import { ProfileSetup } from '../../../components/ProfileSetup/ProfileSetup'
 
 interface ISetupProps {}
 
@@ -17,7 +18,9 @@ export const Setup: React.FC<ISetupProps> = () => {
     const { user, setUser } = useContext(UserContext)
 
     const [ inputValue, setInputValue ] = useState({
-        category: ''
+        category: '',
+        totalBalance: 0,
+        totalIncome: 0
     })
 
     const handleInputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,36 +65,84 @@ export const Setup: React.FC<ISetupProps> = () => {
                 category: ''
             }
         })
-    }, [inputValue])
+    }, [inputValue, setUser])
+
+    const handleCategoryOnEnter = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            // make something like a filter hook and handle this with that
+            handleAddCategory()
+        }
+    }, [handleAddCategory])
 
     const currencyCodes = useMemo(() => {
+        // write func in utils to make this reusable for other parts of currency data as well
         return currencyData.map(curr => curr.code)
     }, [])
+
+    const handleSaveTotalData = useCallback(() => {
+        setUser(user => {
+            if (!user) return null
+
+            return {
+                ...user,
+                data: {
+                    ...user.data,
+                    totalBalance: inputValue.totalBalance,
+                    totalIncome: inputValue.totalIncome
+                }
+            }
+        })
+    }, [setUser, inputValue])
 
     if (!user) return <></>
 
     return (
         <div className='setup'>
-            {/* TOTALS */}
-            <div className='setup__container setup__container_total'>
-                <Selector options={currencyCodes} />
+            <div className='setup__wrapper'>
+                {/* CURRENCY */}
+                <ProfileSetup
+                    title='Currency'
+                    description='Input your preffered currency.'
+                    type='currency'
+                >
+                    <Selector options={currencyCodes} />
+                </ProfileSetup>
 
-                <Input
-                    label="total balance"
-                />
+                {/* TOTALS */}
+                <ProfileSetup
+                    title='Totals'
+                    description='This is the main data of your profile. Input your total balance and total income.'
+                    type='totals'
+                >
+                    <Input
+                        label="total balance"
+                        value={inputValue.totalBalance}
+                        onChange={handleInputOnChange}
+                    />
 
-                <Input
-                    label="total income"
-                />
+                    <Input
+                        label="total income"
+                        value={inputValue.totalIncome}
+                        onChange={handleInputOnChange}
+                    />
+                </ProfileSetup>
 
-                <Button className='setup__button' label="save" onClick={() => null} />
-            </div>
+                {/* CATEGORIES */}
+                <ProfileSetup
+                    title='Categories'
+                    description='Press enter to add tags or click the ADD button.'
+                    type='category'
+                >
+                    <div className='setup__input-wrapper'>
+                        <Input
+                            label="add category"
+                            value={inputValue.category}
+                            onChange={handleInputOnChange}
+                            name='category'
+                            onKeyDown={handleCategoryOnEnter}
+                        />
 
-            {/* CATEGORIES */}
-            <div className='setup__container setup__container_category'>
-                <div className='setup__categories'>
-                    <div className='setup__categories-info'>
-                        These are categories for your expenses:
+                        <Button className='setup__button' label='add' onClick={handleAddCategory} />
                     </div>
 
                     <div className='setup__categories-wrapper'>
@@ -105,24 +156,14 @@ export const Setup: React.FC<ISetupProps> = () => {
                             )
                         })}
                     </div>
-                </div>
-
-                <Input
-                    label="add category"
-                    value={inputValue.category}
-                    onChange={handleInputOnChange}
-                    name='category'
-                />
-
-                <Button className='setup__button' label='add' onClick={handleAddCategory} />
+                </ProfileSetup>
             </div>
 
-            {/* ... */}
-            <div className='setup__container setup__container_category'>
-                <Input
-                    label="add nesto"
-                />
-            </div>
+            <Button
+                className='setup__button'
+                label="save data"
+                onClick={handleSaveTotalData}
+            />
         </div>
     )
 }

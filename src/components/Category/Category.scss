@@ -1,33 +1,23 @@
 @import '../../style/base';
 
 .category {
-    padding: 4px 12px;
-    border-radius: 6px;
-    background-color: $lightBrown;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background-color: $darkColor;
     width: fit-content;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 24px;
-    position: relative;
-
-    &__wrapper {
-        cursor: pointer;
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translate(34%, -34%);
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background-color: $darkColor;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 0.88;
-    }
+    color: $grayColor;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    opacity: 0.8;
 
     &__icon {
+        cursor: pointer;
         font-size: 14px;
-        color: $grayColor;
+        opacity: 0.6;
         
         & path {
             color: $grayColor;

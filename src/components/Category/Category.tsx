@@ -14,14 +14,9 @@ export const Category: React.FC<ICategoryProps> = ({ category, onDeleteCategory 
 
     return (
         <div className='category'>
-            <div
-                className='category__wrapper'
-                onClick={handleDeleteCategory}
-            >
-                <CgClose className='category__icon' />
-            </div>
-
             {category}
+
+            <CgClose className='category__icon' onClick={handleDeleteCategory} />
         </div>
     )
 }

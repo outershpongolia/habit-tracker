@@ -1,7 +1,6 @@
 import React, { PropsWithChildren, createContext, useState } from 'react'
 import { IUser } from '../interfaces'
 import { noop } from 'lodash'
-import { DEFAULT_CATEGORIES } from '../constants'
 
 interface IUserContextProps {
     user: IUser | null

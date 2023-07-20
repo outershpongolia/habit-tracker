@@ -29,17 +29,20 @@ export interface IUser {
 }
 
 export interface IUserData {
-    avatar: File | null
     categories: string[]
-    currency: ICurrency | null
+    currency: ICurrency
     totalBalance: number
     totalIncome: number
     totalExpenses: number
+    avatar?: File | null
 }
 
-export interface IUpload {
-    userId: string
-    files: string
+export interface IInputData {
+    avatar: File | null
+    currency: ICurrency | null
+    category: string
+    totalBalance: number
+    totalIncome: number
 }
 
 export interface ICurrency {
@@ -51,4 +54,9 @@ export interface ICurrency {
     thousandSeparator: string
     symbolPlacement: string
     negativePattern: string
+}
+
+export interface IUpload {
+    userId: string
+    files: string
 }

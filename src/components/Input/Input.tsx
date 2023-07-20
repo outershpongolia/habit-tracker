@@ -3,7 +3,6 @@ import './Input.scss'
 
 interface IInputProps extends React.ComponentProps<'input'> {
     label: string
-
 }
 
 export const Input: React.FC<IInputProps> = ({

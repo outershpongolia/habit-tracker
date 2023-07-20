@@ -1,22 +1,22 @@
-import React, { useCallback, useContext, useEffect, useState } from "react"
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react"
 import './Selector.scss'
 import { SelectorOption } from "./SelectorOption/SelectorOption"
 import { IoIosArrowDown } from 'react-icons/io'
 import { UserContext } from "../../context/UserContext"
-import currencies from '../../assets/currencies.json'
-import { ICurrency } from "../../interfaces"
+import { currencyData } from "../../constants"
 
 interface ISelectorProps {
     options: string[]
+    isLabeled?: boolean 
 }
 
-const currencyData: ICurrency[] = currencies.currencies
-
-export const Selector: React.FC<ISelectorProps> = ({ options }) => {
-    const { setUser } = useContext(UserContext)
+export const Selector: React.FC<ISelectorProps> = ({ options, isLabeled }) => {
+    const { setInputData } = useContext(UserContext)
 
     const [ selectedOption, setSelectedOption ] = useState(options[0])
     const [ isSelectorOpen, setIsSelectorOpen ] = useState(false)
+
+    const selectorRef = useRef<HTMLDivElement>(null)
 
     const handleToggleSelector = useCallback(() => {
         setIsSelectorOpen(isSelectorOpen => !isSelectorOpen)
@@ -29,30 +29,29 @@ export const Selector: React.FC<ISelectorProps> = ({ options }) => {
     }, [setSelectedOption, setIsSelectorOpen])
 
     useEffect(() => {
-        setUser(user => {
-            if (!user) return null
-
+        setInputData(inputData => {
             const chosenCurrency = currencyData.find(x => x.code === selectedOption)
 
             return {
-                ...user,
-                data: {
-                    ...user.data,
-                    currency: chosenCurrency ? chosenCurrency : null
-                }
+                ...inputData,
+                currency: chosenCurrency ? chosenCurrency : null
             }
         })
-    }, [selectedOption])
+    }, [selectedOption, setInputData])
 
     return (
         <div
             className="selector__wrapper"
+            ref={selectorRef}
             style={{
-                borderRadius: isSelectorOpen ? '10px 10px 0 0' : '10px'
+                width: isLabeled ? 'inherit' : 'fit-content',
+                borderRadius: isLabeled
+                    ? isSelectorOpen ? '0 10px 0 0' : '0 10px 10px 0'
+                    : isSelectorOpen ? '10px 10px 0 0' : '10px'
             }}
         >
             <div
-                className="selector"
+                className='selector'
                 onClick={handleToggleSelector}
             >
                 {selectedOption}
@@ -65,7 +64,12 @@ export const Selector: React.FC<ISelectorProps> = ({ options }) => {
             </div>
 
             {isSelectorOpen &&
-                <div className="selector__menu">
+                <div
+                    className="selector__menu"
+                    style={{
+                        top: selectorRef?.current?.clientHeight
+                    }}
+                >
                     {options && options.map(option => {
                         if (option === selectedOption) {
                             return null

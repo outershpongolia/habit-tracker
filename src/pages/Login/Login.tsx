@@ -4,7 +4,7 @@ import { ILogin, IUser } from '../../interfaces'
 import { login } from '../../api/users'
 import { Form } from '../../components/Form/Form'
 import { useNavigate } from 'react-router-dom'
-import { DEFAULT_LOGIN_FORM, EMPTY_USER_DATA, ERoute, EStatus } from '../../constants'
+import { DEFAULT_LOGIN_FORM, ERoute, EStatus } from '../../constants'
 import { AlertContext } from '../../context/AlertContext'
 import { FormFooter } from '../../components/Form/FormFooter/FormFooter'
 import { UserContext } from '../../context/UserContext'
@@ -41,7 +41,7 @@ export const Login: React.FC<ILoginProps> = () => {
                 
                 const userData: IUser = res.data
                 localStorage.setItem('user', JSON.stringify(userData))
-                setUser({...userData, data: {...EMPTY_USER_DATA}})
+                setUser({...userData, data: {...userData.data, avatar: null}}) // instead of avatar: null send avatar url from api
 
                 handleToast(EStatus.SUCCESS, 'Login successful.')
                 navigate(ERoute.DASHBOARD)

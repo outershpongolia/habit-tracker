@@ -1,71 +1,54 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import './Setup.scss'
 import { Input } from '../../../components/Input/Input'
 import { Button } from '../../../components/Button/Button'
 import { UserContext } from '../../../context/UserContext'
 import { Category } from '../../../components/Category/Category'
-import { uniqueId } from 'lodash'
-import currencies from '../../../assets/currencies.json'
-import { ICurrency } from '../../../interfaces'
+import { omit, uniqueId } from 'lodash'
 import { Selector } from '../../../components/Selector/Selector'
 import { ProfileSetup } from '../../../components/ProfileSetup/ProfileSetup'
+import { getCurrencyCodes } from '../../../utilities'
+import { updateUser } from '../../../api/users'
 
 interface ISetupProps {}
 
-const currencyData: ICurrency[] = currencies.currencies
-
 export const Setup: React.FC<ISetupProps> = () => {
-    const { user, setUser } = useContext(UserContext)
+    const { user, setUser, inputData, setInputData } = useContext(UserContext)
 
-    const [ inputValue, setInputValue ] = useState({
-        category: '',
-        totalBalance: 0,
-        totalIncome: 0
-    })
+    const [ selectedCategories, setSelectedCategories ] = useState<string[]>(user?.data?.categories || [])
+    const [ isReadyForUpdate, setIsReadyForUpdate ] = useState(false)
 
     const handleInputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(inputValue => {
+        // add input limit on numbers
+        setInputData(inputData => {
             return {
-                ...inputValue,
+                ...inputData,
                 [e.target.name]: e.target.value
             }
         })
-    }, [setInputValue])
+    }, [setInputData])
 
     const handleDeleteCategory = useCallback((category: string) => {
-        setUser(user => {
-            if (!user) return null
+        if (!category) return
 
-            return {
-                ...user,
-                data: {
-                    ...user.data,
-                    categories: user.data.categories.filter(x => x !== category)
-                }
-            }
-        })
-    }, [setUser])
+        setSelectedCategories(selectedCategories => selectedCategories.filter(x => x !== category))
+    }, [setSelectedCategories])
 
     const handleAddCategory = useCallback(() => {
-        setUser(user => {
-            if (!user) return null
-
-            return {
-                ...user,
-                data: {
-                    ...user.data,
-                    categories: [...user.data.categories, inputValue.category]
-                }
-            }
+        setSelectedCategories(selectedCategories => {
+            return [
+                ...selectedCategories,
+                inputData.category
+            ]
         })
 
-        setInputValue(inputValue => {
+        setInputData(inputData => {
             return {
-                ...inputValue,
+                ...inputData,
                 category: ''
             }
         })
-    }, [inputValue, setUser])
+    }, [inputData, setSelectedCategories])
 
     const handleCategoryOnEnter = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -74,12 +57,7 @@ export const Setup: React.FC<ISetupProps> = () => {
         }
     }, [handleAddCategory])
 
-    const currencyCodes = useMemo(() => {
-        // write func in utils to make this reusable for other parts of currency data as well
-        return currencyData.map(curr => curr.code)
-    }, [])
-
-    const handleSaveTotalData = useCallback(() => {
+    const handleSaveData = useCallback(() => {
         setUser(user => {
             if (!user) return null
 
@@ -87,14 +65,25 @@ export const Setup: React.FC<ISetupProps> = () => {
                 ...user,
                 data: {
                     ...user.data,
-                    totalBalance: inputValue.totalBalance,
-                    totalIncome: inputValue.totalIncome
+                    totalBalance: inputData.totalBalance,
+                    totalIncome: inputData.totalIncome,
+                    categories: selectedCategories,
+                    currency: inputData.currency || user.data.currency
                 }
             }
         })
-    }, [setUser, inputValue])
 
-    if (!user) return <></>
+        setIsReadyForUpdate(true)
+    }, [setUser, inputData, selectedCategories])
+
+    useEffect(() => {
+        if (!isReadyForUpdate) return
+        if (!user?.data) return
+
+        console.log('evo')
+
+        updateUser(omit(user.data, ['avatar']), user.email)
+    }, [user?.data])
 
     return (
         <div className='setup'>
@@ -105,7 +94,7 @@ export const Setup: React.FC<ISetupProps> = () => {
                     description='Input your preffered currency.'
                     type='currency'
                 >
-                    <Selector options={currencyCodes} />
+                    <Selector options={getCurrencyCodes()} />
                 </ProfileSetup>
 
                 {/* TOTALS */}
@@ -116,14 +105,16 @@ export const Setup: React.FC<ISetupProps> = () => {
                 >
                     <Input
                         label="total balance"
-                        value={inputValue.totalBalance}
+                        value={inputData.totalBalance}
                         onChange={handleInputOnChange}
+                        name='totalBalance'
                     />
 
                     <Input
                         label="total income"
-                        value={inputValue.totalIncome}
+                        value={inputData.totalIncome}
                         onChange={handleInputOnChange}
+                        name='totalIncome'
                     />
                 </ProfileSetup>
 
@@ -136,7 +127,7 @@ export const Setup: React.FC<ISetupProps> = () => {
                     <div className='setup__input-wrapper'>
                         <Input
                             label="add category"
-                            value={inputValue.category}
+                            value={inputData.category}
                             onChange={handleInputOnChange}
                             name='category'
                             onKeyDown={handleCategoryOnEnter}
@@ -146,7 +137,7 @@ export const Setup: React.FC<ISetupProps> = () => {
                     </div>
 
                     <div className='setup__categories-wrapper'>
-                        {user.data.categories.map(category => {
+                        {selectedCategories && selectedCategories.map(category => {
                             return (
                                 <Category
                                     key={uniqueId(category)}
@@ -162,7 +153,7 @@ export const Setup: React.FC<ISetupProps> = () => {
             <Button
                 className='setup__button'
                 label="save data"
-                onClick={handleSaveTotalData}
+                onClick={handleSaveData}
             />
         </div>
     )

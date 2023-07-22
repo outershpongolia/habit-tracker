@@ -37,7 +37,8 @@ export const DEFAULT_REGISTRATION_FORM = {
 export const currencyData: ICurrency[] = currencies.currencies
 
 export const EMPTY_INPUT_DATA: IInputData = {
-    avatar: null,
+    newName: '',
+    email: '',
     currency: null,
     category: '',
     totalBalance: 0,

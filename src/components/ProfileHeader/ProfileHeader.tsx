@@ -1,11 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import './ProfileHeader.scss'
 import { UserContext } from '../../context/UserContext'
+import { uniqueId } from 'lodash'
+import { checkIfImageExists } from '../../utilities'
 
 interface IProfileHeaderProps {}
 
 export const ProfileHeader: React.FC<IProfileHeaderProps> = () => {
     const { user } = useContext(UserContext)
+
+    const [ imageExist, setImageExist ] = useState(false)
+
+    const imageUrl = useMemo(() => `${process.env.REACT_APP_BASE_URL}/images/${user?.id}.jpg?a=${uniqueId()}`, [user])
+
+    useEffect(() => {
+        checkIfImageExists(imageUrl, setImageExist)
+    }, [imageUrl, setImageExist])
 
     if (!user) return <></>
 
@@ -13,10 +23,10 @@ export const ProfileHeader: React.FC<IProfileHeaderProps> = () => {
         <div className='profile-header'>
             <div className='profile-header__container'>
                 <div className="profile-header__avatar">
-                    {user.data && user.data.avatar && 
+                    {imageExist &&
                         <img
                             className="profile-header__avatar-img"
-                            src={URL.createObjectURL(user.data.avatar)}
+                            src={imageUrl}
                             alt="Avatar"
                         />
                     }

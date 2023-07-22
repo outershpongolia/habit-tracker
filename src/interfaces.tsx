@@ -34,11 +34,11 @@ export interface IUserData {
     totalBalance: number
     totalIncome: number
     totalExpenses: number
-    avatar?: File | null
 }
 
 export interface IInputData {
-    avatar: File | null
+    newName: string
+    email: string
     currency: ICurrency | null
     category: string
     totalBalance: number

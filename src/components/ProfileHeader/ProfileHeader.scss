@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: $grayColor;
+    background: linear-gradient(to left, #eef2f3a2, $grayColor 80%, #eef2f36a);
     padding: 20px 32px;
     border-radius: 16px;
     box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);

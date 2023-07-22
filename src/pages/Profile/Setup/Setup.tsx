@@ -4,7 +4,7 @@ import { Input } from '../../../components/Input/Input'
 import { Button } from '../../../components/Button/Button'
 import { UserContext } from '../../../context/UserContext'
 import { Category } from '../../../components/Category/Category'
-import { omit, uniqueId } from 'lodash'
+import { uniqueId } from 'lodash'
 import { Selector } from '../../../components/Selector/Selector'
 import { ProfileSetup } from '../../../components/ProfileSetup/ProfileSetup'
 import { getCurrencyCodes } from '../../../utilities'
@@ -13,20 +13,9 @@ import { updateUser } from '../../../api/users'
 interface ISetupProps {}
 
 export const Setup: React.FC<ISetupProps> = () => {
-    const { user, setUser, inputData, setInputData } = useContext(UserContext)
+    const { user, setUser, inputData, setInputData, handleInputOnChange } = useContext(UserContext)
 
     const [ selectedCategories, setSelectedCategories ] = useState<string[]>(user?.data?.categories || [])
-    const [ isReadyForUpdate, setIsReadyForUpdate ] = useState(false)
-
-    const handleInputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        // add input limit on numbers
-        setInputData(inputData => {
-            return {
-                ...inputData,
-                [e.target.name]: e.target.value
-            }
-        })
-    }, [setInputData])
 
     const handleDeleteCategory = useCallback((category: string) => {
         if (!category) return
@@ -72,18 +61,13 @@ export const Setup: React.FC<ISetupProps> = () => {
                 }
             }
         })
-
-        setIsReadyForUpdate(true)
     }, [setUser, inputData, selectedCategories])
 
     useEffect(() => {
-        if (!isReadyForUpdate) return
         if (!user?.data) return
 
-        console.log('evo')
-
-        updateUser(omit(user.data, ['avatar']), user.email)
-    }, [user?.data])
+        updateUser(user.data, user.email)
+    }, [user])
 
     return (
         <div className='setup'>

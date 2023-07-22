@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react"
+import React, { useCallback, useContext } from "react"
 import './General.scss'
 import { FileInput } from "../../../components/FileInput/FileInput"
 import { Button } from "../../../components/Button/Button"
@@ -13,56 +13,32 @@ import { ProfileSetup } from "../../../components/ProfileSetup/ProfileSetup"
 interface IGeneralProps {}
 
 export const General: React.FC<IGeneralProps> = () => {
-    const { user, setUser } = useContext(UserContext)
+    const { user, setUser, inputData, setInputData, handleInputOnChange } = useContext(UserContext)
     const { handleToast } = useContext(AlertContext)
     
-    const [ inputValue, setInputValue ] = useState<{name: string, avatar: File | null, email: string}>({
-        name: '',
-        avatar: null,
-        email: ''
-    })
-
-    const handleInputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(inputValue => {
-            return {
-                ...inputValue,
-                [e.target.name]: e.target.value
-            }
-        })
-    }, [setInputValue])
-    
     const handleOnSelectFile = useCallback(async (file: File) => {
-        if (!user) {
-            return
-        }
+        if (!user) return
 
         const formData = await toBase64(file)
 
         upload({userId: user.id, files: formData as string})
 
-        setInputValue(inputValue => {
-            return {
-                ...inputValue,
-                avatar: file
-            }
-        })
-
         handleToast(EStatus.SUCCESS, 'Image uploaded.')
-    }, [user, setInputValue, handleToast])
+    }, [user, setInputData, handleToast])
 
     const handleSaveChanges = useCallback(() => {
+        if (!user) return
+
         setUser(user => {
-            if (!user) {
-                return null
-            }
+            if (!user) return null
 
             return {
                 ...user,
-                name: inputValue.name ? inputValue.name : user.name,
-                data: inputValue.avatar ? {...user.data, avatar: inputValue.avatar} : {...user.data}
+                name: inputData.newName ? inputData.newName : user.name,
+                email: inputData.email ? inputData.email : user.email
             }
         })
-    }, [setUser, inputValue])
+    }, [user, inputData])
 
     if (!user) return <></>
 
@@ -75,16 +51,16 @@ export const General: React.FC<IGeneralProps> = () => {
             >
                 <Input
                     label='Name'
-                    value={inputValue.name}
+                    value={inputData.newName}
                     onChange={handleInputOnChange}
                     placeholder={user.name}
-                    name='name'
+                    name='newName'
                 />
 
                 <Input
                     label='Email'
                     type='email'
-                    value={inputValue.email}
+                    value={inputData.email}
                     onChange={handleInputOnChange}
                     placeholder={user.email}
                     name='email'

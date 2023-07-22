@@ -41,7 +41,7 @@ export const Login: React.FC<ILoginProps> = () => {
                 
                 const userData: IUser = res.data
                 localStorage.setItem('user', JSON.stringify(userData))
-                setUser({...userData, data: {...userData.data, avatar: null}}) // instead of avatar: null send avatar url from api
+                setUser(userData)
 
                 handleToast(EStatus.SUCCESS, 'Login successful.')
                 navigate(ERoute.DASHBOARD)

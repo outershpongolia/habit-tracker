@@ -25,9 +25,11 @@ export const Setup: React.FC<ISetupProps> = () => {
 
     const handleAddCategory = useCallback(() => {
         setSelectedCategories(selectedCategories => {
+            if (selectedCategories.includes(inputData.category.toLowerCase())) return selectedCategories
+
             return [
                 ...selectedCategories,
-                inputData.category
+                inputData.category.toLowerCase()
             ]
         })
 
@@ -69,6 +71,8 @@ export const Setup: React.FC<ISetupProps> = () => {
         updateUser(user.data, user.email)
     }, [user])
 
+    if (!user) return <></>
+
     return (
         <div className='setup'>
             <div className='setup__wrapper'>
@@ -89,15 +93,17 @@ export const Setup: React.FC<ISetupProps> = () => {
                 >
                     <Input
                         label="total balance"
-                        value={inputData.totalBalance}
+                        value={inputData.totalBalance || ''}
                         onChange={handleInputOnChange}
+                        placeholder={`${user.data.currency.symbol}${user.data.totalBalance}`}
                         name='totalBalance'
                     />
 
                     <Input
                         label="total income"
-                        value={inputData.totalIncome}
+                        value={inputData.totalIncome || ''}
                         onChange={handleInputOnChange}
+                        placeholder={`${user.data.currency.symbol}${user.data.totalIncome}`}
                         name='totalIncome'
                     />
                 </ProfileSetup>

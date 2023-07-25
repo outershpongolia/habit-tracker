@@ -33,7 +33,6 @@ export const Register: React.FC<IRegisterProps> = () => {
     const handleSubmitForm = useCallback(() => {
         register(inputValue)
             .then(res => {
-                console.log('STATUS', res.status)
                 if (res.status === 'error') {
                     handleToast(EStatus.ERROR, res.message)
                     setErrorMessage(res.message)
@@ -52,7 +51,11 @@ export const Register: React.FC<IRegisterProps> = () => {
 
     return (
         <div className='form-page'>
-            <Form title="You don't have a profile? Register here." onClick={handleSubmitForm} error={errorMessage && errorMessage}>
+            <Form
+                title="You don't have a profile? Register here."
+                onClick={handleSubmitForm}
+                error={errorMessage && errorMessage}
+            >
                 <Input
                     value={inputValue.email}
                     name='email'

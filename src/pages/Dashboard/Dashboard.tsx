@@ -17,8 +17,6 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
         return () => navigate(route)
     }, [navigate])
 
-    console.log({user})
-
     if (!user) return <></>
 
     return (

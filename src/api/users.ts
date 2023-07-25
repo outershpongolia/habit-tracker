@@ -7,7 +7,6 @@ export const login = (auth: ILogin) => {
         body: JSON.stringify(auth),
         credentials: 'include'
     }).then(async res => {
-        console.log({res})
         return res.json()
     })
 }

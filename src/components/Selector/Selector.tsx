@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react"
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
 import './Selector.scss'
 import { SelectorOption } from "./SelectorOption/SelectorOption"
 import { IoIosArrowDown } from 'react-icons/io'
@@ -7,15 +7,15 @@ import { currencyData } from "../../constants"
 
 interface ISelectorProps {
     options: string[]
-    isLabeled?: boolean 
+    isLabeled?: boolean
 }
 
 export const Selector: React.FC<ISelectorProps> = ({ options, isLabeled }) => {
-    const { setInputData } = useContext(UserContext)
+    const { setInputData, user } = useContext(UserContext)
 
-    const [ selectedOption, setSelectedOption ] = useState(options[0])
+    const [ selectedOption, setSelectedOption ] = useState(options[options.findIndex(x => x === user?.data?.currency.code) || 0])
     const [ isSelectorOpen, setIsSelectorOpen ] = useState(false)
-
+    
     const selectorRef = useRef<HTMLDivElement>(null)
 
     const handleToggleSelector = useCallback(() => {

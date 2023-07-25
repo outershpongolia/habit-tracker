@@ -1,7 +1,11 @@
 @import '../../style/base';
 
 .menu-item {
-    text-decoration: none;
-    // text-transform: uppercase;
-    // color: $lightBrown;
+    position: relative;
+
+    &_active {
+        & .menu__icon, path {
+            color: $cyclamenColor;
+        }
+    }
 }

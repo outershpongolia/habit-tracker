@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react"
 import './Selector.scss'
 import { SelectorOption } from "./SelectorOption/SelectorOption"
 import { IoIosArrowDown } from 'react-icons/io'

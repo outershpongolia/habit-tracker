@@ -25,11 +25,35 @@ export interface IUser {
     id: string
     email: string
     name: string
-    data?: IData | null
+    data: IUserData
 }
 
-export interface IData {
-    avatar: File | null
+export interface IUserData {
+    categories: string[]
+    currency: ICurrency
+    totalBalance: number
+    totalIncome: number
+    totalExpenses: number
+}
+
+export interface IInputData {
+    newName: string
+    email: string
+    currency: ICurrency | null
+    category: string
+    totalBalance: number
+    totalIncome: number
+}
+
+export interface ICurrency {
+    code: string
+    name: string
+    symbol: string
+    decimalPlaces: number
+    decimalSeparator: string
+    thousandSeparator: string
+    symbolPlacement: string
+    negativePattern: string
 }
 
 export interface IUpload {

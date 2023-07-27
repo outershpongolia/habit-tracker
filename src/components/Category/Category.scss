@@ -1,0 +1,26 @@
+@import '../../style/base';
+
+.category {
+    padding: 4px 10px;
+    border-radius: 8px;
+    background-color: $darkColor;
+    width: fit-content;
+    font-size: 16px;
+    line-height: 24px;
+    color: $grayColor;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    opacity: 0.8;
+
+    &__icon {
+        cursor: pointer;
+        font-size: 14px;
+        opacity: 0.6;
+        
+        & path {
+            color: $grayColor;
+        }
+    }
+}

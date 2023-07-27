@@ -7,10 +7,13 @@ import { uniqueId } from "lodash"
 import { Form } from "../../components/Form/Form"
 import { AlertContext } from "../../context/AlertContext"
 import { FormFooter } from "../../components/Form/FormFooter/FormFooter"
+import { Selector } from "../../components/Selector/Selector"
+import { UserContext } from "../../context/UserContext"
 
 interface INewExpenseProps {}
 
 export const NewExpense: React.FC<INewExpenseProps> = () => {
+    const { user } = useContext(UserContext)
     const { setExpenseData } = useContext(ExpenseContext)
     const { handleToast } = useContext(AlertContext)
 
@@ -37,24 +40,21 @@ export const NewExpense: React.FC<INewExpenseProps> = () => {
         handleToast(EStatus.SUCCESS, 'New expense created.')
     }, [setExpenseData, inputValue, handleToast])
 
+    if (!user) return <></>
+
     return (
         <div className="form-page">
             <Form title="Create your new expanse tracker card." onClick={handleSubmitForm}>
-                <Input
-                    value={inputValue.category}
-                    name='category'
-                    maxLength={12}
-                    placeholder="#important"
-                    onChange={handleInputOnChange}
-                    label='category'
-                    autoFocus
-                />
+                <div className="selector__container">
+                    <div className="input__label">Category</div>
+                    <Selector options={user.data.categories} isLabeled />
+                </div>
 
                 <Input
                     value={inputValue.title}
                     name='title'
                     maxLength={12}
-                    placeholder="Bills"
+                    placeholder="Electricity"
                     onChange={handleInputOnChange}
                     label='title'
                 />

@@ -1,0 +1,54 @@
+{
+	"currencies": [
+		{
+			"code": "EUR",
+			"name": "Euro",
+			"symbol": "€",
+			"decimalPlaces": 2,
+			"decimalSeparator": ".",
+			"thousandSeparator": ",",
+			"symbolPlacement": "before",
+			"negativePattern": "-$"
+		},
+		{
+			"code": "USD",
+			"name": "US Dollar",
+			"symbol": "$",
+			"decimalPlaces": 2,
+			"decimalSeparator": ".",
+			"thousandSeparator": ",",
+			"symbolPlacement": "before",
+			"negativePattern": "($)"
+		},
+		{
+			"code": "JPY",
+			"name": "Japanese Yen",
+			"symbol": "¥",
+			"decimalPlaces": 0,
+			"decimalSeparator": "",
+			"thousandSeparator": ",",
+			"symbolPlacement": "after",
+			"negativePattern": "-¥"
+		},
+		{
+			"code": "RSD",
+			"name": "Serbian Dinar",
+			"symbol": "RSD",
+			"decimalPlaces": 2,
+			"decimalSeparator": ".",
+			"thousandSeparator": ",",
+			"symbolPlacement": "after",
+			"negativePattern": "-RSD"
+		},
+		{
+			"code": "THB",
+			"name": "Thai Baht",
+			"symbol": "฿",
+			"decimalPlaces": 2,
+			"decimalSeparator": ".",
+			"thousandSeparator": ",",
+			"symbolPlacement": "before",
+			"negativePattern": "-฿"
+		}
+	]
+}

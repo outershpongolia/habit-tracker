@@ -4,6 +4,9 @@ import './index.scss'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
+import { AlertContextProvider } from './context/AlertContext'
+import { UserContextProvider } from './context/UserContext'
+import { ExpenseContextProvider } from './context/ExpenseContext'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +15,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AlertContextProvider>
+        <UserContextProvider>
+          <ExpenseContextProvider>
+            <App />
+          </ExpenseContextProvider>
+        </UserContextProvider>
+      </AlertContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

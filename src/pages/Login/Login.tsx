@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Input } from '../../components/Input/Input'
-import { ILogin } from '../../interfaces'
+import { ILogin, IUser } from '../../interfaces'
 import { login } from '../../api/users'
 import { Form } from '../../components/Form/Form'
 import { useNavigate } from 'react-router-dom'
@@ -18,6 +18,14 @@ export const Login: React.FC<ILoginProps> = () => {
     const [ inputValue, setInputValue ] = useState<ILogin>(DEFAULT_LOGIN_FORM)
 
     const navigate = useNavigate()
+
+    // useEffect(() => {
+    //     const currentUser = JSON.parse(localStorage.getItem('user') || 'null')
+
+    //     if (!currentUser) return
+
+    //     setUser(currentUser)
+    // }, [])
 
     const handleInputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(inputValue => {
@@ -39,8 +47,9 @@ export const Login: React.FC<ILoginProps> = () => {
                     return
                 }
                 
-                localStorage.setItem('user', JSON.stringify(res.data))
-                setUser(res.data)
+                const userData: IUser = res.data
+                localStorage.setItem('user', JSON.stringify(userData))
+                setUser(userData)
 
                 handleToast(EStatus.SUCCESS, 'Login successful.')
                 navigate(ERoute.DASHBOARD)

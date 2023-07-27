@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useState } from 'react'
 import { Form } from '../../components/Form/Form'
 import { Input } from '../../components/Input/Input'
-import { IRegister } from '../../interfaces'
+import { IRegister, IUser } from '../../interfaces'
 import { DEFAULT_REGISTRATION_FORM, ERoute, EStatus } from '../../constants'
 import { register } from '../../api/users'
 import { useNavigate } from 'react-router-dom'
@@ -33,14 +33,16 @@ export const Register: React.FC<IRegisterProps> = () => {
     const handleSubmitForm = useCallback(() => {
         register(inputValue)
             .then(res => {
-                console.log('STATUS', res.status)
                 if (res.status === 'error') {
                     handleToast(EStatus.ERROR, res.message)
                     setErrorMessage(res.message)
                     return
                 }
 
-                setUser(res.data)
+                const userData: IUser = res.data
+                localStorage.setItem('user', JSON.stringify(userData))
+                setUser(userData)
+
                 handleToast(EStatus.SUCCESS, "Registration completed.")
                 navigate(ERoute.DASHBOARD)
             })
@@ -49,7 +51,11 @@ export const Register: React.FC<IRegisterProps> = () => {
 
     return (
         <div className='form-page'>
-            <Form title="You don't have a profile? Register here." onClick={handleSubmitForm} error={errorMessage && errorMessage}>
+            <Form
+                title="You don't have a profile? Register here."
+                onClick={handleSubmitForm}
+                error={errorMessage && errorMessage}
+            >
                 <Input
                     value={inputValue.email}
                     name='email'

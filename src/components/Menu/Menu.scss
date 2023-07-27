@@ -6,17 +6,24 @@
     left: 0;
     z-index: 9999;
     height: 100%;
-    width: 140px;
+    width: 72px;
     background-color: $darkColor;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 40px;
-    padding: 32px 20px;
+    padding: 32px 0px;
+
+    &__icon {
+        font-size: 32px;
+
+        & path {
+            color: $lightBrown;
+        }
+    }
 
     &__logout {
         cursor: pointer;
-        color: $grayColor;
         margin-top: auto;
     }
 }

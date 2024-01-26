@@ -1,62 +1,53 @@
-export interface IExpense {
+export interface IDateObject {
+    day:          number
+    month:        number
+    year:         number
+}
+
+export interface IMonthObject {
+    label:        string
+    value:        number
+    numberOfDays: number
+
+}
+export interface ITableLabel {
+    columns: number[]
+    rows: string[] | number[]
+}
+
+export interface ITableCell {
     id: string
-    category: string
-    title: string
-    amount: number
-    date: string
-    description: string
-    frequency?: string
-    icon?: string
+    color?: string
 }
 
-export interface ILogin {
-    email: string
-    password: string
+export interface ITable {
+    labels: ITableLabel
+    cells: ITableCell[]
 }
 
-export interface IRegister {
-    email: string
-    password: string
-    name: string
+
+// export interface ITableCell {
+//     columns: columns,
+//       rows: months,
+//       id: v4()
+// }
+
+export interface ITracker {
+    startDate:    IDateObject
+    endDate:      IDateObject
 }
 
 export interface IUser {
-    _id: string
-    id: string
-    email: string
-    name: string
-    data: IUserData
-}
-
-export interface IUserData {
-    categories: string[]
-    currency: ICurrency
-    totalBalance: number
-    totalIncome: number
-    totalExpenses: number
+    _id:          string
+    id:           string
+    email:        string
+    name:         string
 }
 
 export interface IInputData {
-    newName: string
-    email: string
-    currency: ICurrency | null
-    category: string
+    newName:      string
+    email:        string
+    category:     string
     totalBalance: number
-    totalIncome: number
-}
-
-export interface ICurrency {
-    code: string
-    name: string
-    symbol: string
-    decimalPlaces: number
-    decimalSeparator: string
-    thousandSeparator: string
-    symbolPlacement: string
-    negativePattern: string
-}
-
-export interface IUpload {
-    userId: string
-    files: string
+    totalIncome:  number
 }

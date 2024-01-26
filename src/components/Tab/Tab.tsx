@@ -14,9 +14,7 @@ export const Tab: React.FC<ITabProps> = ({ route, label }) => {
 
     return (
         <NavLink
-            className={clsx('tab', {
-                'tab_active': pathname.includes(route)
-            })}
+            className={clsx('tab', pathname.includes(route) && 'tab_active')}
             to={route}
         >
             {label}

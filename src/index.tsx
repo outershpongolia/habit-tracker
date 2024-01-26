@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import { AlertContextProvider } from './context/AlertContext'
 import { UserContextProvider } from './context/UserContext'
-import { ExpenseContextProvider } from './context/ExpenseContext'
+import { TrackerContextProvider } from './context/TrackerContext'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,16 +17,13 @@ root.render(
     <BrowserRouter>
       <AlertContextProvider>
         <UserContextProvider>
-          <ExpenseContextProvider>
+          <TrackerContextProvider>
             <App />
-          </ExpenseContextProvider>
+          </TrackerContextProvider>
         </UserContextProvider>
       </AlertContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 )
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()

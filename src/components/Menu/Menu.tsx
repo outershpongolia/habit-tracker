@@ -13,23 +13,23 @@ import { Tooltip } from "../Tooltip/Tooltip"
 interface IMenuProps {}
 
 export const Menu: React.FC<IMenuProps> = () => {
-    const { setUser } = useContext(UserContext)
+    // const { setUser } = useContext(UserContext)
 
-    const [ menuItem, setMenuItem ] = useState<ERoute>(ERoute.DASHBOARD)
+    // const [ menuItem, setMenuItem ] = useState<ERoute>(ERoute.DASHBOARD)
 
-    const handleLogoutUser = useCallback(() => {
-        setUser(null)
+    // const handleLogoutUser = useCallback(() => {
+    //     setUser(null)
 
-        localStorage.setItem('user', '')
-    }, [setUser])
+    //     localStorage.setItem('user', '')
+    // }, [setUser])
 
-    const handleMenuItem = useCallback((route: ERoute) => {
-        setMenuItem(route)
-    }, [setMenuItem])
+    // const handleMenuItem = useCallback((route: ERoute) => {
+    //     setMenuItem(route)
+    // }, [setMenuItem])
 
     return (
         <div className="menu">
-            <MenuItem
+            {/* <MenuItem
                 route={ERoute.DASHBOARD}
                 onClick={handleMenuItem}
                 isActive={menuItem === ERoute.DASHBOARD}
@@ -74,7 +74,7 @@ export const Menu: React.FC<IMenuProps> = () => {
                 <Tooltip text='Logout'>
                     <HiOutlineLogout className="menu__icon" />
                 </Tooltip>
-            </div>
+            </div> */}
         </div>
     )
 }

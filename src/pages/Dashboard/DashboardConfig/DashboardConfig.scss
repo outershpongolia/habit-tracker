@@ -1,0 +1,14 @@
+.dashboard-config {
+  padding: 24px;
+  display: flex;
+  width: 100%;
+  &__section {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+  }
+  &__settings {
+    width: 30%;
+    gap: 24px;
+  }
+}

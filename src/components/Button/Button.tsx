@@ -1,6 +1,6 @@
 import React from 'react'
 import './Button.scss'
-import { isDisabled } from '@testing-library/user-event/dist/utils'
+import clsx from 'clsx'
 
 interface IButtonProps {
     label: string
@@ -12,7 +12,7 @@ interface IButtonProps {
 export const Button: React.FC<IButtonProps> = ({ label, onClick, isDisabled, className }) => {
     return (
         <button
-            className={`button ${className}`}
+            className={clsx('button', className)}
             type='button'
             onClick={onClick}
             disabled={isDisabled}

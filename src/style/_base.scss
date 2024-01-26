@@ -1,10 +1,10 @@
 /* Colors */
-$grayColor: #eef2f3;
-$lightBrown: #ddd4d0;
-$cyclamenColor: #a88179;
-$ocherColor: #9c906ce1; // #9c906c
-$darkColor: #30363c;
+$primary-color-dark: #2c404c;
+$primary-color-light: #e2e2e2;
 
 /* Fonts */
-$mainFont: 'Roboto';
-$elegantFont: 'Great Vibes';
+$primaryFont: 'Roboto';
+$secondaryFont: 'Gilda Display';
+
+/* Width */
+$maxScreenWidth: 1840px;

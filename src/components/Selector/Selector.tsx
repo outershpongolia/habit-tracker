@@ -3,7 +3,6 @@ import './Selector.scss'
 import { SelectorOption } from "./SelectorOption/SelectorOption"
 import { IoIosArrowDown } from 'react-icons/io'
 import { UserContext } from "../../context/UserContext"
-import { currencyData } from "../../constants"
 
 interface ISelectorProps {
     options: string[]
@@ -13,7 +12,7 @@ interface ISelectorProps {
 export const Selector: React.FC<ISelectorProps> = ({ options, isLabeled }) => {
     const { setInputData, user } = useContext(UserContext)
 
-    const [ selectedOption, setSelectedOption ] = useState(options[options.findIndex(x => x === user?.data?.currency.code) || 0])
+    // const [ selectedOption, setSelectedOption ] = useState(options[options.findIndex(x => x === user?.data?.currency.code) || 0])
     const [ isSelectorOpen, setIsSelectorOpen ] = useState(false)
     
     const selectorRef = useRef<HTMLDivElement>(null)
@@ -23,21 +22,21 @@ export const Selector: React.FC<ISelectorProps> = ({ options, isLabeled }) => {
     }, [setIsSelectorOpen])
 
     const handleChooseOption = useCallback((option: string) => {
-        setSelectedOption(option)
+        // setSelectedOption(option)
 
         setIsSelectorOpen(false)
-    }, [setSelectedOption, setIsSelectorOpen])
+    }, [setIsSelectorOpen])
 
     useEffect(() => {
-        setInputData(inputData => {
-            const chosenCurrency = currencyData.find(x => x.code === selectedOption)
+        // setInputData(inputData => {
+        //     // const chosenCurrency = currencyData.find(x => x.code === selectedOption)
 
-            return {
-                ...inputData,
-                currency: chosenCurrency ? chosenCurrency : null
-            }
-        })
-    }, [selectedOption, setInputData])
+        //     return {
+        //         ...inputData,
+        //         currency: chosenCurrency ? chosenCurrency : null
+        //     }
+        // })
+    }, [setInputData])
 
     return (
         <div
@@ -54,7 +53,7 @@ export const Selector: React.FC<ISelectorProps> = ({ options, isLabeled }) => {
                 className='selector'
                 onClick={handleToggleSelector}
             >
-                {selectedOption}
+                {/* {selectedOption} */}
 
                 <IoIosArrowDown
                     style={{
@@ -71,7 +70,7 @@ export const Selector: React.FC<ISelectorProps> = ({ options, isLabeled }) => {
                     }}
                 >
                     {options && options.map(option => {
-                        if (option === selectedOption) {
+                        if (option) {
                             return null
                         }
 

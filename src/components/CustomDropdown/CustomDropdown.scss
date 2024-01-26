@@ -1,0 +1,11 @@
+.custom-dropdown {
+  font-size: 12px;
+  position: relative;
+  &__item {
+    border: 0;
+    padding: 0;
+  }
+}
+.ant-dropdown-menu-title-content {
+  color: #000;
+}

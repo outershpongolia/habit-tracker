@@ -1,0 +1,18 @@
+.tracker {
+  width: fit-content;
+  &__header {
+    display: flex;
+    width: fit-content;
+  }
+  &__body {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+  }
+  &__row {
+    display: flex;
+    width: fit-content;
+    margin-bottom: 2px;
+    gap: 2px;
+  }
+}

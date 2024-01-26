@@ -1,0 +1,9 @@
+.date-select {
+  display: flex;
+  gap: 32px;
+  &__picker {
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 4px;
+  }
+}

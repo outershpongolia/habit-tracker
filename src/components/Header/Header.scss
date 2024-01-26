@@ -1,0 +1,11 @@
+@import '../../style/base';
+.header {
+  width: 100%;
+  background: linear-gradient(-300deg, rgba(26,52,66,1) 36%, rgba(41,62,74,1) 62%);
+  border-bottom: 0.5px solid #e2e2e21e;
+  &__wrapper {
+    max-width: $maxScreenWidth;
+    padding: 24px;
+    font-size: 20px;
+  }
+}

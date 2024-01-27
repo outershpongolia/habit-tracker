@@ -1,11 +1,13 @@
 import { Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { Dashboard } from './pages/Dashboard/Dashboard'
 import { ERoute } from './constants'
 import { Header } from './components/Header/Header'
 import 'react-toastify/dist/ReactToastify.css'
 import "react-datepicker/dist/react-datepicker.css"
-import { DashboardConfig } from './pages/DashboardConfig/DashboardConfig'
+
+// Pages
+import { Dashboard } from './pages/Dashboard/Dashboard'
+import { CreateTracker } from './pages/CreateTracker/CreateTracker'
 
 interface IAppProps {}
 
@@ -17,7 +19,7 @@ export const App: React.FC<IAppProps> = () => {
       <main>
         <Routes>
           <Route element={<Dashboard />} path={ERoute.DASHBOARD} />
-          <Route element={<DashboardConfig />} path={ERoute.DASHBOARD_CONFIG} />
+          <Route element={<CreateTracker />} path={ERoute.CREATE_TRACKER} />
         </Routes>
       </main>
 

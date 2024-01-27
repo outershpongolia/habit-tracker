@@ -21,7 +21,7 @@ export const Tracker: React.FC<ITrackerProps> = ({ data }) => {
 
   const handleEditCell = useCallback((id: string) => {
     // functionality for cells
-    // console.log({id})
+    console.log({id})
   }, [])
 
   return (
@@ -31,7 +31,7 @@ export const Tracker: React.FC<ITrackerProps> = ({ data }) => {
         <tr className="tracker__row">
           <TrackerCell />
           {tableData?.labels.columns.map(col => {
-            {/* days label horizontal */}
+            // days label horizontal
             return (
               <TrackerCell
                 key={uniqueId(col.toString())}
@@ -52,8 +52,8 @@ export const Tracker: React.FC<ITrackerProps> = ({ data }) => {
               {/* months label vertical */}
               <TrackerCell label={row.toString()[0]} />
 
-              {/* functional cells */}
               {tableData.cells.map(cell => {
+                // functional cells
                 return (
                   <TrackerCell
                     key={cell.id}

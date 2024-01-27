@@ -1,7 +1,5 @@
-import React, { useContext } from "react"
+import React from "react"
 import './SecondStep.scss'
-import { Tracker } from "../../../components/Tracker/Tracker"
-import { TrackerContext } from "../../../context/TrackerContext"
 
 interface ISecondStepProps {}
 

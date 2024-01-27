@@ -1,31 +1,27 @@
-import React, { useCallback, useMemo } from "react"
-import './DashboardConfig.scss'
+import React, { useCallback } from "react"
+import './CreateTracker.scss'
 import { generateStep } from "../../utilities"
 import { Stepper } from "../../components/Stepper/Stepper"
 import { FirstStep } from "./FirstStep/FirstStep"
 import { SecondStep } from "./SecondStep/SecondStep"
 import { ThirdStep } from "./ThirdStep/ThirdStep"
 
-interface IDashboardConfigProps {}
+interface ICreateTrackerProps {}
 
-export const DashboardConfig: React.FC<IDashboardConfigProps> = () => {
-  const generateSteps = useMemo(() => {
-    const step1 = generateStep('step1', <FirstStep />)
-    const step2 = generateStep('step2', <SecondStep />)
-    const step3 = generateStep('step3', <ThirdStep />)
-    
-    return [step1, step2, step3]
-  }, [])
-
+export const CreateTracker: React.FC<ICreateTrackerProps> = () => {
   const handleSubmitTracker = useCallback(() => {
     // TO DO: throw some api call and a toast for success
     // e.g. update user trackers database with new <tracker>
   }, [])
 
   return (
-    <div className="dashboard-config">
+    <div className="create-tracker">
       <Stepper
-        steps={generateSteps}
+        steps={[
+          generateStep('step1', <FirstStep />),
+          generateStep('step2', <SecondStep />),
+          generateStep('step3', <ThirdStep />)
+        ]}
         onSubmitStepper={handleSubmitTracker}
       />
     </div>

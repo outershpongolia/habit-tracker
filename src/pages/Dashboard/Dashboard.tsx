@@ -10,13 +10,13 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
   const navigate = useNavigate()
 
   const handleNavigateToPage = useCallback(() => {
-    navigate(ERoute.DASHBOARD_CONFIG)
+    navigate(ERoute.CREATE_TRACKER)
   }, [navigate])
 
   return (
     <div className='dashboard'>
       <Button
-        label="Generate new tracker"
+        label="Create tracker"
         onClick={handleNavigateToPage}
       />
     </div>

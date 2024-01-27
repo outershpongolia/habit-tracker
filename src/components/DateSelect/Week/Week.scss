@@ -1,0 +1,11 @@
+.week {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 60%;
+  &__days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}

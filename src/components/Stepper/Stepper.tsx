@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react"
 import './Stepper.scss'
-import { Steps, message } from "antd"
+import { Steps } from "antd"
 import { Button } from "../Button/Button"
 import { IStep } from "../../interfaces"
 

@@ -1,6 +1,6 @@
 import { max } from "lodash"
 import { MONTH_LIST } from "./constants"
-import { IDateObject, IStep, ITable, ITableCell, ITableLabel } from "./interfaces"
+import { IDateObject, IStep, ITableCell, ITableLabel } from "./interfaces"
 import { v4 } from "uuid"
 import { ReactNode } from "react"
 

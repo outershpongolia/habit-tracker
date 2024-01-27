@@ -5,24 +5,20 @@ html, body, #root, .app, main {
   width: 100%;
   position: relative;
 }
-
 body {
   padding: 0;
   margin: 0;
-  background-color: $primary-color-dark;
-
+  background-color: $primary-color-light;
   * {
     box-sizing: border-box;
     font-family: $primaryFont;
-    color: $primary-color-light;
+    color: $primary-color-dark;
   }
 }
-
 .app {
   display: flex;
   flex-direction: column;
 }
-
 main {
   max-width: $maxScreenWidth;
   margin: 0 auto;

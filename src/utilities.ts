@@ -1,7 +1,8 @@
 import { max } from "lodash"
 import { MONTH_LIST } from "./constants"
-import { IDateObject, ITable, ITableCell, ITableLabel } from "./interfaces"
+import { IDateObject, IStep, ITable, ITableCell, ITableLabel } from "./interfaces"
 import { v4 } from "uuid"
+import { ReactNode } from "react"
 
 /* convert date from type Date to number object day-month-year */
 export const convertDate = (date: Date): IDateObject => {
@@ -40,7 +41,11 @@ export const generateTableCells = (columns: number[]): ITableCell[] => {
       color: ''
     }
   })
-} 
+}
+
+export const generateStep = (header: string, content: ReactNode): IStep => {
+  return { header, content }
+}
 
 // export const toBase64 = (file: File):Promise<string | ArrayBuffer | null> => new Promise((resolve, reject) => {
 //     const reader = new FileReader()

@@ -1,0 +1,49 @@
+@import '../../style/base';
+
+.stepper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 0 auto;
+  &__content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__buttons {
+    display: flex;
+    gap: 24px;
+    justify-content: flex-end;
+  }
+}
+.ant-steps-item-container {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.ant-steps-item-content {
+  display: none !important;
+}
+.ant-steps-item-icon {
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 !important;
+}
+.ant-steps-item-tail {
+  width: 100% !important;
+  margin: 0 !important;
+  position: static !important;
+}
+.ant-steps
+.ant-steps-item-process
+.ant-steps-item-icon {
+  background-color: $primary-color-dark;
+  border: 2px solid $primary-color-dark;
+}
+.ant-steps .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after {
+  background-color: $primary-color-dark;
+}

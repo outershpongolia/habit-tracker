@@ -25,6 +25,10 @@ export interface ITable {
     cells: ITableCell[]
 }
 
+export interface IStep {
+    header: string
+    content: React.ReactNode
+}
 
 // export interface ITableCell {
 //     columns: columns,

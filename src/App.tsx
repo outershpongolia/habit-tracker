@@ -5,7 +5,7 @@ import { ERoute } from './constants'
 import { Header } from './components/Header/Header'
 import 'react-toastify/dist/ReactToastify.css'
 import "react-datepicker/dist/react-datepicker.css"
-import { DashboardConfig } from './pages/Dashboard/DashboardConfig/DashboardConfig'
+import { DashboardConfig } from './pages/DashboardConfig/DashboardConfig'
 
 interface IAppProps {}
 

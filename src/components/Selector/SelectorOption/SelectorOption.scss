@@ -2,15 +2,16 @@
 
 .selector-option {
   cursor: pointer;
-  padding: 24px;
+  padding: 16px;
   border: 2px solid $primary-color-dark;
-  border-radius: 8px;
+  border-radius: 6px;
   width: 320px;
   min-width: fit-content;
   display: flex;
   gap: 16px;
   align-items: center;
   opacity: 0.4;
+  font-size: 18px;
   &_active {
     opacity: 1;
     .selector-option__circle {

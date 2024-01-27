@@ -6,10 +6,11 @@ import { IStep } from "../../interfaces"
 
 interface IStepperProps {
   steps: IStep[]
+  hasError: boolean
   onSubmitStepper: () => void
 }
 
-export const Stepper: React.FC<IStepperProps> = ({ steps, onSubmitStepper }) => {
+export const Stepper: React.FC<IStepperProps> = ({ steps, hasError, onSubmitStepper }) => {
   const [currentStep, setCurrentStep] = useState(0)
 
   const handleNextStep = useCallback(() => {
@@ -38,7 +39,6 @@ export const Stepper: React.FC<IStepperProps> = ({ steps, onSubmitStepper }) => 
         current={currentStep}
         items={generateItems}
         labelPlacement='vertical'
-        
       />
 
       <div className="stepper__content">
@@ -49,6 +49,7 @@ export const Stepper: React.FC<IStepperProps> = ({ steps, onSubmitStepper }) => 
         <Button
           label='Previous'
           onClick={handlePrevStep}
+          isDisabled={currentStep === 0}
         />
 
         {currentStep === steps.length - 1
@@ -59,6 +60,7 @@ export const Stepper: React.FC<IStepperProps> = ({ steps, onSubmitStepper }) => 
           : <Button
               label={currentStep === steps.length - 2 ? 'Preview' : 'Next'}
               onClick={handleNextStep}
+              isDisabled={hasError}
             />
         }
       </div>

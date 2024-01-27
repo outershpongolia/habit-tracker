@@ -2,11 +2,8 @@
   display: flex;
   gap: 32px;
   width: 100%;
-  &__selector {
-    width: fit-content;
-  }
-  &__config {
-    flex: 1;
+  &__section {
+    width: 50%;
     display: flex;
     justify-content: center;
   }

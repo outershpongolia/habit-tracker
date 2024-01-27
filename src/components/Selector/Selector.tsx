@@ -2,11 +2,12 @@ import React from "react"
 import './Selector.scss'
 import { SelectorOption } from "./SelectorOption/SelectorOption"
 import { ISelectorOption } from "../../interfaces"
-import { ETrackerType } from "../../constants"
+import { ETimeFormat } from "../../constants"
+import { uniqueId } from "lodash"
 
 interface ISelectorProps {
   label: string
-  value: ETrackerType | string
+  value: ETimeFormat | string
   options: ISelectorOption[]
   onChooseOption: (option: ISelectorOption) => void
 }
@@ -22,6 +23,7 @@ export const Selector: React.FC<ISelectorProps> = ({ label, value, options, onCh
         {options.map(option => {
           return (
             <SelectorOption
+              key={uniqueId(option.value)}
               option={option}
               isActive={value === option.value}
               onChooseOption={onChooseOption}

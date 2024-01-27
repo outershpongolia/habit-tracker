@@ -1,8 +1,11 @@
 .week {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-width: 60%;
+  gap: 24px;
+  max-width: 70%;
+  &__label {
+    font-size: 24px;
+  }
   &__days {
     display: flex;
     flex-wrap: wrap;

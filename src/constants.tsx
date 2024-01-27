@@ -14,33 +14,62 @@ export enum EStatus {
   INFO = 'info',
 }
 
-export enum ETrackerType {
-  WEEKLY = 'weekly',
-  MONTHLY = 'monthly',
-  YEARLY = 'yearly',
+export enum ETimeFormat {
+  WEEK = 'week',
+  MONTH = 'month',
+  YEAR = 'year',
   CUSTOM_DATE_RANGE = 'custom-date-range'
 }
 
-export const TRACKER_OPTIONS: ISelectorOption[] = [
+export const TIME_FORMAT_OPTIONS: ISelectorOption[] = [
   {
-    label: 'Weekly',
-    value: ETrackerType.WEEKLY,
+    label: 'Week',
+    value: ETimeFormat.WEEK,
   },
   {
-    label: 'Monthly',
-    value: ETrackerType.MONTHLY,
+    label: 'Month',
+    value: ETimeFormat.MONTH,
   },
   {
-    label: 'Yearly',
-    value: ETrackerType.YEARLY,
+    label: 'Year',
+    value: ETimeFormat.YEAR,
   },
   {
     label: 'Custom date range',
-    value: ETrackerType.CUSTOM_DATE_RANGE,
+    value: ETimeFormat.CUSTOM_DATE_RANGE,
   },
 ]
 
-export const DAYS_IN_WEEK = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ]
+export const DAYS_IN_WEEK: ISelectorOption[] = [
+  {
+    label: 'Monday',
+    value: 'monday'
+  },
+  {
+    label: 'Tuesday',
+    value: 'tuesday'
+  },
+  {
+    label: 'Wednesday',
+    value: 'wednesday'
+  },
+  {
+    label: 'Thursday',
+    value: 'thursday'
+  },
+  {
+    label: 'Friday',
+    value: 'friday'
+  },
+  {
+    label: 'Saturday',
+    value: 'saturday'
+  },
+  {
+    label: 'Sunday',
+    value: 'sunday'
+  }
+]
 
 export const CURRENT_DATE: IDateObject = convertDate(new Date())
 
@@ -51,9 +80,11 @@ export const DEFAULT_DATE_NOW: IDateObject = {
 }
 
 export const DEFAULT_TRACKER: ITracker = {
-  startDate: DEFAULT_DATE_NOW,
-  endDate: DEFAULT_DATE_NOW,
-  type: TRACKER_OPTIONS[0],
+  id: '',
+  // startDate: DEFAULT_DATE_NOW,
+  // endDate: DEFAULT_DATE_NOW,
+  timeFormat: ETimeFormat.WEEK,
+  timeFormatOptions: null
 }
 
 export const MONTH_LIST: IMonthObject[] = [

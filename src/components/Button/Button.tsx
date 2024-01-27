@@ -12,7 +12,7 @@ interface IButtonProps {
 
 export const Button: React.FC<IButtonProps> = ({ label, onClick, isDisabled, isActive, className }) => {
   const handleOnClick = useCallback((e: React.MouseEvent) => {
-    onClick(e.currentTarget.textContent || undefined)
+    onClick(e.currentTarget.textContent?.toLocaleLowerCase() || undefined)
   }, [onClick])
 
   return (

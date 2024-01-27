@@ -10,7 +10,7 @@ export const ThirdStep: React.FC<IThirdStepProps> = () => {
 
   return (
     <div className="third-step">
-      <Tracker data={tracker} />
+      <Tracker data={tracker.timeFormatOptions} />
     </div>
   )
 }

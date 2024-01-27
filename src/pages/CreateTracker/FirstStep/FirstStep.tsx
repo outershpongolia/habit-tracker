@@ -1,11 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from "react"
 import './FirstStep.scss'
 import { TrackerContext } from "../../../context/TrackerContext"
-import { convertDate } from "../../../utilities"
 import { Selector } from "../../../components/Selector/Selector"
-import { DAYS_IN_WEEK, ETrackerType, TRACKER_OPTIONS } from "../../../constants"
-import { ISelectorOption } from "../../../interfaces"
+import { DAYS_IN_WEEK, ETimeFormat, TIME_FORMAT_OPTIONS } from "../../../constants"
+import { IDateObject, ISelectorOption } from "../../../interfaces"
 import { DateRange, Week } from "../../../components/DateSelect/DateSelect"
+import { convertDate } from "../../../utilities"
 
 interface IFirstStepProps {}
 
@@ -13,31 +13,60 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
   const {setTracker} = useContext(TrackerContext)
 
   const [selectorOption, setSelectorOption] = useState<ISelectorOption>()
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
-  const [startDay, setStartDay] = useState(DAYS_IN_WEEK[0])
-
-  const handleChooseOption = useCallback((option: ISelectorOption) => {
-    setSelectorOption(option)
-  }, [])
+  const [startDay, setStartDay] = useState('')
+  const [dateRange, setDateRange] = useState<{startDate: Date, endDate: Date}>({
+    startDate: new Date(),
+    endDate: new Date()
+  })
 
   useEffect(() => {
     setTracker(tracker => {
-      return {
-        ...tracker,
-        startDate: convertDate(startDate),
-        endDate: convertDate(endDate),
-        type: selectorOption
+      switch (selectorOption?.value) {
+        case ETimeFormat.CUSTOM_DATE_RANGE:
+          return {
+            ...tracker,
+            timeFormat: selectorOption.value,
+            timeFormatOptions: {
+              startDate: convertDate(dateRange.startDate),
+              endDate: convertDate(dateRange.endDate),
+            }
+          }
+
+        case ETimeFormat.WEEK:
+          return {
+            ...tracker,
+            timeFormat: selectorOption.value,
+            timeFormatOptions: {
+              startDay: startDay
+            }
+          }
+
+        default:
+          return tracker
       }
     })
-  }, [startDate, endDate, setTracker, selectorOption])
+  }, [dateRange, setTracker, selectorOption, startDay])
 
   const handleChangeStartDay = useCallback((date: Date) => {
-    setStartDate(date)
+    setDateRange(currentOptions => {
+      return {
+        ...currentOptions,
+        startDate: date
+      }
+    })
   }, [])
 
   const handleChangeEndDay = useCallback((date: Date) => {
-    setEndDate(date)
+    setDateRange(currentOptions => {
+      return {
+        ...currentOptions,
+        endDate: date
+      }
+    })
+  }, [])
+
+  const handleChooseOption = useCallback((option: ISelectorOption) => {
+    setSelectorOption(option)
   }, [])
 
   const handleSelectStartDay = useCallback((value?: string | undefined) => {
@@ -48,17 +77,17 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
 
   return (
     <div className="first-step">
-      <div className="first-step__selector">
+      <div className="first-step__section">
         <Selector
-          label="Choose a type of your tracker:"
+          label="Choose time format for your tracker:"
           value={selectorOption?.value || ''}
-          options={TRACKER_OPTIONS}
+          options={TIME_FORMAT_OPTIONS}
           onChooseOption={handleChooseOption}
         />
       </div>
 
-      <div className="first-step__config">
-        {selectorOption?.value === ETrackerType.WEEKLY && (
+      <div className="first-step__section">
+        {selectorOption?.value === ETimeFormat.WEEK && (
           <Week
             days={DAYS_IN_WEEK}
             value={startDay}
@@ -66,10 +95,10 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
           />
         )}
 
-        {selectorOption?.value === ETrackerType.CUSTOM_DATE_RANGE && (
+        {selectorOption?.value === ETimeFormat.CUSTOM_DATE_RANGE && (
           <DateRange
-            startDate={startDate}
-            endDate={endDate}
+            startDate={dateRange.startDate}
+            endDate={dateRange.endDate}
             handleChangeStartDay={handleChangeStartDay}
             handleChangeEndDay={handleChangeEndDay}
           />

@@ -1,19 +1,23 @@
 import React, { useCallback, useEffect, useState } from "react"
 import './Tracker.scss'
-import { ITable, ITracker } from "../../interfaces"
+import { IDateObject, IDateRange, IStartDay, ITable } from "../../interfaces"
 import { TrackerCell } from "./TrackerCell/TrackerCell"
 import { generateLabelsForTable, generateTableCells } from "../../utilities"
 import { uniqueId } from "lodash"
 
 interface ITrackerProps {
-  data: ITracker
+  data: IDateRange | IStartDay | null
 }
 
 export const Tracker: React.FC<ITrackerProps> = ({ data }) => {
   const [tableData, setTableData] = useState<ITable>()
 
   useEffect(() => {
-    const tableLabels = generateLabelsForTable(data.startDate.month, data.endDate.month)
+    if (!data) return
+
+    const currentData = data as IDateRange
+
+    const tableLabels = generateLabelsForTable(currentData.startDate.month, currentData.endDate.month)
     const tableCells = generateTableCells(tableLabels.columns)
 
     setTableData({ labels: tableLabels, cells: tableCells })

@@ -1,4 +1,4 @@
-import { ETrackerType } from "./constants"
+import { ETimeFormat } from "./constants"
 
 export interface IDateObject {
   day:          number
@@ -10,6 +10,12 @@ export interface IMonthObject {
   label:        string
   value:        number
   numberOfDays: number
+  // TO DO: think of a better ways to get number of days for each month and then this can be removed because
+  // {label, value} is already ISelectorOption
+}
+
+export interface IStartDay {
+  startDay:     string
 }
 
 export interface ITableLabel {
@@ -34,13 +40,18 @@ export interface IStep {
 
 export interface ISelectorOption {
   label:        string
-  value:        ETrackerType | string
+  value:        ETimeFormat | string
+}
+
+export interface IDateRange {
+  startDate:    IDateObject
+  endDate:      IDateObject
 }
 
 export interface ITracker {
-  startDate:    IDateObject
-  endDate:      IDateObject
-  type?:         ISelectorOption
+  id:                string
+  timeFormat:        ETimeFormat
+  timeFormatOptions: IDateRange | IStartDay | null    // TO DO: here comes options for year and month
 }
 
 export interface IUser {

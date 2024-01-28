@@ -19,10 +19,12 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
   })
 
   useEffect(() => {
+    if (!selectorOption) return
+
     setTracker(tracker => {
       return {
         ...tracker,
-        timeFormat: selectorOption?.value as ETimeFormat,
+        timeFormat: selectorOption.value,
         timeFormatOptions: {
           startDate: convertDate(dateRange.startDate),
           endDate: convertDate(dateRange.endDate),
@@ -31,26 +33,20 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
     })
   }, [dateRange, setTracker, selectorOption])
 
+  // Choose time format option for tracker
   const handleChooseOption = useCallback((option: ISelectorOption) => {
     setSelectorOption(option)
   }, [])
 
-  const handleChangeStartDay = useCallback((date: Date) => {
-    setDateRange(currentOptions => {
-      return {
-        ...currentOptions,
-        startDate: date
-      }
-    })
-  }, [])
-
-  const handleChangeEndDay = useCallback((date: Date) => {
-    setDateRange(currentOptions => {
-      return {
-        ...currentOptions,
-        endDate: date
-      }
-    })
+  const handleChangeDate = useCallback((name: string) => {
+    return (date: Date) => {
+      setDateRange(currentOptions => {
+        return {
+          ...currentOptions,
+          [name]: date
+        }
+      })
+    }
   }, [])
 
   return (
@@ -69,17 +65,16 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
           <DateSelect
             type={
               selectorOption.value === ETimeFormat.MONTH
-                ? "month-range"
+                ? ETimeFormat.MONTH
                 : selectorOption.value === ETimeFormat.YEAR
-                  ? "year-range"
+                  ? ETimeFormat.YEAR
                   : selectorOption.value === ETimeFormat.WEEK
-                    ? "week-range"
-                    : "date-range"
+                    ? ETimeFormat.WEEK
+                    : ETimeFormat.CUSTOM_DATE_RANGE
             }
             startDate={dateRange.startDate}
             endDate={dateRange.endDate}
-            onChangeStartDay={handleChangeStartDay}
-            onChangeEndDay={handleChangeEndDay}
+            onChangeDate={handleChangeDate}
           />
         )}
       </div>

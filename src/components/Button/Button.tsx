@@ -1,25 +1,27 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import './Button.scss'
 import clsx from 'clsx'
 
 interface IButtonProps {
   label: string
-  onClick: (value?: string) => void
+  onClick: () => void
   isDisabled?: boolean
   isActive?: boolean
   className?: string
 }
 
-export const Button: React.FC<IButtonProps> = ({ label, onClick, isDisabled, isActive, className }) => {
-  const handleOnClick = useCallback((e: React.MouseEvent) => {
-    onClick(e.currentTarget.textContent?.toLocaleLowerCase() || undefined)
-  }, [onClick])
-
+export const Button: React.FC<IButtonProps> = ({
+  label,
+  onClick,
+  isDisabled,
+  isActive,
+  className
+}) => {
   return (
     <button
       className={clsx('button', className, isActive && 'button_active')}
       type='button'
-      onClick={handleOnClick}
+      onClick={onClick}
       disabled={isDisabled}
     >
       {label}

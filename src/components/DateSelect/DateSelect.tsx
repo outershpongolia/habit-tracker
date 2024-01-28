@@ -1,31 +1,30 @@
 import React, { useMemo } from 'react'
 import './DateSelect.scss'
 import DatePicker from 'react-datepicker'
+import { ETimeFormat } from '../../constants'
 
 interface IDateSelectProps {
-  type: 'date-range' | 'month-range' | 'year-range' | 'week-range'
+  type: ETimeFormat
   startDate: Date
   endDate: Date
-  onChangeStartDay: (date: Date) => void
-  onChangeEndDay: (date: Date) => void
+  onChangeDate: (name: string) => (date: Date) => void
 }
 
 export const DateSelect: React.FC<IDateSelectProps> = ({
   type,
   startDate,
   endDate,
-  onChangeStartDay,
-  onChangeEndDay
+  onChangeDate
 }) => {
   const generateDateFormat = useMemo(() => {
     switch (type) {
-      case 'month-range':
+      case ETimeFormat.MONTH:
         return "MM/yyyy"
 
-      case 'year-range':
+      case ETimeFormat.YEAR:
         return "yyyy"
 
-      case 'week-range':
+      case ETimeFormat.WEEK:
         return "I/R"
 
       default:
@@ -36,30 +35,32 @@ export const DateSelect: React.FC<IDateSelectProps> = ({
   return (
     <div className='date-range'>
       <DatePicker
-        className='date-range__picker'
         selected={startDate}
-        onChange={onChangeStartDay}
+        onChange={onChangeDate('startDate')}
         selectsStart
         startDate={startDate}
         endDate={endDate}
         dateFormat={generateDateFormat}
-        showMonthYearPicker={type === 'month-range'}
-        showYearPicker={type === 'year-range'}
-        showWeekNumbers={type === 'week-range'}
-        showWeekPicker={type === 'week-range'}
+        showMonthYearPicker={type === ETimeFormat.MONTH}
+        showYearPicker={type === ETimeFormat.YEAR}
+        showWeekNumbers={type === ETimeFormat.WEEK}
+        showWeekPicker={type === ETimeFormat.WEEK}
+        minDate={new Date()}
+        inline
       />
-      {type !== 'week-range' && (
+
+      {type !== ETimeFormat.WEEK && (
         <DatePicker
-          className='date-range__picker'
           selected={endDate}
-          onChange={onChangeEndDay}
+          onChange={onChangeDate('endDate')}
           selectsEnd
           startDate={startDate}
           endDate={endDate}
-          minDate={startDate}
           dateFormat={generateDateFormat}
-          showMonthYearPicker={type === 'month-range'}
-          showYearPicker={type === 'year-range'}
+          showMonthYearPicker={type === ETimeFormat.MONTH}
+          showYearPicker={type === ETimeFormat.YEAR}
+          minDate={new Date()}
+          inline
         />
       )}
     </div>

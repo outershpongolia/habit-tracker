@@ -2,10 +2,10 @@ import React, { useCallback, useContext, useEffect, useState } from "react"
 import './FirstStep.scss'
 import { TrackerContext } from "../../../context/TrackerContext"
 import { Selector } from "../../../components/Selector/Selector"
-import { DAYS_IN_WEEK, ETimeFormat, TIME_FORMAT_OPTIONS } from "../../../constants"
-import { IDateObject, ISelectorOption } from "../../../interfaces"
-import { DateRange, Week } from "../../../components/DateSelect/DateSelect"
+import { ETimeFormat, TIME_FORMAT_OPTIONS } from "../../../constants"
+import { ISelectorOption } from "../../../interfaces"
 import { convertDate } from "../../../utilities"
+import { DateSelect } from "../../../components/DateSelect/DateSelect"
 
 interface IFirstStepProps {}
 
@@ -13,7 +13,6 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
   const {setTracker} = useContext(TrackerContext)
 
   const [selectorOption, setSelectorOption] = useState<ISelectorOption>()
-  const [startDay, setStartDay] = useState('')
   const [dateRange, setDateRange] = useState<{startDate: Date, endDate: Date}>({
     startDate: new Date(),
     endDate: new Date()
@@ -21,31 +20,20 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
 
   useEffect(() => {
     setTracker(tracker => {
-      switch (selectorOption?.value) {
-        case ETimeFormat.CUSTOM_DATE_RANGE:
-          return {
-            ...tracker,
-            timeFormat: selectorOption.value,
-            timeFormatOptions: {
-              startDate: convertDate(dateRange.startDate),
-              endDate: convertDate(dateRange.endDate),
-            }
-          }
-
-        case ETimeFormat.WEEK:
-          return {
-            ...tracker,
-            timeFormat: selectorOption.value,
-            timeFormatOptions: {
-              startDay: startDay
-            }
-          }
-
-        default:
-          return tracker
+      return {
+        ...tracker,
+        timeFormat: selectorOption?.value as ETimeFormat,
+        timeFormatOptions: {
+          startDate: convertDate(dateRange.startDate),
+          endDate: convertDate(dateRange.endDate),
+        }
       }
     })
-  }, [dateRange, setTracker, selectorOption, startDay])
+  }, [dateRange, setTracker, selectorOption])
+
+  const handleChooseOption = useCallback((option: ISelectorOption) => {
+    setSelectorOption(option)
+  }, [])
 
   const handleChangeStartDay = useCallback((date: Date) => {
     setDateRange(currentOptions => {
@@ -65,16 +53,6 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
     })
   }, [])
 
-  const handleChooseOption = useCallback((option: ISelectorOption) => {
-    setSelectorOption(option)
-  }, [])
-
-  const handleSelectStartDay = useCallback((value?: string | undefined) => {
-    if (value) {
-      setStartDay(value)
-    }
-  }, [])
-
   return (
     <div className="first-step">
       <div className="first-step__section">
@@ -87,20 +65,21 @@ export const FirstStep: React.FC<IFirstStepProps> = () => {
       </div>
 
       <div className="first-step__section">
-        {selectorOption?.value === ETimeFormat.WEEK && (
-          <Week
-            days={DAYS_IN_WEEK}
-            value={startDay}
-            onClick={handleSelectStartDay}
-          />
-        )}
-
-        {selectorOption?.value === ETimeFormat.CUSTOM_DATE_RANGE && (
-          <DateRange
+        {selectorOption && (
+          <DateSelect
+            type={
+              selectorOption.value === ETimeFormat.MONTH
+                ? "month-range"
+                : selectorOption.value === ETimeFormat.YEAR
+                  ? "year-range"
+                  : selectorOption.value === ETimeFormat.WEEK
+                    ? "week-range"
+                    : "date-range"
+            }
             startDate={dateRange.startDate}
             endDate={dateRange.endDate}
-            handleChangeStartDay={handleChangeStartDay}
-            handleChangeEndDay={handleChangeEndDay}
+            onChangeStartDay={handleChangeStartDay}
+            onChangeEndDay={handleChangeEndDay}
           />
         )}
       </div>

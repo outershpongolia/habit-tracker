@@ -40,7 +40,8 @@ export const TIME_FORMAT_OPTIONS: ISelectorOption[] = [
   },
 ]
 
-export const DAYS_IN_WEEK: ISelectorOption[] = [
+// maybe remove this
+export const DAYS_IN_WEEK = [
   {
     label: 'Monday',
     value: 'monday'
@@ -81,8 +82,6 @@ export const DEFAULT_DATE_NOW: IDateObject = {
 
 export const DEFAULT_TRACKER: ITracker = {
   id: '',
-  // startDate: DEFAULT_DATE_NOW,
-  // endDate: DEFAULT_DATE_NOW,
   timeFormat: ETimeFormat.WEEK,
   timeFormatOptions: null
 }

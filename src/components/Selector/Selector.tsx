@@ -23,10 +23,11 @@ export const Selector: React.FC<ISelectorProps> = ({ label, value, options, onCh
         {options.map(option => {
           return (
             <SelectorOption
-              key={uniqueId(option.value)}
+              key={uniqueId(option.value.toString())}
               option={option}
               isActive={value === option.value}
               onChooseOption={onChooseOption}
+              isDisabled={option.value === ETimeFormat.YEAR}
             />
           )
         })}

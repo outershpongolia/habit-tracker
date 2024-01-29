@@ -1,4 +1,4 @@
-import { IDateObject, IMonthObject, ITracker, ISelectorOption } from "./interfaces"
+import { IDateObject, IMonthObject, ITracker, ISelectorOption, ITable } from "./interfaces"
 import { convertDate } from "./utilities"
 
 export enum ERoute {
@@ -41,34 +41,34 @@ export const TIME_FORMAT_OPTIONS: ISelectorOption[] = [
 ]
 
 // maybe remove this
-export const DAYS_IN_WEEK = [
+export const DAYS_IN_WEEK: ISelectorOption[] = [
   {
     label: 'Monday',
-    value: 'monday'
+    value: 1
   },
   {
     label: 'Tuesday',
-    value: 'tuesday'
+    value: 2
   },
   {
     label: 'Wednesday',
-    value: 'wednesday'
+    value: 3
   },
   {
     label: 'Thursday',
-    value: 'thursday'
+    value: 4
   },
   {
     label: 'Friday',
-    value: 'friday'
+    value: 5
   },
   {
     label: 'Saturday',
-    value: 'saturday'
+    value: 6
   },
   {
     label: 'Sunday',
-    value: 'sunday'
+    value: 7
   }
 ]
 
@@ -82,6 +82,8 @@ export const DEFAULT_DATE_NOW: IDateObject = {
 
 export const DEFAULT_TRACKER: ITracker = {
   id: '',
+  name: '',
+  habits: [],
   timeFormat: ETimeFormat.WEEK,
   timeFormatOptions: null
 }
@@ -148,3 +150,11 @@ export const MONTH_LIST: IMonthObject[] = [
     numberOfDays: 31
   }
 ]
+
+export const DEFAULT_TABLE_DATA: ITable = {
+  labels: {
+    columns: [],
+    rows: []
+  },
+  cells: []
+}

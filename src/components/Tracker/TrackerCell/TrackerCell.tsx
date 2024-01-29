@@ -9,9 +9,10 @@ interface ITrackerCellProps {
   label?: string
   color?: string
   onClick?: (id: string) => void
+  className?: string
 }
 
-export const TrackerCell: React.FC<ITrackerCellProps> = ({ id, label, color, onClick }) => {
+export const TrackerCell: React.FC<ITrackerCellProps> = ({ id, label, color, onClick, className }) => {
   const [ cellColor, setCellColor ] = useState('')
 
   const handleOnClick = useCallback(() => {
@@ -56,7 +57,8 @@ export const TrackerCell: React.FC<ITrackerCellProps> = ({ id, label, color, onC
     >
       <div
         className={clsx("tracker-cell",
-          id && "tracker-cell_clickable"
+          id && "tracker-cell_clickable",
+          className
         )}
         id={id}
         onClick={handleOnClick}

@@ -6,7 +6,7 @@ import { ETimeFormat } from '../../constants'
 interface IDateSelectProps {
   type: ETimeFormat
   startDate: Date
-  endDate: Date
+  endDate: Date | null
   onChangeDate: (name: string) => (date: Date) => void
 }
 

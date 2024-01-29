@@ -7,17 +7,28 @@ interface ISelectorOptionProps {
   option: ISelectorOption
   isActive: boolean
   onChooseOption: (option: ISelectorOption) => void
+  isDisabled?: boolean 
   className?: string
 }
 
-export const SelectorOption: React.FC<ISelectorOptionProps> = ({ option, isActive, onChooseOption, className }) => {
+export const SelectorOption: React.FC<ISelectorOptionProps> = ({
+  option,
+  isActive,
+  onChooseOption,
+  isDisabled,
+  className
+}) => {
   const handleChooseOption = useCallback(() => {
     onChooseOption(option)
   }, [onChooseOption, option])
 
   return (
     <div
-      className={clsx('selector-option', isActive && 'selector-option_active', className)}
+      className={clsx('selector-option',
+        isActive && 'selector-option_active',
+        isDisabled && 'selector-option_disabled',
+        className
+      )}
       onClick={handleChooseOption}
     >
       <div className='selector-option__circle' />

@@ -1,38 +1,28 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback } from "react"
 import './Tracker.scss'
-import { IDateRange, ITable } from "../../interfaces"
+import { ITable } from "../../interfaces"
 import { TrackerCell } from "./TrackerCell/TrackerCell"
-import { generateLabelsForTable, generateTableCells } from "../../utilities"
 import { uniqueId } from "lodash"
 
 interface ITrackerProps {
-  data: IDateRange | null
+  tableData: ITable
 }
 
-export const Tracker: React.FC<ITrackerProps> = ({ data }) => {
-  const [tableData, setTableData] = useState<ITable>()
-
-  useEffect(() => {
-    if (!data) return
-
-    const tableLabels = generateLabelsForTable(data.startDate.month, data.endDate.month)
-    const tableCells = generateTableCells(tableLabels.columns)
-
-    setTableData({ labels: tableLabels, cells: tableCells })
-  }, [data])
-
+export const Tracker: React.FC<ITrackerProps> = ({ tableData }) => {
   const handleEditCell = useCallback((id: string) => {
-    // functionality for cells
+    // TO DO: functionality for cells
     console.log({id})
   }, [])
+
+  if (!tableData) return <></>
 
   return (
     <table className="tracker">
       <thead className="tracker__header">
         {/* this is the first row of table - numbers of days */}
         <tr className="tracker__row">
-          <TrackerCell />
-          {tableData?.labels.columns.map(col => {
+          <TrackerCell className="tracker__row-label" />
+          {tableData.labels.columns.map(col => {
             // days label horizontal
             return (
               <TrackerCell
@@ -45,14 +35,14 @@ export const Tracker: React.FC<ITrackerProps> = ({ data }) => {
       </thead>
 
       <tbody className="tracker__body">
-        {tableData?.labels.rows.map(row => {
+        {tableData.labels.rows.map(row => {
           return (
             <tr
               key={uniqueId(row.toString())}
               className="tracker__row"
             >
               {/* months label vertical */}
-              <TrackerCell label={row.toString()[0]} />
+              <TrackerCell className="tracker__row-label" label={row.toString()} />
 
               {tableData.cells.map(cell => {
                 // functional cells

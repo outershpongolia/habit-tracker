@@ -3,7 +3,7 @@ import { ETimeFormat } from "./constants"
 {/* Date interface */}
 export interface IDateRange {
   startDate:    IDateObject
-  endDate:      IDateObject
+  endDate:      IDateObject | null
 }
 export interface IDateObject {
   day:          number
@@ -19,7 +19,7 @@ export interface IMonthObject {
 }
 export interface ISelectorOption {
   label:        string
-  value:        ETimeFormat
+  value:        ETimeFormat | number
 }
 
 {/* Form interface */}
@@ -30,8 +30,10 @@ export interface IStep {
 
 export interface ITracker {
   id:                string
+  name:              string
+  habits:            string[] | []
   timeFormat:        ETimeFormat
-  timeFormatOptions: IDateRange | null    // TO DO: here comes options for year and month
+  timeFormatOptions: IDateRange | null
 }
 
 export interface IUser {
@@ -43,7 +45,7 @@ export interface IUser {
 
 {/* Table interface */}
 export interface ITableLabel {
-  columns:      number[]
+  columns:      string[] | number[]
   rows:         string[] | number[]
 }
 export interface ITableCell {

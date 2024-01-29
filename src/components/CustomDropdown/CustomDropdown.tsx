@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react"
 import './CustomDropdown.scss'
-import { Dropdown, Space } from "antd"
+import { Dropdown } from "antd"
 import clsx from "clsx"
 import { ItemType } from "antd/es/menu/hooks/useItems"
 
@@ -19,9 +19,7 @@ export const CustomDropdown: React.FC<ICustomDropdownProps> = ({ items, disabled
       disabled={disabled}
     >
       <th className="custom-dropdown__item">
-        <Space>
-          {children}
-        </Space>
+        {children}
       </th>
     </Dropdown>
   )

@@ -1,11 +1,14 @@
 .first-step {
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  gap: 16px;
   width: 100%;
-  &__section {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  max-width: 500px;
+  &__title {
+    font-size: 24px;
+  }
+  &__input {
+    text-align: center;
+    font-size: 24px !important;
   }
 }

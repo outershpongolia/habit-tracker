@@ -1,5 +1,17 @@
 import { ETimeFormat } from "./constants"
 
+export interface IAuth {
+  email:        string
+  password:     string
+  name?:        string
+}
+export interface IApiResponse<T=any> {
+  statusCode: number
+  status: 'error' | 'success'
+  data: T
+  message: string
+}
+
 {/* Date interface */}
 export interface IDateRange {
   startDate:    IDateObject

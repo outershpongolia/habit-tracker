@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css"
 // Pages
 import { Dashboard } from './pages/Dashboard/Dashboard'
 import { CreateTracker } from './pages/CreateTracker/CreateTracker'
+import { Register } from './pages/Register/Register'
 
 interface IAppProps {}
 
@@ -18,6 +19,7 @@ export const App: React.FC<IAppProps> = () => {
 
       <main>
         <Routes>
+          <Route element={<Register />} path={ERoute.REGISTER} />
           <Route element={<Dashboard />} path={ERoute.DASHBOARD} />
           <Route element={<CreateTracker />} path={ERoute.CREATE_TRACKER} />
         </Routes>

@@ -1,17 +1,23 @@
-import { IDateObject, IMonthObject, ITracker, ISelectorOption, ITable } from "./interfaces"
+import { IDateObject, IMonthObject, ITracker, ISelectorOption, ITable, IAuth } from "./interfaces"
 import { convertDate } from "./utilities"
 
 export enum ERoute {
   DASHBOARD = '/',
   CREATE_TRACKER = '/create-tracker',
+  REGISTER = '/register',
   LOGIN = '/login',
-  REGISTER = '/register'
 }
 
 export enum EStatus {
   SUCCESS = 'success',
   ERROR = 'error',
   INFO = 'info',
+}
+
+export const DEFAULT_AUTH_OBJECT: IAuth = {
+  email: '',
+  password: '',
+  name: '',
 }
 
 export enum ETimeFormat {

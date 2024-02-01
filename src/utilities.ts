@@ -1,8 +1,24 @@
+import { ReactNode } from "react"
 import { max } from "lodash"
 import { MONTH_LIST } from "./constants"
-import { IDateObject, IStep, ITableCell, ITableLabel } from "./interfaces"
+import { IApiResponse, IDateObject, IStep, ITableCell, ITableLabel } from "./interfaces"
 import { v4 } from "uuid"
-import { ReactNode } from "react"
+
+export function checkCodeStatus<T=any>(
+  callback: (data: T) => void, 
+  errCallback: (msg: string) => void
+) {
+  return (res: IApiResponse) => {
+    if (res.status === 'error') {
+      errCallback(res.message)
+      return res
+    }
+
+    callback(res.data)
+
+    return res
+  }
+}
 
 /* convert date from type Date to number object day-month-year */
 export const convertDate = (date: Date): IDateObject => {

@@ -1,4 +1,4 @@
-import { ETimeFormat } from "./constants"
+import { EStatus, ETimeFormat } from "./constants"
 
 export interface IAuth {
   email:        string
@@ -6,10 +6,10 @@ export interface IAuth {
   name?:        string
 }
 export interface IApiResponse<T=any> {
-  statusCode: number
-  status: 'error' | 'success'
-  data: T
-  message: string
+  statusCode:   number
+  status:       EStatus.ERROR | EStatus.SUCCESS
+  data:         T
+  message:      string
 }
 
 {/* Date interface */}

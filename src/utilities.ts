@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { max } from "lodash"
-import { MONTH_LIST } from "./constants"
+import { EStatus, MONTH_LIST } from "./constants"
 import { IApiResponse, IDateObject, IStep, ITableCell, ITableLabel } from "./interfaces"
 import { v4 } from "uuid"
 
@@ -9,7 +9,7 @@ export function checkCodeStatus<T=any>(
   errCallback: (msg: string) => void
 ) {
   return (res: IApiResponse) => {
-    if (res.status === 'error') {
+    if (res.status === EStatus.ERROR) {
       errCallback(res.message)
       return res
     }

@@ -1,4 +1,4 @@
-import { IAuth, IUser } from "../interfaces"
+import { IAuth } from "../interfaces"
 
 export const login = (auth: IAuth) => {
     return fetch(`${process.env.REACT_APP_BASE_URL}/auth/login/`, {
@@ -15,8 +15,7 @@ export const register = (auth: IAuth) => {
   return fetch(`${process.env.REACT_APP_BASE_URL}/auth/register/`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(auth),
-      credentials: 'include'
+      body: JSON.stringify(auth)
   }).then(async res => {
       return res.json()
   })

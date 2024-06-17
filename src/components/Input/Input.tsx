@@ -2,7 +2,9 @@ import React from 'react'
 import './Input.scss'
 import clsx from 'clsx'
 
-interface IInputProps extends React.ComponentProps<'input'> {}
+interface IInputProps extends React.ComponentProps<'input'> {
+  label?: string
+}
 
 export const Input: React.FC<IInputProps> = ({
   value,
@@ -12,19 +14,23 @@ export const Input: React.FC<IInputProps> = ({
   onChange,
   placeholder,
   autoFocus,
-  onKeyDown,
+  label,
   className
 }) => {
   return (
-    <input
-      className={clsx('input', className)}
-      type={type || 'text'}
-      name={name}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      maxLength={maxLength}
-      autoFocus={autoFocus}
-    />
+    <div className='input__wrapper'>
+      {label && <div className='input__label'>{label}</div>}
+
+      <input
+        className={clsx('input', className)}
+        type={type || 'text'}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        autoFocus={autoFocus}
+      />
+    </div>
   )
 }

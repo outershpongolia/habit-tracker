@@ -7,4 +7,12 @@
   padding: 14px 18px;
   border-radius: 6px;
   width: 100%;
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  &__label {
+    text-transform: capitalize;
+  }
 }

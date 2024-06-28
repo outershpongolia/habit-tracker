@@ -2,17 +2,32 @@
 
 .input {
   border: 0;
+  border-bottom: 2px solid #0000004a;
   outline: 0;
-  font-size: 16px;
-  padding: 14px 18px;
-  border-radius: 6px;
+  font-size: 20px;
+  padding: 4px 2px;
   width: 100%;
+  transition: all 0.6 ease-in;
+  &_active {
+    border-bottom: 2px solid #3498db;
+  }
   &__wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    position: relative;
   }
   &__label {
     text-transform: capitalize;
+    font-size: 20px;
+    position: absolute;
+    top: 8px;
+    left: 0;
+    color: #00000094;
+    transition: all 0.2s ease-in;
+    &_active {
+      color: #3498db;
+      bottom: auto;
+      top: -20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
   }
 }

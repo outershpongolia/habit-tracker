@@ -1,4 +1,4 @@
-import { IDateObject, IMonthObject, ITracker, ISelectorOption, ITable, IAuth } from "./interfaces"
+import { IDateObject, IMonthObject, ITracker, ITable, IAuth } from "./interfaces"
 import { convertDate } from "./utilities"
 
 export enum ERoute {
@@ -27,27 +27,27 @@ export enum ETimeFormat {
   CUSTOM_DATE_RANGE = 'custom-date-range'
 }
 
-export const TIME_FORMAT_OPTIONS: ISelectorOption[] = [
+export const TIME_FORMAT_DATA = [
   {
-    label: 'Week',
-    value: ETimeFormat.WEEK,
+    label: 'week',
+    timeFormat: ETimeFormat.WEEK
   },
   {
-    label: 'Month',
-    value: ETimeFormat.MONTH,
+    label: 'month',
+    timeFormat: ETimeFormat.MONTH
   },
   {
-    label: 'Year',
-    value: ETimeFormat.YEAR,
+    label: 'year',
+    timeFormat: ETimeFormat.YEAR
   },
   {
-    label: 'Custom date range',
-    value: ETimeFormat.CUSTOM_DATE_RANGE,
+    label: 'custom date',
+    timeFormat: ETimeFormat.CUSTOM_DATE_RANGE
   },
 ]
 
 // maybe remove this
-export const DAYS_IN_WEEK: ISelectorOption[] = [
+export const DAYS_IN_WEEK = [
   {
     label: 'Monday',
     value: 1
@@ -89,9 +89,13 @@ export const DEFAULT_DATE_NOW: IDateObject = {
 export const DEFAULT_TRACKER: ITracker = {
   id: '',
   name: '',
+  description: '',
   habits: [],
-  timeFormat: ETimeFormat.WEEK,
-  timeFormatOptions: null
+  timeFormat: null,
+  timeFormatOptions: {
+    startDate: null,
+    endDate: null
+  }
 }
 
 export const MONTH_LIST: IMonthObject[] = [

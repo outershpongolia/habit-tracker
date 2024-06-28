@@ -1,5 +1,12 @@
 .tracker {
-  width: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  &__title {
+    font-size: 32px;
+    line-height: 40px;
+  }
   &__header {
     display: flex;
     width: fit-content;

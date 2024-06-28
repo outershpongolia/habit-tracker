@@ -2,14 +2,14 @@ import React, { useCallback, useContext } from "react"
 import './CreateTracker.scss'
 import { generateStep } from "../../utilities"
 import { Stepper } from "../../components/Stepper/Stepper"
-import { FirstStep } from "./FirstStep/FirstStep"
-import { SecondStep } from "./SecondStep/SecondStep"
+import { GeneralInfoStep } from "./GeneralInfoStep/GeneralInfoStep"
+import { TimeFormatStep } from "./TimeFormatStep/TimeFormatStep"
 import { ThirdStep } from "./ThirdStep/ThirdStep"
 import { TrackerContext } from "../../context/TrackerContext"
-import { FourthStep } from "./FourthStep/FourthStep"
 import { PreviewStep } from "./PreviewStep/PreviewStep"
 import { useNavigate } from "react-router-dom"
 import { ERoute } from "../../constants"
+import { TimeRangeStep } from "./TimeRangeStep/TimeRangeStep"
 
 interface ICreateTrackerProps {}
 
@@ -29,10 +29,10 @@ export const CreateTracker: React.FC<ICreateTrackerProps> = () => {
     <div className="create-tracker">
       <Stepper
         steps={[
-          generateStep('step1', <FirstStep />),
-          generateStep('step2', <SecondStep />),
+          generateStep('General Info', <GeneralInfoStep />),
+          generateStep('Time Format', <TimeFormatStep />),
+          generateStep('Time Range', <TimeRangeStep />),
           generateStep('step3', <ThirdStep />),
-          generateStep('step4', <FourthStep />),
           generateStep('step5', <PreviewStep />),
         ]}
         onSubmitStepper={handleSubmitTracker}

@@ -4,10 +4,15 @@ import DatePicker from 'react-datepicker'
 import { ETimeFormat } from '../../constants'
 
 interface IDateSelectProps {
-  type: ETimeFormat
+  type: ETimeFormat | null
   startDate: Date
   endDate: Date | null
   onChangeDate: (name: string) => (date: Date) => void
+}
+
+export enum EDateLabel {
+  START_DATE = 'startDate',
+  END_DATE = 'endDate'
 }
 
 export const DateSelect: React.FC<IDateSelectProps> = ({
@@ -36,7 +41,7 @@ export const DateSelect: React.FC<IDateSelectProps> = ({
     <div className='date-range'>
       <DatePicker
         selected={startDate}
-        onChange={onChangeDate('startDate')}
+        onChange={onChangeDate(EDateLabel.START_DATE)}
         selectsStart
         startDate={startDate}
         endDate={endDate}
@@ -46,13 +51,14 @@ export const DateSelect: React.FC<IDateSelectProps> = ({
         showWeekNumbers={type === ETimeFormat.WEEK}
         showWeekPicker={type === ETimeFormat.WEEK}
         minDate={new Date()}
+        focusSelectedMonth
         inline
       />
 
       {type !== ETimeFormat.WEEK && (
         <DatePicker
           selected={endDate}
-          onChange={onChangeDate('endDate')}
+          onChange={onChangeDate(EDateLabel.END_DATE)}
           selectsEnd
           startDate={startDate}
           endDate={endDate}

@@ -11,10 +11,16 @@ export interface IApiResponse<T=any> {
   data:         T
   message:      string
 }
+export interface IUser {
+  _id:          string
+  id:           string
+  email:        string
+  name:         string
+}
 
 {/* Date interface */}
 export interface IDateRange {
-  startDate:    IDateObject
+  startDate:    IDateObject | null
   endDate:      IDateObject | null
 }
 export interface IDateObject {
@@ -29,30 +35,11 @@ export interface IMonthObject {
   // TO DO: think of a better ways to get number of days for each month and then this can be removed because
   // {label, value} is already ISelectorOption
 }
-export interface ISelectorOption {
-  label:        string
-  value:        ETimeFormat | number
-}
 
 {/* Form interface */}
 export interface IStep {
   header:       string
   content:      React.ReactNode
-}
-
-export interface ITracker {
-  id:                string
-  name:              string
-  habits:            string[] | []
-  timeFormat:        ETimeFormat
-  timeFormatOptions: IDateRange | null
-}
-
-export interface IUser {
-  _id:          string
-  id:           string
-  email:        string
-  name:         string
 }
 
 {/* Table interface */}
@@ -67,4 +54,14 @@ export interface ITableCell {
 export interface ITable {
   labels:       ITableLabel
   cells:        ITableCell[]
+}
+
+{/* Tracker interface */}
+export interface ITracker {
+  id:                string
+  name:              string
+  description?:      string
+  habits:            string[] | []
+  timeFormat:        ETimeFormat | null
+  timeFormatOptions: IDateRange
 }

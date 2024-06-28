@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo, useState } from "react"
 import './Stepper.scss'
-import { Steps } from "antd"
+import { Popover, Steps, StepsProps } from "antd"
 import { Button } from "../Button/Button"
 import { IStep } from "../../interfaces"
+import { Tracker } from "../Tracker/Tracker"
 
 interface IStepperProps {
   steps: IStep[]
@@ -10,7 +11,7 @@ interface IStepperProps {
   onSubmitStepper: () => void
 }
 
-export const Stepper: React.FC<IStepperProps> = ({ steps, hasError, onSubmitStepper }) => {
+export const Stepper: React.FC<IStepperProps> = ({ steps, hasError, onSubmitStepper }) => {  
   const [currentStep, setCurrentStep] = useState(0)
 
   const handleNextStep = useCallback(() => {
@@ -39,18 +40,25 @@ export const Stepper: React.FC<IStepperProps> = ({ steps, hasError, onSubmitStep
         current={currentStep}
         items={generateItems}
         labelPlacement='vertical'
+        type="inline"
       />
+
+      <div className="stepper__title">
+        {steps[currentStep].header}
+      </div>
 
       <div className="stepper__content">
         {steps[currentStep].content}
       </div>
 
       <div className="stepper__buttons">
-        <Button
-          label='Previous'
-          onClick={handlePrevStep}
-          isDisabled={currentStep === 0}
-        />
+        {currentStep !== 0 &&
+          <Button
+            label='Previous'
+            onClick={handlePrevStep}
+            isDisabled={currentStep === 0}
+          />
+        }
 
         {currentStep === steps.length - 1
           ? <Button

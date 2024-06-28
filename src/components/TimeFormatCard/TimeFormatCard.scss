@@ -1,0 +1,25 @@
+.time-format-card {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 2 / 1;
+  justify-content: center;
+  background-color: #00000049;
+  border-radius: 14px;
+  color: #fff;
+  position: relative;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 500;
+  transition: all 0.18s ease-in-out;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  &_active {
+    background: linear-gradient(-300deg, rgba(26,52,66,1) 36%, rgba(41,62,74,1) 62%);
+    background-color: #00000049;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    scale: 1.01;
+  }
+}

@@ -1,12 +1,9 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useContext } from 'react'
 import './AuthForm.scss'
 import { Input } from '../Input/Input'
 import { Button } from '../Button/Button'
 import { AlertContext } from '../../context/AlertContext'
 import { IAuth } from '../../interfaces'
-import { useNavigate } from 'react-router-dom'
-import { ERoute } from '../../constants'
-
 interface IAuthFormProps {
   inputValue: IAuth
   setInputValue: React.Dispatch<React.SetStateAction<IAuth>>
@@ -18,13 +15,11 @@ interface IAuthFormProps {
 export const AuthForm: React.FC<IAuthFormProps> = ({ inputValue, setInputValue, onClick, isRegister, onNavigate }) => {
   const { setErrorMessage } = useContext(AlertContext)
 
-  const navigate = useNavigate()
-
-  const handleInputOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputOnChange = useCallback((value: string, name: string) => {
     setInputValue(inputValue => {
       return {
         ...inputValue,
-        [e.target.name]: e.target.value
+        [name]: value
       }
     })
 
@@ -36,7 +31,6 @@ export const AuthForm: React.FC<IAuthFormProps> = ({ inputValue, setInputValue, 
       <Input
         value={inputValue.email}
         name='email'
-        placeholder="test@test.com"
         onChange={handleInputOnChange}
         label='email:'
         autoFocus
@@ -51,9 +45,8 @@ export const AuthForm: React.FC<IAuthFormProps> = ({ inputValue, setInputValue, 
 
       {isRegister && (
         <Input
-          value={inputValue.name}
+          value={inputValue.name || ''}
           name='name'
-          placeholder="John Smith"
           onChange={handleInputOnChange}
           label='name:'
         />

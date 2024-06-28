@@ -5,46 +5,71 @@
   flex: 1;
   flex-direction: column;
   margin: 0 auto;
+  width: 100%;
+  &__title {
+    margin: 40px auto 0 auto;
+    font-size: 32px;
+  }
   &__content {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 32px 0px;
+    padding: 0px 0px 24px 0px;
   }
   &__buttons {
     display: flex;
     gap: 24px;
-    justify-content: flex-end;
+    justify-content: center;
   }
 }
-.ant-steps-item-container {
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
+
+.ant-steps {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center;
+  gap: 4px;
+}
+.ant-steps-item {
+  width: fit-content;
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+.ant-steps.ant-steps-inline .ant-steps-item-container {
+  cursor: default;
+  pointer-events: none;
+  transition: 0;
+  padding: 0;
+  &:hover {
+    background-color: transparent;
+  }
+}
+.ant-steps-item-tail {
+  display: none !important;
 }
 .ant-steps-item-content {
   display: none !important;
 }
 .ant-steps-item-icon {
+  width: fit-content !important;
+  margin: 0 !important;
+}
+.ant-steps-icon-dot {
+  height: 12px !important;
+  width: 12px !important;
+  border-radius: 50% !important;
+  border: 1px solid #d1d1d1 !important;
+}
+
+.ant-steps .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
   width: 40px !important;
-  height: 40px !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  margin: 0 !important;
+  background: #00000083;
+  border-radius: 8px !important;
+  border: 0 !important;
 }
-.ant-steps-item-tail {
-  width: 100% !important;
-  margin: 0 !important;
-  position: static !important;
-}
-.ant-steps
-.ant-steps-item-process
-.ant-steps-item-icon {
-  background-color: $primary-color-dark;
-  border: 2px solid $primary-color-dark;
-}
-.ant-steps .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after {
-  background-color: $primary-color-dark;
+
+.ant-steps .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
+  background-color: $primary-color-dark !important;
+  border: 0 !important;
 }

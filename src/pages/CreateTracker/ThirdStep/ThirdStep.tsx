@@ -15,8 +15,8 @@ export const ThirdStep: React.FC<IThirdStepProps> = () => {
 
   const [habit, setHabit] = useState('')
 
-  const handleChangeInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setHabit(e.target.value)
+  const handleChangeInput = useCallback((value: string, name: string) => {
+    setHabit(value)
   }, [])
 
   const handleAddHabit = useCallback(() => {
@@ -63,6 +63,7 @@ export const ThirdStep: React.FC<IThirdStepProps> = () => {
           onChange={handleChangeInput}
           maxLength={10}
           autoFocus
+          label='nesto'
         />
 
         <Button

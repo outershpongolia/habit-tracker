@@ -1,0 +1,7 @@
+.second-step {
+  flex: 1;
+  display: grid;
+	grid-template-columns: repeat(2, 240px);
+	gap: 16px;
+  justify-content: center;
+}

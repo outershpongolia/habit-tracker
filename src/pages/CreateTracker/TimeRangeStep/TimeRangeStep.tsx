@@ -32,7 +32,7 @@ export const TimeRangeStep: React.FC<ITimeRangeStepProps> = ({  }) => {
             ...tracker,
             timeFormatOptions: {
               ...tracker.timeFormatOptions,
-              endDate: ETimeFormat.WEEK ? null : convertDate(date)
+              endDate: ETimeFormat.WEEK === tracker.timeFormat ? null : convertDate(date)
             }
           }
         }

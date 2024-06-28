@@ -51,7 +51,6 @@ export const DateSelect: React.FC<IDateSelectProps> = ({
         showWeekNumbers={type === ETimeFormat.WEEK}
         showWeekPicker={type === ETimeFormat.WEEK}
         minDate={new Date()}
-        focusSelectedMonth
         inline
       />
 

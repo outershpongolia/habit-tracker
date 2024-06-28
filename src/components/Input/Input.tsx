@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './Input.scss'
 import clsx from 'clsx'
 
@@ -28,6 +28,12 @@ export const Input: React.FC<IInputProps> = ({
   const handleOnChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value, e.target.name)
   }, [onChange])
+
+  useEffect(() => {
+    if (value) {
+      setFocus(true)
+    }
+  }, [value])
 
   const handleOnFocus = useCallback(() => {
     setFocus(true)

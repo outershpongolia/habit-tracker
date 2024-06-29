@@ -10,6 +10,7 @@ import { PreviewStep } from "./PreviewStep/PreviewStep"
 import { useNavigate } from "react-router-dom"
 import { ERoute } from "../../constants"
 import { TimeRangeStep } from "./TimeRangeStep/TimeRangeStep"
+import { CreateLegendStep } from "./CreateLegendStep/CreateLegendStep"
 
 interface ICreateTrackerProps {}
 
@@ -32,8 +33,9 @@ export const CreateTracker: React.FC<ICreateTrackerProps> = () => {
           generateStep('General Info', <GeneralInfoStep />),
           generateStep('Time Format', <TimeFormatStep />),
           generateStep('Time Range', <TimeRangeStep />),
-          generateStep('step3', <ThirdStep />),
-          generateStep('step5', <PreviewStep />),
+          generateStep('Habit To Track', <ThirdStep />),
+          generateStep('Create Legend', <CreateLegendStep />),
+          generateStep('Preview', <PreviewStep />),
         ]}
         onSubmitStepper={handleSubmitTracker}
         hasError={false}

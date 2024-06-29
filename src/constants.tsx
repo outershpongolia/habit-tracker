@@ -1,5 +1,4 @@
-import { IDateObject, IMonthObject, ITracker, ITable, IAuth } from "./interfaces"
-import { convertDate } from "./utilities"
+import { ITracker, ITable, IAuth, IMonthObject } from "./interfaces"
 
 export enum ERoute {
   DASHBOARD = '/',
@@ -46,7 +45,6 @@ export const TIME_FORMAT_DATA = [
   },
 ]
 
-// maybe remove this
 export const DAYS_IN_WEEK = [
   {
     label: 'Monday',
@@ -77,14 +75,6 @@ export const DAYS_IN_WEEK = [
     value: 7
   }
 ]
-
-export const CURRENT_DATE: IDateObject = convertDate(new Date())
-
-export const DEFAULT_DATE_NOW: IDateObject = {
-  day: CURRENT_DATE.day,
-  month: CURRENT_DATE.month,
-  year: CURRENT_DATE.year
-}
 
 export const DEFAULT_TRACKER: ITracker = {
   id: '',
@@ -163,8 +153,8 @@ export const MONTH_LIST: IMonthObject[] = [
 
 export const DEFAULT_TABLE_DATA: ITable = {
   labels: {
-    columns: [],
-    rows: []
+    horizontal: [],
+    vertical: []
   },
   cells: []
 }

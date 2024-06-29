@@ -20,13 +20,8 @@ export interface IUser {
 
 {/* Date interface */}
 export interface IDateRange {
-  startDate:    IDateObject | null
-  endDate:      IDateObject | null
-}
-export interface IDateObject {
-  day:          number
-  month:        number
-  year:         number
+  startDate:    Date | number | null
+  endDate:      Date | number | null
 }
 export interface IMonthObject {
   label:        string
@@ -44,11 +39,12 @@ export interface IStep {
 
 {/* Table interface */}
 export interface ITableLabel {
-  columns:      string[] | number[]
-  rows:         string[] | number[]
+  horizontal:      string[]
+  vertical:         string[] | number[]
 }
 export interface ITableCell {
   id:           string
+  date:         Date
   color?:       string
 }
 export interface ITable {

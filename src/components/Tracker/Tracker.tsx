@@ -1,11 +1,12 @@
-import React, { useCallback, useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import './Tracker.scss'
 import { ITable } from "../../interfaces"
-import { TrackerCell } from "./TrackerCell/TrackerCell"
-import { max, uniqueId } from "lodash"
-import { DAYS_IN_WEEK, DEFAULT_TABLE_DATA, ETimeFormat, MONTH_LIST } from "../../constants"
-import { generateTableCells, makeArrayOfNumbers } from "../../utilities"
+import { DAYS_IN_WEEK, DEFAULT_TABLE_DATA, ETimeFormat } from "../../constants"
+import { generateTableCells } from "../../utilities"
 import { TrackerContext } from "../../context/TrackerContext"
+import { addWeeks, eachDayOfInterval, eachMonthOfInterval } from "date-fns"
+import { WeeklyTrackerTable } from "./WeeklyTrackerTable/WeeklyTrackerTable"
+import { MonthlyTrackerTable } from "./MonthlyTrackerTable/MonthlyTrackerTable"
 
 interface ITrackerProps {}
 
@@ -18,33 +19,42 @@ export const Tracker: React.FC<ITrackerProps> = () => {
     setTableData(tableData => {
       if (!tracker) return tableData
 
+      const daysInterval = eachDayOfInterval({
+        start: (tracker.timeFormatOptions.startDate || 0),
+        end: ETimeFormat.WEEK === tracker.timeFormat
+          ? addWeeks((tracker.timeFormatOptions.startDate || 0), 1)
+          : (tracker.timeFormatOptions.endDate || 0)
+      })
+
+      console.log({daysInterval})
+
       switch (tracker.timeFormat) {
         case ETimeFormat.WEEK:
-          const columnDays = DAYS_IN_WEEK.map(day => day.label[0])
+          const columnLabels = daysInterval.map(day => {
+            const dayToString = day.toDateString().slice(0, 3) as string
+            return dayToString
+          })
+
           return {
             labels: {
-              columns: columnDays,
-              rows: tracker.habits
+              horizontal: columnLabels as string[],
+              vertical: tracker.habits
             },
-            cells: generateTableCells(DAYS_IN_WEEK.map(day => day.value) as number[])
+            cells: generateTableCells(daysInterval)
           }
 
         case ETimeFormat.MONTH || ETimeFormat.CUSTOM_DATE_RANGE:
-          const months = MONTH_LIST.filter(month =>
-            tracker.timeFormatOptions
-            // && (month.value >= tracker.timeFormatOptions.startDate.month)
-            && tracker.timeFormatOptions.endDate
-            && (month.value <= tracker.timeFormatOptions.endDate.month)
-          )
-          const maxColumns = max(months.map(month => month.numberOfDays))
-          const columns = makeArrayOfNumbers(maxColumns || 31)
+          const monthColumnLabels = eachMonthOfInterval({
+            start: (tracker.timeFormatOptions.startDate || 0),
+            end: (tracker.timeFormatOptions.endDate || 0)
+          }).map(x => x.toDateString().slice(3, 7))
 
           return {
             labels: {
-              columns: columns,
-              rows: months.map(month => month.label)
+              horizontal: monthColumnLabels as unknown as string[],
+              vertical: DAYS_IN_WEEK.map(day => day.label.slice(0, 3))
             },
-            cells: generateTableCells(columns)
+            cells: generateTableCells(daysInterval)
           }
 
         default:
@@ -53,61 +63,21 @@ export const Tracker: React.FC<ITrackerProps> = () => {
     })
   }, [tracker])
 
-  const handleEditCell = useCallback((id: string) => {
-    // TO DO: functionality for cells
-    console.log({id})
-  }, [])
-
-  if (!tableData) return <></>
+  // const handleEditCell = useCallback((id: string) => {
+  //   // TO DO: functionality for cells
+  //   console.log({id})
+  // }, [])
 
   return (
     <div className="tracker">
       <div className="tracker__title">
-        {tracker.name ? tracker.name : 'Tracker Title'}
+        {tracker.name}
       </div>
 
-      <table>
-        <thead className="tracker__header">
-          {/* this is the first row of table - numbers of days */}
-          <tr className="tracker__row">
-            <TrackerCell className="tracker__row-label" />
-            {tableData.labels.columns.map(col => {
-              // days label horizontal
-              return (
-                <TrackerCell
-                  key={uniqueId(col.toString())}
-                  label={col.toString()}
-                />
-              )
-            })}
-          </tr>
-        </thead>
-
-        <tbody className="tracker__body">
-          {tableData.labels.rows.map(row => {
-            return (
-              <tr
-                key={uniqueId(row.toString())}
-                className="tracker__row"
-              >
-                {/* months label vertical */}
-                <TrackerCell className="tracker__row-label" label={row.toString()} />
-
-                {tableData.cells.map(cell => {
-                  // functional cells
-                  return (
-                    <TrackerCell
-                      key={cell.id}
-                      id={cell.id}
-                      onClick={handleEditCell}
-                    />
-                  )
-                })}
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+      {tracker?.timeFormat === ETimeFormat.WEEK
+        ? <WeeklyTrackerTable tableData={tableData} />
+        : <MonthlyTrackerTable tableData={tableData} />
+      }
     </div>
   )
 }

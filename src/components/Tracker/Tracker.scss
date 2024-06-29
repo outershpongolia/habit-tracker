@@ -7,23 +7,15 @@
     font-size: 32px;
     line-height: 40px;
   }
-  &__header {
+  &__horizontal {
     display: flex;
-    width: fit-content;
+    margin-bottom: 2px;
+    gap: 2px;
+    width: 100%;
   }
   &__body {
     display: flex;
     flex-direction: column;
     width: fit-content;
-  }
-  &__row {
-    display: flex;
-    width: fit-content;
-    margin-bottom: 2px;
-    gap: 2px;
-  }
-  &__row-label {
-    width: 80px !important;
-    margin-right: auto;
   }
 }

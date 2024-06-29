@@ -52,7 +52,7 @@ export const ThirdStep: React.FC<IThirdStepProps> = () => {
   return (
     <div className="third-step">
       <div className="third-step__title">
-        What habit do you want to track?
+        What habit would you like to track?
       </div>
 
       <div className="third-step__input-wrapper">

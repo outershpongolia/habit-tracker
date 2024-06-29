@@ -1,0 +1,16 @@
+.monthly-tracker-table {
+  &__body {
+    flex-direction: row;
+  }
+  &__column {
+    flex-direction: column;
+    margin-right: 2px;
+    gap: 2px;
+    width: fit-content;
+  }
+  &__cell {
+    border: 0;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+}

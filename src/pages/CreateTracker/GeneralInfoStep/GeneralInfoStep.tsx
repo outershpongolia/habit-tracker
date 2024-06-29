@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from "react"
+import React, { useCallback, useContext } from "react"
 import './GeneralInfoStep.scss'
 import { Input } from "../../../components/Input/Input"
 import { TrackerContext } from "../../../context/TrackerContext"

@@ -6,13 +6,14 @@ import { CustomDropdown } from "../../CustomDropdown/CustomDropdown"
 
 interface ITrackerCellProps {
   id?: string
+  date?: Date
   label?: string
-  color?: string
   onClick?: (id: string) => void
   className?: string
+  width?: number | string
 }
 
-export const TrackerCell: React.FC<ITrackerCellProps> = ({ id, label, color, onClick, className }) => {
+export const TrackerCell: React.FC<ITrackerCellProps> = ({ id, date, label, onClick, className, width }) => {
   const [ cellColor, setCellColor ] = useState('')
 
   const handleOnClick = useCallback(() => {
@@ -54,10 +55,12 @@ export const TrackerCell: React.FC<ITrackerCellProps> = ({ id, label, color, onC
       className="tracker-cell__wrapper"
       items={generateDropdownItems}
       disabled={!id}
+      width={label && width}
     >
       <div
         className={clsx("tracker-cell",
           id && "tracker-cell_clickable",
+          label && "tracker-cell_label",
           className
         )}
         id={id}

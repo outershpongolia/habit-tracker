@@ -1,7 +1,6 @@
 import { ReactNode } from "react"
-import { max } from "lodash"
-import { EStatus, MONTH_LIST } from "./constants"
-import { IApiResponse, IDateObject, IStep, ITableCell, ITableLabel } from "./interfaces"
+import { EStatus } from "./constants"
+import { IApiResponse, IStep, ITableCell } from "./interfaces"
 import { v4 } from "uuid"
 
 export function checkCodeStatus<T=any>(
@@ -20,15 +19,6 @@ export function checkCodeStatus<T=any>(
   }
 }
 
-/* convert date from type Date to number object day-month-year */
-export const convertDate = (date: Date): IDateObject => {
-  const day = date.getUTCDate()
-  const month = date.getUTCMonth() + 1
-  const year = date.getUTCFullYear()
-
-  return { day, month, year }
-}
-
 /* generate array of numbers from zero or one to n number */
 export const makeArrayOfNumbers = (n: number, zeroAllowed?: boolean) => {
   return zeroAllowed
@@ -36,25 +26,13 @@ export const makeArrayOfNumbers = (n: number, zeroAllowed?: boolean) => {
     : Array.from(Array(n + 1).keys()).filter(x => x !== 0)
 }
 
-/* generate labels for table rows and cols */
-export const generateLabelsForTable = (startMonth: number, endMonth: number): ITableLabel => {
-  const months = MONTH_LIST.filter(month => (month.value >= startMonth) && (month.value <= endMonth))
-
-  const maxColumns = max(months.map(month => month.numberOfDays))
-  const columns = makeArrayOfNumbers(maxColumns || 31)
-
-  return {
-    columns: columns,
-    rows: months.map(month => month.label)
-  }
-}
-
 /* generate table cells, for each to contain id */
-export const generateTableCells = (columns: number[]): ITableCell[] => {
-  return columns.map(() => {
+export const generateTableCells = (arrayOfDates: Date[]): ITableCell[] => {
+  return arrayOfDates.map(date => {
     return {
       id: v4(),
-      color: ''
+      date: date,
+      color: '',
     }
   })
 }

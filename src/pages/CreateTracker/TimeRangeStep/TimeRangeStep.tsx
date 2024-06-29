@@ -2,7 +2,6 @@ import React, { useCallback, useContext, useState } from "react"
 import './TimeRangeStep.scss'
 import { DateSelect, EDateLabel } from "../../../components/DateSelect/DateSelect"
 import { TrackerContext } from "../../../context/TrackerContext"
-import { convertDate } from "../../../utilities"
 import { ETimeFormat } from "../../../constants";
 
 interface ITimeRangeStepProps {}
@@ -22,7 +21,7 @@ export const TimeRangeStep: React.FC<ITimeRangeStepProps> = ({  }) => {
             ...tracker,
             timeFormatOptions: {
               ...tracker.timeFormatOptions,
-              startDate: convertDate(date),
+              startDate: date,
             }
           }
         }
@@ -32,7 +31,7 @@ export const TimeRangeStep: React.FC<ITimeRangeStepProps> = ({  }) => {
             ...tracker,
             timeFormatOptions: {
               ...tracker.timeFormatOptions,
-              endDate: ETimeFormat.WEEK === tracker.timeFormat ? null : convertDate(date)
+              endDate: ETimeFormat.WEEK === tracker.timeFormat ? null : date
             }
           }
         }

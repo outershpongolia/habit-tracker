@@ -1,0 +1,32 @@
+.list {
+  width: 100%;
+  max-width: 560px;
+  &__header {
+    padding: 14px 0px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 32px;
+    border-bottom: 2px solid #00000050;
+    text-transform: capitalize;
+  }
+  &__items {
+    padding: 14px 0px;
+    min-height: 62px;
+  }
+  &__button {
+    margin-bottom: 14px;
+  }
+}
+
+.list-popup__title {
+  font-size: 24px;
+}
+.list-popup__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.list-popup__button {
+  min-width: 160px;
+}

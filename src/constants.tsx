@@ -1,4 +1,5 @@
-import { ITracker, ITable, IAuth, IMonthObject } from "./interfaces"
+import { v4 } from "uuid"
+import { ITracker, ITable, IAuth, ILegendOptions } from "./interfaces"
 
 export enum ERoute {
   DASHBOARD = '/',
@@ -77,7 +78,7 @@ export const DAYS_IN_WEEK = [
 ]
 
 export const DEFAULT_TRACKER: ITracker = {
-  id: '',
+  id: v4(),
   name: '',
   description: '',
   habits: [],
@@ -85,69 +86,25 @@ export const DEFAULT_TRACKER: ITracker = {
   timeFormatOptions: {
     startDate: null,
     endDate: null
+  },
+  legend: {
+    selectedLegend: [],
+    customLegend: []
   }
 }
 
-export const MONTH_LIST: IMonthObject[] = [
+export const PREDEFINED_LEGEND_ARRAY: ILegendOptions[] = [
   {
-    label: "January",
-    value: 1,
-    numberOfDays: 31
+    id: v4(),
+    status: 'completed',
+    color: '#BEDB39',
+    predefined: true
   },
   {
-    label: "February",
-    value: 2,
-    numberOfDays: 28
-  },
-  {
-    label: "March",
-    value: 3,
-    numberOfDays: 31
-  },
-  {
-    label: "April",
-    value: 4,
-    numberOfDays: 30
-  },
-  {
-    label: "May",
-    value: 5,
-    numberOfDays: 31
-  },
-  {
-    label: "June",
-    value: 6,
-    numberOfDays: 30
-  },
-  {
-    label: "July",
-    value: 7,
-    numberOfDays: 31
-  },
-  {
-    label: "August",
-    value: 8,
-    numberOfDays: 31
-  },
-  {
-    label: "September",
-    value: 9,
-    numberOfDays: 30
-  },
-  {
-    label: "October",
-    value: 10,
-    numberOfDays: 31
-  },
-  {
-    label: "November",
-    value: 11,
-    numberOfDays: 30
-  },
-  {
-    label: "December",
-    value: 12,
-    numberOfDays: 31
+    id: v4(),
+    status: 'incomplete',
+    color: '#00A388',
+    predefined: true
   }
 ]
 

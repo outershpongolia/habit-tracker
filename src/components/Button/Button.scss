@@ -13,11 +13,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 4px;
   color: #fff;
   border: 0;
+  &_secondary {
+    background-color: transparent;
+    border: 2px solid #00000083;
+    color: #2c404c;
+  }
   &:disabled {
     pointer-events: none;
     cursor: not-allowed;
     opacity: 0.5;
   }
+}
+
+.button-icon {
+  font-size: 18px;
 }

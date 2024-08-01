@@ -1,5 +1,6 @@
 import { EStatus, ETimeFormat } from "./constants"
 
+{/* Config interface */}
 export interface IAuth {
   email:        string
   password:     string
@@ -28,7 +29,6 @@ export interface IMonthObject {
   value:        number
   numberOfDays: number
   // TO DO: think of a better ways to get number of days for each month and then this can be removed because
-  // {label, value} is already ISelectorOption
 }
 
 {/* Form interface */}
@@ -60,4 +60,15 @@ export interface ITracker {
   habits:            string[] | []
   timeFormat:        ETimeFormat | null
   timeFormatOptions: IDateRange
+  legend:            ILegend
+}
+export interface ILegend {
+  selectedLegend: ILegendOptions[]
+  customLegend: ILegendOptions[]
+}
+export interface ILegendOptions {
+  id:                  string
+  status:              string
+  color:               string
+  predefined?:         boolean
 }

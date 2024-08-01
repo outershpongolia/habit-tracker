@@ -1,9 +1,8 @@
 import React, { useCallback, useMemo, useState } from "react"
 import './Stepper.scss'
-import { Popover, Steps, StepsProps } from "antd"
+import { Steps } from "antd"
 import { Button } from "../Button/Button"
 import { IStep } from "../../interfaces"
-import { Tracker } from "../Tracker/Tracker"
 
 interface IStepperProps {
   steps: IStep[]

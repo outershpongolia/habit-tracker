@@ -1,17 +1,20 @@
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react"
 import './Stepper.scss'
 import { Steps } from "antd"
 import { Button } from "../Button/Button"
 import { IStep } from "../../interfaces"
+import { TrackerContext } from "../../context/TrackerContext"
 
 interface IStepperProps {
   steps: IStep[]
-  hasError: boolean
   onSubmitStepper: () => void
 }
 
-export const Stepper: React.FC<IStepperProps> = ({ steps, hasError, onSubmitStepper }) => {  
+export const Stepper: React.FC<IStepperProps> = ({ steps, onSubmitStepper }) => {  
+  const {tracker} = useContext(TrackerContext)
+
   const [currentStep, setCurrentStep] = useState(0)
+  const [hasError, setHasError] = useState(false)
 
   const handleNextStep = useCallback(() => {
     setCurrentStep(currentStep => {
@@ -32,6 +35,23 @@ export const Stepper: React.FC<IStepperProps> = ({ steps, hasError, onSubmitStep
   const generateItems = useMemo(() => {
     return steps.map(step => ({ key: step.header, title: step.header }))
   }, [steps])
+
+  useEffect(() => {
+    switch (currentStep) {
+      case 0:
+        return setHasError(!tracker.name)
+      case 1:
+        return setHasError(!tracker.timeFormat)
+      case 2:
+        return setHasError(!tracker.timeFormatOptions.startDate && !tracker.timeFormatOptions.endDate)
+      case 3:
+        return setHasError(tracker.habits.length === 0)
+      case 4:
+        return setHasError(tracker.legend.selectedLegend.length === 0)
+      default:
+        return setHasError(false)
+    }
+  }, [currentStep, tracker])
 
   return (
     <div className="stepper">
@@ -55,7 +75,6 @@ export const Stepper: React.FC<IStepperProps> = ({ steps, hasError, onSubmitStep
           <Button
             label='Previous'
             onClick={handlePrevStep}
-            isDisabled={currentStep === 0}
           />
         }
 

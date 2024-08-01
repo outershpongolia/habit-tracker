@@ -1,12 +1,12 @@
 import React, { useCallback, useContext } from 'react'
-import './CreateLegendStep.scss'
+import './LegendStep.scss'
 import { EListType, List } from '../../../components/List/List'
 import { Color } from 'antd/es/color-picker';
 import { TrackerContext } from '../../../context/TrackerContext';
 
-interface ICreateLegendStepProps {}
+interface ILegendStepProps {}
 
-export const CreateLegendStep: React.FC<ICreateLegendStepProps> = () => {
+export const LegendStep: React.FC<ILegendStepProps> = () => {
   const { tracker, predefinedLegend } = useContext(TrackerContext)
 
   const handleChangeColor = useCallback((value: Color, hex: string) => {

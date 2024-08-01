@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from "react"
-import './ThirdStep.scss'
+import './HabitListStep.scss'
 import { TrackerContext } from "../../../context/TrackerContext"
 import { Input } from "../../../components/Input/Input"
 import { Button } from "../../../components/Button/Button"
@@ -7,9 +7,9 @@ import { Tag } from "../../../components/Tag/Tag"
 import { EStatus, ETimeFormat } from "../../../constants"
 import { AlertContext } from "../../../context/AlertContext"
 
-interface IThirdStepProps {}
+interface IHabitListStepProps {}
 
-export const ThirdStep: React.FC<IThirdStepProps> = () => {
+export const HabitListStep: React.FC<IHabitListStepProps> = () => {
   const {tracker, setTracker} = useContext(TrackerContext)
   const {handleToast} = useContext(AlertContext)
 

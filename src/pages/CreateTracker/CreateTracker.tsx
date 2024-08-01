@@ -11,20 +11,24 @@ import { useNavigate } from "react-router-dom"
 import { ERoute } from "../../constants"
 import { TimeRangeStep } from "./TimeRangeStep/TimeRangeStep"
 import { LegendStep } from "./LegendStep/LegendStep"
+import { addNewTracker } from "../../api/users"
+import { UserContext } from "../../context/UserContext"
 
 interface ICreateTrackerProps {}
 
 export const CreateTracker: React.FC<ICreateTrackerProps> = () => {
+  const {user} = useContext(UserContext)
   const {tracker} = useContext(TrackerContext)
 
   const navigate = useNavigate()
 
   const handleSubmitTracker = useCallback(() => {
-    // TO DO: throw some api call and a toast for success
-    // e.g. update user trackers database with new <tracker>
-    console.log("Final: ", {tracker})
+    if (!user) return
+    
+    addNewTracker({...tracker, userId: user?.id})
+
     navigate(ERoute.DASHBOARD)
-  }, [tracker, navigate])
+  }, [navigate, user, tracker])
 
   return (
     <div className="create-tracker">

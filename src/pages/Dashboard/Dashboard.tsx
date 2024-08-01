@@ -1,21 +1,24 @@
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import './Dashboard.scss'
 import { Button } from '../../components/Button/Button'
 import { useNavigate } from 'react-router-dom'
-import { ERoute } from '../../constants'
-import { UserContext } from '../../context/UserContext'
+import { DEFAULT_TRACKER, ERoute } from '../../constants'
+import { TrackerContext } from '../../context/TrackerContext'
 
 interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
-  const { user } = useContext(UserContext)
+  const {setTracker} = useContext(TrackerContext)
+
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setTracker(DEFAULT_TRACKER)
+  }, [setTracker])
 
   const handleNavigateToPage = useCallback(() => {
     navigate(ERoute.CREATE_TRACKER)
   }, [navigate])
-
-  console.log({user})
 
   return (
     <div className='dashboard'>

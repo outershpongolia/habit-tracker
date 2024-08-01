@@ -6,7 +6,6 @@ import { generateTableCells } from "../../utilities"
 import { TrackerContext } from "../../context/TrackerContext"
 import { addWeeks, eachDayOfInterval, eachMonthOfInterval } from "date-fns"
 import { WeeklyTrackerTable } from "./WeeklyTrackerTable/WeeklyTrackerTable"
-import { MonthlyTrackerTable } from "./MonthlyTrackerTable/MonthlyTrackerTable"
 
 interface ITrackerProps {}
 
@@ -25,8 +24,6 @@ export const Tracker: React.FC<ITrackerProps> = () => {
           ? addWeeks((tracker.timeFormatOptions.startDate || 0), 1)
           : (tracker.timeFormatOptions.endDate || 0)
       })
-
-      console.log({daysInterval})
 
       switch (tracker.timeFormat) {
         case ETimeFormat.WEEK:
@@ -76,7 +73,8 @@ export const Tracker: React.FC<ITrackerProps> = () => {
 
       {tracker?.timeFormat === ETimeFormat.WEEK
         ? <WeeklyTrackerTable tableData={tableData} />
-        : <MonthlyTrackerTable tableData={tableData} />
+        // : <MonthlyTrackerTable tableData={tableData} />
+        : <></>
       }
     </div>
   )

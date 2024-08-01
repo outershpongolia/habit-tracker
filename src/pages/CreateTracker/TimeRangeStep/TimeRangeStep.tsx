@@ -6,7 +6,7 @@ import { ETimeFormat } from "../../../constants";
 
 interface ITimeRangeStepProps {}
 
-export const TimeRangeStep: React.FC<ITimeRangeStepProps> = ({  }) => {
+export const TimeRangeStep: React.FC<ITimeRangeStepProps> = () => {
   const {tracker, setTracker} = useContext(TrackerContext)
 
   const [dateRange, setDateRange] = useState<{startDate: Date, endDate?: Date}>({
@@ -40,8 +40,6 @@ export const TimeRangeStep: React.FC<ITimeRangeStepProps> = ({  }) => {
       })
     }
   }, [setTracker])
-
-  console.log({tracker})
 
   return (
     <div className="time-range-step">

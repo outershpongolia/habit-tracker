@@ -17,6 +17,7 @@ export interface IUser {
   id:           string
   email:        string
   name:         string
+  trackers:     ITracker[]
 }
 
 {/* Date interface */}
@@ -55,6 +56,7 @@ export interface ITable {
 {/* Tracker interface */}
 export interface ITracker {
   id:                string
+  userId:            string
   name:              string
   description?:      string
   habits:            string[] | []

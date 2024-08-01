@@ -79,6 +79,7 @@ export const DAYS_IN_WEEK = [
 
 export const DEFAULT_TRACKER: ITracker = {
   id: v4(),
+  userId: '',
   name: '',
   description: '',
   habits: [],

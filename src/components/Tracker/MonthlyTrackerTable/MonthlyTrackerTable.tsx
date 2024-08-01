@@ -46,7 +46,13 @@ export const MonthlyTrackerTable: React.FC<IMonthlyTrackerTableProps> = ({ table
           className="tracker__horizontal monthly-tracker-table__column"
         >
           {tableData.labels.vertical.map(x => {
-            return <TrackerCell className="monthly-tracker-table__cell" label={x.toString()} />
+            return (
+              <TrackerCell
+                className="monthly-tracker-table__cell"
+                key={uniqueId(x.toString())}
+                label={x.toString()}
+              />
+            )
           })}
         </tr>
 

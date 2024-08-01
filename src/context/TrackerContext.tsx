@@ -21,8 +21,6 @@ export const TrackerContextProvider: React.FC<PropsWithChildren> = ({ children }
   const [tracker, setTracker] = useState<ITracker>(DEFAULT_TRACKER)
   const [predefinedLegend, setPredefinedLegend] = useState<ILegendOptions[]>(PREDEFINED_LEGEND_ARRAY)
 
-  console.log({tracker})
-
   return (
     <TrackerContext.Provider
       value={{

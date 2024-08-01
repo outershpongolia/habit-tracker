@@ -1,23 +1,33 @@
-import { IAuth } from "../interfaces"
+import { IAuth, ITracker } from "../interfaces"
 
 export const login = (auth: IAuth) => {
-    return fetch(`${process.env.REACT_APP_BASE_URL}/auth/login/`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(auth),
-        credentials: 'include'
-    }).then(async res => {
-        return res.json()
-    })
+  return fetch(`${process.env.REACT_APP_BASE_URL}/auth/login/`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(auth),
+    credentials: 'include'
+  }).then(async res => {
+    return res.json()
+  })
 }
 
 export const register = (auth: IAuth) => {
   return fetch(`${process.env.REACT_APP_BASE_URL}/auth/register/`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(auth)
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(auth)
   }).then(async res => {
-      return res.json()
+    return res.json()
+  })
+}
+
+export const addNewTracker = (tracker: ITracker) => {
+  return fetch(`${process.env.REACT_APP_BASE_URL}/tracker/add/`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({...tracker})
+  }).then(async res => {
+    return res.json()
   })
 }
 

@@ -1,31 +1,38 @@
 import React, { PropsWithChildren, createContext, useState } from "react"
-import { ILegendOptions, ITracker } from "../interfaces"
+import { ILegend, ITracker } from "../interfaces"
 import { DEFAULT_TRACKER, PREDEFINED_LEGEND_ARRAY } from "../constants"
 import { noop } from "lodash"
 
 interface ITrackerContextProps {
-  tracker: ITracker
-  setTracker: React.Dispatch<React.SetStateAction<ITracker>>
-  predefinedLegend: ILegendOptions[]
-  setPredefinedLegend: React.Dispatch<React.SetStateAction<ILegendOptions[]>>
+  trackersArray: ITracker[]
+  setTrackersArray: React.Dispatch<React.SetStateAction<ITracker[]>>
+  currentTracker: ITracker
+  setCurrentTracker: React.Dispatch<React.SetStateAction<ITracker>>
+  predefinedLegend: ILegend[]
+  setPredefinedLegend: React.Dispatch<React.SetStateAction<ILegend[]>>
 }
 
 export const TrackerContext = createContext<ITrackerContextProps>({
-  tracker: DEFAULT_TRACKER,
-  setTracker: noop,
+  trackersArray: [],
+  setTrackersArray: noop,
+  currentTracker: DEFAULT_TRACKER,
+  setCurrentTracker: noop,
   predefinedLegend: PREDEFINED_LEGEND_ARRAY,
   setPredefinedLegend: noop
 })
 
 export const TrackerContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [tracker, setTracker] = useState<ITracker>(DEFAULT_TRACKER)
-  const [predefinedLegend, setPredefinedLegend] = useState<ILegendOptions[]>(PREDEFINED_LEGEND_ARRAY)
+  const [trackersArray, setTrackersArray] = useState<ITracker[]>([])
+  const [currentTracker, setCurrentTracker] = useState<ITracker>(DEFAULT_TRACKER)
+  const [predefinedLegend, setPredefinedLegend] = useState<ILegend[]>(PREDEFINED_LEGEND_ARRAY)
 
   return (
     <TrackerContext.Provider
       value={{
-        tracker,
-        setTracker,
+        trackersArray,
+        setTrackersArray,
+        currentTracker,
+        setCurrentTracker,
         predefinedLegend,
         setPredefinedLegend
       }}

@@ -7,7 +7,7 @@ import { ETimeFormat } from "../../../constants";
 interface ITimeRangeStepProps {}
 
 export const TimeRangeStep: React.FC<ITimeRangeStepProps> = () => {
-  const {tracker, setTracker} = useContext(TrackerContext)
+  const {currentTracker, setCurrentTracker} = useContext(TrackerContext)
 
   const [dateRange, setDateRange] = useState<{startDate: Date, endDate?: Date}>({
     startDate: new Date()
@@ -15,7 +15,7 @@ export const TimeRangeStep: React.FC<ITimeRangeStepProps> = () => {
 
   const handleChangeDate = useCallback((name: string) => {
     return (date: Date) => {
-      setTracker(tracker => {
+      setCurrentTracker(tracker => {
         if (name === EDateLabel.START_DATE) {
           return {
             ...tracker,
@@ -39,13 +39,13 @@ export const TimeRangeStep: React.FC<ITimeRangeStepProps> = () => {
         return tracker
       })
     }
-  }, [setTracker])
+  }, [setCurrentTracker])
 
   return (
     <div className="time-range-step">
       <div className="second-step__section">
         <DateSelect
-          type={tracker?.timeFormat}
+          type={currentTracker?.timeFormat}
           startDate={dateRange.startDate}
           endDate={dateRange.endDate || null}
           onChangeDate={handleChangeDate}

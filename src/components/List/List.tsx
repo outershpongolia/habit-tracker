@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useState } from "react"
 import './List.scss'
-import { ILegendOptions } from "../../interfaces"
 import { ListItem } from "./ListItem/ListItem"
 import { Color } from "antd/es/color-picker"
 import { Button } from "../Button/Button"
@@ -9,10 +8,11 @@ import { Input } from "../Input/Input"
 import { TrackerContext } from "../../context/TrackerContext"
 import { v4 } from "uuid"
 import { FiPlus } from "react-icons/fi";
+import { ILegend } from "../../interfaces"
 
 interface IListProps {
   title: string
-  items: ILegendOptions[]
+  items: ILegend[]
   type: EListType
   onChange?: (value: Color, hex: string) => void
 }
@@ -24,13 +24,15 @@ export enum EListType {
 }
 
 export const List: React.FC<IListProps> = ({ title, items, type, onChange }) => {
-  const { setTracker, setPredefinedLegend } = useContext(TrackerContext)
+  const { setCurrentTracker, setPredefinedLegend } = useContext(TrackerContext)
 
   const [ isPopupOpened, setIsPopupOpened ] = useState(false)
-  const [ customOption, setCustomOption ] = useState<ILegendOptions>({
+  const [ customOption, setCustomOption ] = useState<ILegend>({
     id: '',
     status: '',
-    color: ''
+    color: '',
+    selected: false,
+    predefined: false
   })
 
   const handleOpenPopup = useCallback(() => {
@@ -51,97 +53,97 @@ export const List: React.FC<IListProps> = ({ title, items, type, onChange }) => 
   }, [])
 
   const handleAddCustomOption = useCallback(() => {
-    setTracker(tracker => {
+    setCurrentTracker(tracker => {
      return {
       ...tracker,
-      legend: {
+      legend: [
         ...tracker.legend,
-        customLegend: [
-          ...tracker.legend.customLegend,
-          {
-            ...customOption,
-            id: v4()
-          }
-        ]
-      }
-     } 
+        {
+          ...customOption,
+          id: v4()
+        }
+      ]
+     }
     })
 
     setIsPopupOpened(false)
     setCustomOption({
       id: '',
       status: '',
-      color: ''
+      color: '',
+      selected: false,
+      predefined: false
     })
-  }, [setTracker, customOption])
+  }, [setCurrentTracker, customOption])
 
   const handleDeleteCustomOption = useCallback((id: string, type: EListType) => {
     const targetSelectedOption = items.find(x => x.id === id)
 
-    setTracker(tracker => {
-      if (type === EListType.CUSTOM) {
+    if (!targetSelectedOption) return
+
+    setCurrentTracker(tracker => {
+      if (!targetSelectedOption.selected && !targetSelectedOption.predefined) {
         return {
           ...tracker,
-          legend: {
-            ...tracker.legend,
-            customLegend: tracker.legend.customLegend.filter(x => x.id !== id)
-          }
+          legend: tracker.legend.filter(x => x.id !== id)
         }
       }
 
-      if (targetSelectedOption) {
-        return {
-          ...tracker,
-          legend: {
-              ...tracker.legend,
-              selectedLegend: tracker.legend.selectedLegend.filter(x => x.id !== id),
-              customLegend: targetSelectedOption.predefined
-              ? tracker.legend.customLegend
-              : [
-                ...tracker.legend.customLegend,
-                targetSelectedOption
-              ]
-            }
-        }
+      return {
+        ...tracker,
+        legend: targetSelectedOption.predefined
+          ? tracker.legend.filter(x => x.id !== targetSelectedOption.id)
+          : tracker.legend.map(x => x.id === targetSelectedOption.id ? {...x, selected: false} : x)
       }
-
-      return tracker
     })
 
-    if (type === EListType.SELECTED) {
-      if (targetSelectedOption && targetSelectedOption.predefined) {
-        setPredefinedLegend(predefinedLegend => {
-          return [
-            ...predefinedLegend,
-            targetSelectedOption
-          ]
-        })
-      }
+    if (targetSelectedOption.selected && targetSelectedOption.predefined) {
+      setPredefinedLegend(predefinedLegend => [...predefinedLegend, targetSelectedOption])
     }
-  }, [setTracker, setPredefinedLegend, items])
+  }, [setCurrentTracker, setPredefinedLegend, items])
 
   const handleSelectCurrentOption = useCallback((id: string) => {
     const targetLegendOption = items.find(x => x.id === id)
 
     if (!targetLegendOption) return
 
-    setTracker(tracker => {
-      return {
-        ...tracker,
-        legend: {
-          ...tracker.legend,
-          selectedLegend: [
-            ...tracker.legend.selectedLegend, targetLegendOption
-          ],
-          customLegend: tracker.legend.customLegend.filter(x => x.id !== id)
+    setCurrentTracker(tracker => {
+      if (targetLegendOption.predefined) {
+        return {
+          ...tracker,
+          legend: [
+            ...tracker.legend,
+            {
+              ...targetLegendOption,
+              selected: true
+            }
+          ]
         }
       }
+      
+      if (!targetLegendOption.predefined && !targetLegendOption.selected){
+        return {
+          ...tracker,
+          legend: tracker.legend.map(x => x.id === targetLegendOption.id ? {...x, selected: true} : x)
+        }
+      }
+
+      return tracker
     })
 
     if (targetLegendOption.predefined) {
       setPredefinedLegend(predefinedLegend => predefinedLegend.filter(x => x.id !== id))
     }
-  }, [setTracker, setPredefinedLegend, items])
+  }, [setCurrentTracker, setPredefinedLegend, items])
+
+  const handleChangeColor = useCallback((hex: string, id: string) => {
+    setCurrentTracker(tracker => {
+      return {
+        ...tracker,
+        legend: tracker.legend.map(x => x.id === id ? {...x, color: hex} : x)
+      }
+    })
+  }, [setCurrentTracker])
 
   return (
     <div className="list">
@@ -168,7 +170,7 @@ export const List: React.FC<IListProps> = ({ title, items, type, onChange }) => 
               status={item.status}
               color={item.color}
               type={type}
-              onChange={onChange}
+              handleChangeColor={handleChangeColor}
               handleRemoveOption={handleDeleteCustomOption}
               handleSelectOption={handleSelectCurrentOption}
             />

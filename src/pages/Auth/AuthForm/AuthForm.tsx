@@ -1,9 +1,9 @@
 import React, { useCallback, useContext } from 'react'
 import './AuthForm.scss'
-import { Input } from '../Input/Input'
-import { Button } from '../Button/Button'
-import { AlertContext } from '../../context/AlertContext'
-import { IAuth } from '../../interfaces'
+import { Input } from '../../../components/Input/Input'
+import { Button } from '../../../components/Button/Button'
+import { AlertContext } from '../../../context/AlertContext'
+import { IAuth } from '../../../interfaces'
 interface IAuthFormProps {
   inputValue: IAuth
   setInputValue: React.Dispatch<React.SetStateAction<IAuth>>

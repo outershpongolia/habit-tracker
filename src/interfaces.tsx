@@ -62,15 +62,18 @@ export interface ITracker {
   habits:            string[] | []
   timeFormat:        ETimeFormat | null
   timeFormatOptions: IDateRange
-  legend:            ILegend
+  legend:            ILegend[]
+  timeData:          ITimeData[] | null
 }
 export interface ILegend {
-  selectedLegend: ILegendOptions[]
-  customLegend: ILegendOptions[]
-}
-export interface ILegendOptions {
   id:                  string
   status:              string
   color:               string
+  selected:            boolean
   predefined?:         boolean
+}
+export interface ITimeData {
+  status:              string
+  color:               string
+  date:                number
 }

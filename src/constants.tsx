@@ -1,5 +1,5 @@
 import { v4 } from "uuid"
-import { ITracker, ITable, IAuth, ILegendOptions } from "./interfaces"
+import { ITracker, IAuth, ILegend } from "./interfaces"
 
 export enum ERoute {
   DASHBOARD = '/',
@@ -88,31 +88,31 @@ export const DEFAULT_TRACKER: ITracker = {
     startDate: null,
     endDate: null
   },
-  legend: {
-    selectedLegend: [],
-    customLegend: []
-  }
+  legend: [],
+  timeData: null
 }
 
-export const PREDEFINED_LEGEND_ARRAY: ILegendOptions[] = [
+export const PREDEFINED_LEGEND_ARRAY: ILegend[] = [
   {
     id: v4(),
     status: 'completed',
     color: '#BEDB39',
+    selected: false,
     predefined: true
   },
   {
     id: v4(),
     status: 'incomplete',
     color: '#00A388',
+    selected: false,
     predefined: true
   }
 ]
 
-export const DEFAULT_TABLE_DATA: ITable = {
-  labels: {
-    horizontal: [],
-    vertical: []
-  },
-  cells: []
-}
+// export const DEFAULT_TABLE_DATA: ITable = {
+//   labels: {
+//     horizontal: [],
+//     vertical: []
+//   },
+//   cells: []
+// }

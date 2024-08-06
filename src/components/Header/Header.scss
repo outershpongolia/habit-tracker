@@ -7,6 +7,12 @@
   &__wrapper {
     max-width: $maxScreenWidth;
     padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__logo {
+    cursor: pointer;
     font-size: 20px;
     color: $primary-color-light;
   }

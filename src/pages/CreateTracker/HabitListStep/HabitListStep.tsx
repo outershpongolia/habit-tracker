@@ -6,11 +6,12 @@ import { Button } from "../../../components/Button/Button"
 import { Tag } from "../../../components/Tag/Tag"
 import { EStatus, ETimeFormat } from "../../../constants"
 import { AlertContext } from "../../../context/AlertContext"
+import { uniqueId } from "lodash"
 
 interface IHabitListStepProps {}
 
 export const HabitListStep: React.FC<IHabitListStepProps> = () => {
-  const {tracker, setTracker} = useContext(TrackerContext)
+  const {currentTracker, setCurrentTracker} = useContext(TrackerContext)
   const {handleToast} = useContext(AlertContext)
 
   const [habit, setHabit] = useState('')
@@ -20,7 +21,7 @@ export const HabitListStep: React.FC<IHabitListStepProps> = () => {
   }, [])
 
   const handleAddHabit = useCallback(() => {
-    setTracker(tracker => {
+    setCurrentTracker(tracker => {
       if (tracker.timeFormat === ETimeFormat.WEEK && tracker.habits.length === 5) {
         handleToast(EStatus.ERROR, 'You can add max 5 elements to your list')
         return tracker
@@ -38,16 +39,16 @@ export const HabitListStep: React.FC<IHabitListStepProps> = () => {
     })
 
     setHabit('')
-  }, [setTracker, habit, handleToast])
+  }, [setCurrentTracker, habit, handleToast])
 
   const handleRemoveHabit = useCallback((value: string) => {
-    setTracker(tracker => {
+    setCurrentTracker(tracker => {
       return {
         ...tracker,
         habits: tracker.habits.filter(x => x !== value)
       }
     })
-  }, [setTracker])
+  }, [setCurrentTracker])
 
   return (
     <div className="third-step">
@@ -73,9 +74,10 @@ export const HabitListStep: React.FC<IHabitListStepProps> = () => {
       </div>
 
       <div className="third-step__list">
-        {tracker.habits?.map(habit => {
+        {currentTracker.habits?.map(habit => {
           return (
             <Tag
+              key={uniqueId(habit)}
               value={habit}
               onRemove={handleRemoveHabit}
             />

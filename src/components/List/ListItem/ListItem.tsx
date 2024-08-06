@@ -12,10 +12,10 @@ interface IListItemProps {
   type: EListType
   handleSelectOption?: (id: string) => void
   handleRemoveOption?: (id: string, type: EListType) => void
-  onChange?: (value: Color, hex: string) => void
+  handleChangeColor: (hex: string, id: string) => void
 }
 
-export const ListItem: React.FC<IListItemProps> = ({ id, status, color, type, handleSelectOption, handleRemoveOption, onChange }) => {
+export const ListItem: React.FC<IListItemProps> = ({ id, status, color, type, handleSelectOption, handleRemoveOption, handleChangeColor }) => {
   const onSelectOption = useCallback(() => {
     if (handleSelectOption) {
       handleSelectOption(id)
@@ -27,6 +27,10 @@ export const ListItem: React.FC<IListItemProps> = ({ id, status, color, type, ha
       handleRemoveOption(id, type)
     }
   }, [handleRemoveOption, id, type])
+
+  const onChangeColor = useCallback((_: Color, hex: string) => {
+    handleChangeColor(hex, id)
+  }, [handleChangeColor, id])
 
   return (
     <div
@@ -47,7 +51,7 @@ export const ListItem: React.FC<IListItemProps> = ({ id, status, color, type, ha
       <div className="list-item__picker">
         Change color
 
-        <ColorPicker defaultValue={color} onChange={onChange} />
+        <ColorPicker defaultValue={color} onChange={onChangeColor} />
       </div>
     </div>
   )

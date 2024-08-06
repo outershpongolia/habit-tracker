@@ -6,22 +6,22 @@ import { TrackerContext } from "../../../context/TrackerContext"
 interface IGeneralInfoStepProps {}
 
 export const GeneralInfoStep: React.FC<IGeneralInfoStepProps> = () => {
-  const {tracker, setTracker} = useContext(TrackerContext)
+  const {currentTracker, setCurrentTracker} = useContext(TrackerContext)
 
   const handleChangeInput = useCallback((value: string, name: string) => {
-    setTracker(tracker => {
+    setCurrentTracker(tracker => {
       return {
         ...tracker,
         [name]: value
       }
     })
-  }, [setTracker])
+  }, [setCurrentTracker])
 
   return (
     <div className="general-info-step">
       <Input
         name='name'
-        value={tracker?.name || ''}
+        value={currentTracker?.name || ''}
         onChange={handleChangeInput}
         maxLength={16}
         label="title"
@@ -29,7 +29,7 @@ export const GeneralInfoStep: React.FC<IGeneralInfoStepProps> = () => {
 
       <Input
         name='description'
-        value={tracker?.description || ''}
+        value={currentTracker?.description || ''}
         onChange={handleChangeInput}
         maxLength={40}
         label="description"

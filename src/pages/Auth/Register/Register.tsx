@@ -7,7 +7,7 @@ import { register } from '../../../api/users'
 import { checkCodeStatus } from '../../../utilities'
 import { UserContext } from '../../../context/UserContext'
 import { DEFAULT_AUTH_OBJECT, ERoute, EStatus } from '../../../constants'
-import { AuthForm } from '../../../components/AuthForm/AuthForm'
+import { AuthForm } from '../AuthForm/AuthForm'
 
 interface IRegisterProps {}
 

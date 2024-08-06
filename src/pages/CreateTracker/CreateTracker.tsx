@@ -11,24 +11,27 @@ import { useNavigate } from "react-router-dom"
 import { ERoute } from "../../constants"
 import { TimeRangeStep } from "./TimeRangeStep/TimeRangeStep"
 import { LegendStep } from "./LegendStep/LegendStep"
-import { addNewTracker } from "../../api/users"
 import { UserContext } from "../../context/UserContext"
+import { addNewTracker } from "../../api/tracker"
 
 interface ICreateTrackerProps {}
 
 export const CreateTracker: React.FC<ICreateTrackerProps> = () => {
   const {user} = useContext(UserContext)
-  const {tracker} = useContext(TrackerContext)
+  const {currentTracker} = useContext(TrackerContext)
 
   const navigate = useNavigate()
 
-  const handleSubmitTracker = useCallback(() => {
-    if (!user) return
+  const handleSubmitTracker = useCallback(async () => {
+    if (!user) return null
     
-    addNewTracker({...tracker, userId: user?.id})
-
-    navigate(ERoute.DASHBOARD)
-  }, [navigate, user, tracker])
+    await addNewTracker({...currentTracker, userId: user.id})
+      .then(() => console.log('Success'))
+      .catch(err => {
+        throw new Error(err)
+      })
+      .finally(() => navigate(0))
+  }, [navigate, user, currentTracker])
 
   return (
     <div className="create-tracker">

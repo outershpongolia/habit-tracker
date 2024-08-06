@@ -1,4 +1,4 @@
-import { IAuth, ITracker } from "../interfaces"
+import { IAuth } from "../interfaces"
 
 export const login = (auth: IAuth) => {
   return fetch(`${process.env.REACT_APP_BASE_URL}/auth/login/`, {
@@ -16,16 +16,6 @@ export const register = (auth: IAuth) => {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(auth)
-  }).then(async res => {
-    return res.json()
-  })
-}
-
-export const addNewTracker = (tracker: ITracker) => {
-  return fetch(`${process.env.REACT_APP_BASE_URL}/tracker/add/`, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({...tracker})
   }).then(async res => {
     return res.json()
   })

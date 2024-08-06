@@ -1,1 +1,7 @@
-.preview-step {}
+.preview-step {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+}

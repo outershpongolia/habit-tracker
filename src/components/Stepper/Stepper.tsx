@@ -11,7 +11,7 @@ interface IStepperProps {
 }
 
 export const Stepper: React.FC<IStepperProps> = ({ steps, onSubmitStepper }) => {  
-  const {tracker} = useContext(TrackerContext)
+  const {currentTracker} = useContext(TrackerContext)
 
   const [currentStep, setCurrentStep] = useState(0)
   const [hasError, setHasError] = useState(false)
@@ -39,19 +39,19 @@ export const Stepper: React.FC<IStepperProps> = ({ steps, onSubmitStepper }) => 
   useEffect(() => {
     switch (currentStep) {
       case 0:
-        return setHasError(!tracker.name)
+        return setHasError(!currentTracker.name)
       case 1:
-        return setHasError(!tracker.timeFormat)
+        return setHasError(!currentTracker.timeFormat)
       case 2:
-        return setHasError(!tracker.timeFormatOptions.startDate && !tracker.timeFormatOptions.endDate)
+        return setHasError(!currentTracker.timeFormatOptions.startDate && !currentTracker.timeFormatOptions.endDate)
       case 3:
-        return setHasError(tracker.habits.length === 0)
+        return setHasError(currentTracker.habits.length === 0)
       case 4:
-        return setHasError(tracker.legend.selectedLegend.length === 0)
+        return setHasError(currentTracker.legend.length === 0)
       default:
         return setHasError(false)
     }
-  }, [currentStep, tracker])
+  }, [currentStep, currentTracker, setHasError])
 
   return (
     <div className="stepper">

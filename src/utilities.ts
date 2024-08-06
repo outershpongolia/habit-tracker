@@ -2,6 +2,7 @@ import { ReactNode } from "react"
 import { EStatus } from "./constants"
 import { IApiResponse, IStep, ITableCell } from "./interfaces"
 import { v4 } from "uuid"
+import { ItemType } from "antd/es/menu/hooks/useItems"
 
 export function checkCodeStatus<T=any>(
   callback: (data: T) => void, 

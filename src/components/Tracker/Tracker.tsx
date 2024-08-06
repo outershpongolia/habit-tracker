@@ -1,81 +1,84 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useCallback, useContext, useState } from "react"
 import './Tracker.scss'
-import { ITable } from "../../interfaces"
-import { DAYS_IN_WEEK, DEFAULT_TABLE_DATA, ETimeFormat } from "../../constants"
-import { generateTableCells } from "../../utilities"
 import { TrackerContext } from "../../context/TrackerContext"
-import { addWeeks, eachDayOfInterval, eachMonthOfInterval } from "date-fns"
-import { WeeklyTrackerTable } from "./WeeklyTrackerTable/WeeklyTrackerTable"
+import Calendar from "react-calendar"
+import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
+import { CustomDropdown } from "../CustomDropdown/CustomDropdown"
+import { ItemType } from "antd/es/menu/hooks/useItems";
+import { ITimeData } from "../../interfaces";
 
 interface ITrackerProps {}
 
 export const Tracker: React.FC<ITrackerProps> = () => {
-  const {tracker} = useContext(TrackerContext)
+  const {currentTracker} = useContext(TrackerContext)
 
-  const [tableData, setTableData] = useState<ITable>(DEFAULT_TABLE_DATA)
+  const [timeData, setTimeData] = useState<ITimeData[]>([])
 
-  useEffect(() => {
-    setTableData(tableData => {
-      if (!tracker) return tableData
+  console.log({timeData})
 
-      const daysInterval = eachDayOfInterval({
-        start: (tracker.timeFormatOptions.startDate || 0),
-        end: ETimeFormat.WEEK === tracker.timeFormat
-          ? addWeeks((tracker.timeFormatOptions.startDate || 0), 1)
-          : (tracker.timeFormatOptions.endDate || 0)
-      })
+  const handleChangeStatus = useCallback((status: string, color: string, date: number) => {
+    setTimeData(timeData => {
+      const existingDate = timeData.find(x => x.date === date) || null
 
-      switch (tracker.timeFormat) {
-        case ETimeFormat.WEEK:
-          const columnLabels = daysInterval.map(day => {
-            const dayToString = day.toDateString().slice(0, 3) as string
-            return dayToString
-          })
+      return !existingDate
+        ? [...timeData, {status, color, date}]
+        : timeData.map(x => x.date === date ? {...x, status, color} : x)
+    })
+  }, [setTimeData])
 
-          return {
-            labels: {
-              horizontal: columnLabels as string[],
-              vertical: tracker.habits
-            },
-            cells: generateTableCells(daysInterval)
-          }
+  const handleTileContent = useCallback(({ date, view }: { date: Date; view: string }) => {
+    const dropdownItemsArray = currentTracker.legend.map(x => {
+      if (!x.selected) return null
 
-        case ETimeFormat.MONTH || ETimeFormat.CUSTOM_DATE_RANGE:
-          const monthColumnLabels = eachMonthOfInterval({
-            start: (tracker.timeFormatOptions.startDate || 0),
-            end: (tracker.timeFormatOptions.endDate || 0)
-          }).map(x => x.toDateString().slice(3, 7))
-
-          return {
-            labels: {
-              horizontal: monthColumnLabels as unknown as string[],
-              vertical: DAYS_IN_WEEK.map(day => day.label.slice(0, 3))
-            },
-            cells: generateTableCells(daysInterval)
-          }
-
-        default:
-          return tableData
+      return {
+        key: x.id,
+        label: (
+          <div
+            onClick={() => handleChangeStatus(x.status, x.color, date.getTime())}
+          >
+            {x.status}
+          </div>
+        ),
+        icon: (
+          <div
+            className="tracker__dropdown-icon"
+            style={{ backgroundColor: x.color }}
+          />
+        )
       }
     })
-  }, [tracker])
 
-  // const handleEditCell = useCallback((id: string) => {
-  //   // TO DO: functionality for cells
-  //   console.log({id})
-  // }, [])
+    return (
+      <CustomDropdown
+        items={dropdownItemsArray as ItemType[]}
+        disabled={false}
+      />
+    )
+  }, [currentTracker, handleChangeStatus])
 
   return (
     <div className="tracker">
       <div className="tracker__title">
-        {tracker.name}
+        {currentTracker.name}
+
+        {currentTracker.description &&
+          <div className="tracker__description">
+            {currentTracker.description}
+          </div>
+        }
       </div>
 
-      {tracker?.timeFormat === ETimeFormat.WEEK
-        ? <WeeklyTrackerTable tableData={tableData} />
-        // : <MonthlyTrackerTable tableData={tableData} />
-        : <></>
-      }
+      <div className="tracker__body">
+        <Calendar
+          activeStartDate={currentTracker.timeFormatOptions.startDate as Date}
+          maxDate={currentTracker.timeFormatOptions.endDate as Date}
+          minDate={currentTracker.timeFormatOptions.startDate as Date}
+          nextLabel={<MdArrowForwardIos className="tracker__arrow" />}
+          prevLabel={<MdArrowBackIos className="tracker__arrow" />}
+          tileContent={handleTileContent}
+          tileClassName='tracker__tile'
+        />
+      </div>
     </div>
   )
 }

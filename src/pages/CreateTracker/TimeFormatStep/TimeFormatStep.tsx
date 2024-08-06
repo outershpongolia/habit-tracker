@@ -8,10 +8,10 @@ import { uniqueId } from "lodash"
 interface ITimeFormatStepProps {}
 
 export const TimeFormatStep: React.FC<ITimeFormatStepProps> = () => {
-  const {tracker, setTracker} = useContext(TrackerContext)
+  const {currentTracker, setCurrentTracker} = useContext(TrackerContext)
 
   const handleChooseTimeFormat = useCallback((timeFormat: ETimeFormat) => {
-    setTracker(tracker => {
+    setCurrentTracker(tracker => {
       return {
         ...tracker,
         timeFormat: timeFormat,
@@ -21,7 +21,7 @@ export const TimeFormatStep: React.FC<ITimeFormatStepProps> = () => {
         }
       }
     })
-  }, [setTracker])
+  }, [setCurrentTracker])
 
   return (
     <div className="second-step">
@@ -32,7 +32,7 @@ export const TimeFormatStep: React.FC<ITimeFormatStepProps> = () => {
             label={x.label}
             timeFormat={x.timeFormat}
             onClick={handleChooseTimeFormat}
-            isActive={tracker?.timeFormat === x.timeFormat}
+            isActive={currentTracker?.timeFormat === x.timeFormat}
           />
         )
       })}

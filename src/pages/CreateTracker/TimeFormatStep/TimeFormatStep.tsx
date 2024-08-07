@@ -24,7 +24,7 @@ export const TimeFormatStep: React.FC<ITimeFormatStepProps> = () => {
   }, [setCurrentTracker])
 
   return (
-    <div className="second-step">
+    <div className="time-format-step">
       {TIME_FORMAT_DATA.map(x => {
         return (
           <TimeFormatCard

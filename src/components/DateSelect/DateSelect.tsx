@@ -1,13 +1,15 @@
-import React, { useMemo } from 'react'
+import React, { useCallback } from 'react'
 import './DateSelect.scss'
-import DatePicker from 'react-datepicker'
 import { ETimeFormat } from '../../constants'
+import { Space, DatePicker } from 'antd'
+import { RangePickerProps } from 'antd/es/date-picker'
+import { Dayjs } from 'dayjs'
+import moment from 'moment'
 
 interface IDateSelectProps {
-  type: ETimeFormat | null
-  startDate: Date
-  endDate: Date | null
-  onChangeDate: (name: string) => (date: Date) => void
+  type: ETimeFormat
+  values: [Dayjs, Dayjs]
+  handleChangeDate: (dateRange: [string, string]) => void
 }
 
 export enum EDateLabel {
@@ -15,59 +17,33 @@ export enum EDateLabel {
   END_DATE = 'endDate'
 }
 
+const { RangePicker } = DatePicker
+
 export const DateSelect: React.FC<IDateSelectProps> = ({
   type,
-  startDate,
-  endDate,
-  onChangeDate
+  values,
+  handleChangeDate
 }) => {
-  const generateDateFormat = useMemo(() => {
-    switch (type) {
-      case ETimeFormat.MONTH:
-        return "MM/yyyy"
+  const onChangeDate = useCallback((_: any, dateStrings: [string, string]) => {
+    handleChangeDate(dateStrings)
+  }, [handleChangeDate])
 
-      case ETimeFormat.YEAR:
-        return "yyyy"
-
-      case ETimeFormat.WEEK:
-        return "I/R"
-
-      default:
-        return undefined
-    }
-  }, [type])
+  const disabledDate: RangePickerProps['disabledDate'] = useCallback((current: any) => {
+    // can't select days before today
+    return current && current < moment().startOf('day')
+  }, [])
 
   return (
-    <div className='date-range'>
-      <DatePicker
-        selected={startDate}
-        onChange={onChangeDate(EDateLabel.START_DATE)}
-        selectsStart
-        startDate={startDate}
-        endDate={endDate}
-        dateFormat={generateDateFormat}
-        showMonthYearPicker={type === ETimeFormat.MONTH}
-        showYearPicker={type === ETimeFormat.YEAR}
-        showWeekNumbers={type === ETimeFormat.WEEK}
-        showWeekPicker={type === ETimeFormat.WEEK}
-        minDate={new Date()}
-        inline
+    <Space direction="vertical" size={12}>
+      <RangePicker
+        picker={type !== ETimeFormat.CUSTOM_DATE_RANGE ? type : undefined}
+        placement='bottomLeft'
+        onChange={onChangeDate}
+        format="YYYY-MM-DD"
+        disabledDate={disabledDate}
+        showTime={{ hideDisabledOptions: true }}
+        value={values}
       />
-
-      {type !== ETimeFormat.WEEK && (
-        <DatePicker
-          selected={endDate}
-          onChange={onChangeDate(EDateLabel.END_DATE)}
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          dateFormat={generateDateFormat}
-          showMonthYearPicker={type === ETimeFormat.MONTH}
-          showYearPicker={type === ETimeFormat.YEAR}
-          minDate={new Date()}
-          inline
-        />
-      )}
-    </div>
+    </Space>
   )
 }

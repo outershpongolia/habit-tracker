@@ -1,56 +1,45 @@
 import React, { useCallback, useContext, useState } from "react"
 import './TimeRangeStep.scss'
-import { DateSelect, EDateLabel } from "../../../components/DateSelect/DateSelect"
+import { DateSelect } from "../../../components/DateSelect/DateSelect"
 import { TrackerContext } from "../../../context/TrackerContext"
 import { ETimeFormat } from "../../../constants";
+import dayjs, { Dayjs } from 'dayjs'
 
 interface ITimeRangeStepProps {}
 
 export const TimeRangeStep: React.FC<ITimeRangeStepProps> = () => {
   const {currentTracker, setCurrentTracker} = useContext(TrackerContext)
 
-  const [dateRange, setDateRange] = useState<{startDate: Date, endDate?: Date}>({
-    startDate: new Date()
-  })
+  const [dateRange, setDateRange] = useState<[Dayjs, Dayjs]>([
+    dayjs(currentTracker.timeFormatOptions.startDate ? currentTracker.timeFormatOptions.startDate : new Date()),
+    dayjs(currentTracker.timeFormatOptions.endDate ? currentTracker.timeFormatOptions.endDate : new Date())
+  ])
 
-  const handleChangeDate = useCallback((name: string) => {
-    return (date: Date) => {
-      setCurrentTracker(tracker => {
-        if (name === EDateLabel.START_DATE) {
-          return {
-            ...tracker,
-            timeFormatOptions: {
-              ...tracker.timeFormatOptions,
-              startDate: date,
-            }
-          }
+  const handleChangeDate = useCallback((dateRange: [string, string]) => {
+    const [ startDate, endDate ] = [...dateRange]
+
+    const [ formattedStartDate, formattedEndDate ] = dateRange.map(x => dayjs(x))
+
+    setCurrentTracker(tracker => {
+      return {
+        ...tracker,
+        timeFormatOptions: {
+          startDate: new Date(startDate),
+          endDate: new Date(endDate)
         }
+      }
+    })
 
-        if (name === EDateLabel.END_DATE) {
-          return {
-            ...tracker,
-            timeFormatOptions: {
-              ...tracker.timeFormatOptions,
-              endDate: ETimeFormat.WEEK === tracker.timeFormat ? null : date
-            }
-          }
-        }
-
-        return tracker
-      })
-    }
-  }, [setCurrentTracker])
+    setDateRange([formattedStartDate, formattedEndDate])
+  }, [setCurrentTracker, setDateRange])
 
   return (
     <div className="time-range-step">
-      <div className="second-step__section">
-        <DateSelect
-          type={currentTracker?.timeFormat}
-          startDate={dateRange.startDate}
-          endDate={dateRange.endDate || null}
-          onChangeDate={handleChangeDate}
-        />
-      </div>
+      <DateSelect
+        type={currentTracker.timeFormat as ETimeFormat}
+        values={dateRange}
+        handleChangeDate={handleChangeDate}
+      />
     </div>
   )
 }

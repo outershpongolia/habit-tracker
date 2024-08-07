@@ -14,7 +14,6 @@ import { Login } from './pages/Auth/Login/Login'
 
 // External lib styles
 import 'react-toastify/dist/ReactToastify.css'
-import "react-datepicker/dist/react-datepicker.css"
 
 interface IAppProps {}
 

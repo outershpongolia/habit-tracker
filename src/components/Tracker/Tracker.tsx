@@ -14,8 +14,6 @@ export const Tracker: React.FC<ITrackerProps> = () => {
 
   const [timeData, setTimeData] = useState<ITimeData[]>([])
 
-  console.log({timeData})
-
   const handleChangeStatus = useCallback((status: string, color: string, date: number) => {
     setTimeData(timeData => {
       const existingDate = timeData.find(x => x.date === date) || null
@@ -56,6 +54,15 @@ export const Tracker: React.FC<ITrackerProps> = () => {
     )
   }, [currentTracker, handleChangeStatus])
 
+  const handleTileClassName = useCallback(({date} : {date: Date}) => {
+    const startDate = currentTracker.timeFormatOptions.startDate as Date
+    const endDate = currentTracker.timeFormatOptions.endDate as Date
+
+    return date.valueOf() < startDate.valueOf() || endDate.valueOf() < date.valueOf()
+      ? 'tracker__tile_disabled'
+      : 'tracker__tile'
+  }, [currentTracker.timeFormatOptions])
+
   return (
     <div className="tracker">
       <div className="tracker__title">
@@ -70,13 +77,12 @@ export const Tracker: React.FC<ITrackerProps> = () => {
 
       <div className="tracker__body">
         <Calendar
-          activeStartDate={currentTracker.timeFormatOptions.startDate as Date}
           maxDate={currentTracker.timeFormatOptions.endDate as Date}
           minDate={currentTracker.timeFormatOptions.startDate as Date}
           nextLabel={<MdArrowForwardIos className="tracker__arrow" />}
           prevLabel={<MdArrowBackIos className="tracker__arrow" />}
+          tileClassName={handleTileClassName}
           tileContent={handleTileContent}
-          tileClassName='tracker__tile'
         />
       </div>
     </div>

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Dashboard.scss'
-import { useNavigate } from 'react-router-dom'
-import { DEFAULT_TRACKER, ERoute } from '../../constants'
+import { DEFAULT_TRACKER } from '../../constants'
 import { TrackerContext } from '../../context/TrackerContext'
 import { getTrackers } from '../../api/tracker'
 import { UserContext } from '../../context/UserContext'
@@ -35,7 +34,6 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
     setCurrentTracker(DEFAULT_TRACKER)
   }, [setCurrentTracker, user, setTrackersArray, setIsLoading])
 
-  console.log({trackersArray})
   return (
     <div className='dashboard'>
       {isLoading && <Loader />}
@@ -46,6 +44,8 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
             <TrackerStamp
               key={tracker.id}
               name={tracker.name}
+              startDate={tracker.timeFormatOptions.startDate}
+              endDate={tracker.timeFormatOptions.endDate}
               description={tracker.description}
             />
           )

@@ -69,7 +69,8 @@
   font-size: 10px;
   max-width: 56px;
 }
-.react-calendar__month-view__days__day--neighboringMonth {
+.react-calendar__month-view__days__day--neighboringMonth,
+.tracker__tile_disabled {
   // don't allow previous and next months to be active
   cursor: none;
   pointer-events: none;

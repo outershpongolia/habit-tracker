@@ -1,9 +1,8 @@
 import { ReactNode } from "react"
 import { EStatus } from "./constants"
-import { IApiResponse, IStep, ITableCell } from "./interfaces"
-import { v4 } from "uuid"
-import { ItemType } from "antd/es/menu/hooks/useItems"
+import { IApiResponse, IStep } from "./interfaces"
 
+//api response
 export function checkCodeStatus<T=any>(
   callback: (data: T) => void, 
   errCallback: (msg: string) => void
@@ -20,24 +19,7 @@ export function checkCodeStatus<T=any>(
   }
 }
 
-/* generate array of numbers from zero or one to n number */
-export const makeArrayOfNumbers = (n: number, zeroAllowed?: boolean) => {
-  return zeroAllowed
-    ? Array.from(Array(n).keys())
-    : Array.from(Array(n + 1).keys()).filter(x => x !== 0)
-}
-
-/* generate table cells, for each to contain id */
-export const generateTableCells = (arrayOfDates: Date[]): ITableCell[] => {
-  return arrayOfDates.map(date => {
-    return {
-      id: v4(),
-      date: date,
-      color: '',
-    }
-  })
-}
-
+// generate form step
 export const generateStep = (header: string, content: ReactNode): IStep => {
   return { header, content }
 }

@@ -46,37 +46,6 @@ export const TIME_FORMAT_DATA = [
   },
 ]
 
-export const DAYS_IN_WEEK = [
-  {
-    label: 'Monday',
-    value: 1
-  },
-  {
-    label: 'Tuesday',
-    value: 2
-  },
-  {
-    label: 'Wednesday',
-    value: 3
-  },
-  {
-    label: 'Thursday',
-    value: 4
-  },
-  {
-    label: 'Friday',
-    value: 5
-  },
-  {
-    label: 'Saturday',
-    value: 6
-  },
-  {
-    label: 'Sunday',
-    value: 7
-  }
-]
-
 export const DEFAULT_TRACKER: ITracker = {
   id: v4(),
   userId: '',
@@ -108,11 +77,3 @@ export const PREDEFINED_LEGEND_ARRAY: ILegend[] = [
     predefined: true
   }
 ]
-
-// export const DEFAULT_TABLE_DATA: ITable = {
-//   labels: {
-//     horizontal: [],
-//     vertical: []
-//   },
-//   cells: []
-// }

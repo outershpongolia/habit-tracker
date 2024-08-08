@@ -2,22 +2,41 @@
   cursor: pointer;
   padding: 24px;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  justify-content: space-between;
   border-radius: 8px;
   height: fit-content;
-  width: 280px;
-  background-color: rgba(0, 0, 0, 0.041);
+  width: 320px;
+  background-color: #F3F6F6;
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
   &__name {
     font-size: 24px;
+    font-weight: 500;
   }
   &__description {
-    
+    font-size: 14px;
+    font-weight: 300;
   }
-  &__date {
-    font-size: 12px;
-    & span {
-      font-weight: 500;
-    }
+  &__score {
+    display: flex;
+  }
+  &__icon {
+    font-size: 56px;
+  }
+  &__data {
+    display: flex;
+    flex-direction: column;
+  }
+  &__number {
+    color: #ffb114;
+    font-size: 40px;
+    line-height: 40px;
+  }
+  &__text {
+    color: #ffb114;
+    font-size: 11px;
+    text-transform: uppercase;
   }
 }

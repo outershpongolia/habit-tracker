@@ -1,0 +1,16 @@
+.tracker-legend {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  &__color-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+}

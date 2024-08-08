@@ -6,6 +6,7 @@ import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { CustomDropdown } from "../CustomDropdown/CustomDropdown"
 import { ItemType } from "antd/es/menu/hooks/useItems";
 import { ITimeData } from "../../interfaces";
+import { TrackerLegend } from "./TrackerLegend/TrackerLegend";
 
 interface ITrackerProps {}
 
@@ -39,7 +40,7 @@ export const Tracker: React.FC<ITrackerProps> = () => {
         ),
         icon: (
           <div
-            className="tracker__dropdown-icon"
+            className="tracker__color-circle"
             style={{ backgroundColor: x.color }}
           />
         )
@@ -85,6 +86,14 @@ export const Tracker: React.FC<ITrackerProps> = () => {
           tileContent={handleTileContent}
         />
       </div>
+
+      <div className="tracker__habit">
+        <span>Tracking:</span> {currentTracker.habits[0]}
+      </div>
+
+      <TrackerLegend
+        selectedLegend={currentTracker.legend.filter(x => x.selected)}
+      />
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { CustomDropdown } from "../CustomDropdown/CustomDropdown"
 import { ItemType } from "antd/es/menu/hooks/useItems";
 import { ITimeData } from "../../interfaces";
 import { TrackerLegend } from "./TrackerLegend/TrackerLegend";
+import { TrackerBody } from "./TrackerBody/TrackerBody";
 
 interface ITrackerProps {}
 
@@ -76,16 +77,13 @@ export const Tracker: React.FC<ITrackerProps> = () => {
         }
       </div>
 
-      <div className="tracker__body">
-        <Calendar
-          maxDate={currentTracker.timeFormatOptions.endDate as Date}
-          minDate={currentTracker.timeFormatOptions.startDate as Date}
-          nextLabel={<MdArrowForwardIos className="tracker__arrow" />}
-          prevLabel={<MdArrowBackIos className="tracker__arrow" />}
-          tileClassName={handleTileClassName}
-          tileContent={handleTileContent}
-        />
-      </div>
+      <TrackerBody
+        defaultActiveStartDate={currentTracker.timeFormatOptions.startDate as Date}
+        maxDate={currentTracker.timeFormatOptions.endDate as Date}
+        minDate={currentTracker.timeFormatOptions.startDate as Date}
+        tileClassName={handleTileClassName}
+        tileContent={handleTileContent}
+      />
 
       <div className="tracker__habit">
         <span>Tracking:</span> {currentTracker.habits[0]}

@@ -17,9 +17,7 @@ export const TrackerLegend: React.FC<ITrackerLegendProps> = ({ selectedLegend })
               style={{backgroundColor: x.color}}
             />
 
-            <div style={{color: x.color, fontWeight: 500}}>
-              {x.status}
-            </div>
+            {x.status}
           </div>
         )
       })}

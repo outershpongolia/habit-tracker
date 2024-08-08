@@ -1,9 +1,9 @@
 import React, { useCallback } from "react"
 import './ListItem.scss'
-import { ColorPicker } from "antd"
 import { Color } from "antd/es/color-picker"
 import { EListType } from "../List"
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
+import { CustomColorPicker } from "../../CustomColorPicker/CustomColorPicker"
 
 interface IListItemProps {
   id: string
@@ -48,11 +48,10 @@ export const ListItem: React.FC<IListItemProps> = ({ id, status, color, type, ha
 
       {status}
 
-      <div className="list-item__picker">
-        Change color
-
-        <ColorPicker defaultValue={color} onChange={onChangeColor} />
-      </div>
+      <CustomColorPicker
+        color={color}
+        onChange={onChangeColor}
+      />
     </div>
   )
 }

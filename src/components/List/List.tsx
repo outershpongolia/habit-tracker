@@ -9,6 +9,7 @@ import { TrackerContext } from "../../context/TrackerContext"
 import { v4 } from "uuid"
 import { FiPlus } from "react-icons/fi";
 import { ILegend } from "../../interfaces"
+import { CustomColorPicker } from "../CustomColorPicker/CustomColorPicker"
 
 interface IListProps {
   title: string
@@ -43,6 +44,7 @@ export const List: React.FC<IListProps> = ({ title, items, type, onChange }) => 
     setIsPopupOpened(false)
   }, [])
 
+  // popup input
   const handleChangePopupInput = useCallback((value: string, name: string) => {
     setCustomOption(customOption => {
       return {
@@ -51,6 +53,13 @@ export const List: React.FC<IListProps> = ({ title, items, type, onChange }) => 
       }
     })
   }, [])
+
+  // popup color
+  const handleAddColor = useCallback((_: Color, hex: string) => {
+    setCustomOption(customOption => {
+      return {...customOption, color: hex}
+    })
+  }, [setCustomOption])
 
   const handleAddCustomOption = useCallback(() => {
     setCurrentTracker(tracker => {
@@ -190,11 +199,17 @@ export const List: React.FC<IListProps> = ({ title, items, type, onChange }) => 
             autoFocus
           />
 
+          <CustomColorPicker
+            color={customOption.color}
+            onChange={handleAddColor}
+          />
+
           <div className="list-popup__buttons">
             <Button
               className="list-popup__button"
               label="Add"
               onClick={handleAddCustomOption}
+              isDisabled={!customOption.status || !customOption.color}
             />
             <Button
               className="list-popup__button"

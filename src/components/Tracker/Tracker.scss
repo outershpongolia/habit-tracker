@@ -27,9 +27,12 @@
     gap: 2px;
     width: 100%;
   }
-  &__tile {
-    background-color: white;
-    position: relative;
+  &__tile-wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
   &__arrow {
     fill: #fff;
@@ -69,6 +72,16 @@
   border: 1px solid rgba(0, 0, 0, 0.214);
   border-radius: 4px;
   display: flex;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+  & abbr {
+    margin: 2px 0px 0px 4px;
+    height: fit-content;
+    position: relative;
+    z-index: 11;
+  }
 }
 .react-calendar__month-view__weekdays {
   // don't show week labels

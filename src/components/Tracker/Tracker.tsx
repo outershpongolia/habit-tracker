@@ -1,32 +1,36 @@
-import React, { useCallback, useContext, useState } from "react"
+import React, { useCallback, useContext } from "react"
 import './Tracker.scss'
 import { TrackerContext } from "../../context/TrackerContext"
-import Calendar from "react-calendar"
-import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { CustomDropdown } from "../CustomDropdown/CustomDropdown"
 import { ItemType } from "antd/es/menu/hooks/useItems";
-import { ITimeData } from "../../interfaces";
 import { TrackerLegend } from "./TrackerLegend/TrackerLegend";
 import { TrackerBody } from "./TrackerBody/TrackerBody";
 
-interface ITrackerProps {}
+interface ITrackerProps {
+  preview?: boolean
+}
 
-export const Tracker: React.FC<ITrackerProps> = () => {
-  const {currentTracker} = useContext(TrackerContext)
-
-  const [timeData, setTimeData] = useState<ITimeData[]>([])
+export const Tracker: React.FC<ITrackerProps> = ({ preview }) => {
+  const {currentTracker, setCurrentTracker} = useContext(TrackerContext)
 
   const handleChangeStatus = useCallback((status: string, color: string, date: number) => {
-    setTimeData(timeData => {
-      const existingDate = timeData.find(x => x.date === date) || null
+    if (preview) return
 
-      return !existingDate
-        ? [...timeData, {status, color, date}]
-        : timeData.map(x => x.date === date ? {...x, status, color} : x)
+    setCurrentTracker(currentTracker => {
+      const alreadyExists = currentTracker.timeData.find(x => x.date === date)
+
+      return {
+        ...currentTracker,
+        timeData: !alreadyExists
+          ? [...currentTracker.timeData, {status, color, date}]
+          : currentTracker.timeData.map(x => x.date === date ? {...x, status, color} : x)
+      }
     })
-  }, [setTimeData])
+  }, [setCurrentTracker, preview])
 
   const handleTileContent = useCallback(({ date, view }: { date: Date; view: string }) => {
+    const tileExists = currentTracker.timeData.find(x => x.date === date.getTime())
+
     const dropdownItemsArray = currentTracker.legend.map(x => {
       if (!x.selected) return null
 
@@ -49,18 +53,24 @@ export const Tracker: React.FC<ITrackerProps> = () => {
     })
 
     return (
-      <CustomDropdown
-        items={dropdownItemsArray as ItemType[]}
-        disabled={false}
-      />
+      <div
+        className="tracker__tile-wrapper"
+        style={{ backgroundColor: tileExists ? tileExists.color : 'transparent' }}
+      >
+        <CustomDropdown
+          items={dropdownItemsArray as ItemType[]}
+          disabled={false}
+        />
+      </div>
     )
   }, [currentTracker, handleChangeStatus])
 
   const handleTileClassName = useCallback(({date} : {date: Date}) => {
-    const startDate = currentTracker.timeFormatOptions.startDate as Date
-    const endDate = currentTracker.timeFormatOptions.endDate as Date
+    const currentDate = date.getTime()
+    const startDate = new Date(currentTracker.timeFormatOptions.startDate as Date).getTime()
+    const endDate = new Date(currentTracker.timeFormatOptions.endDate as Date).getTime()
 
-    return date.valueOf() < startDate.valueOf() || endDate.valueOf() < date.valueOf()
+    return currentDate < startDate || endDate < currentDate
       ? 'tracker__tile_disabled'
       : 'tracker__tile'
   }, [currentTracker.timeFormatOptions])

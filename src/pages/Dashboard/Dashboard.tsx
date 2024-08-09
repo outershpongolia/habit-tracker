@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import './Dashboard.scss'
-import { DEFAULT_TRACKER } from '../../constants'
+import { DEFAULT_TRACKER, ERoute } from '../../constants'
 import { TrackerContext } from '../../context/TrackerContext'
 import { getTrackers } from '../../api/tracker'
 import { UserContext } from '../../context/UserContext'
 import { Loader } from '../../components/Loader/Loader'
 import { TrackerStamp } from '../../components/Tracker/TrackerStamp/TrackerStamp'
+import { useNavigate } from 'react-router-dom'
 
 interface IDashboardProps {}
 
@@ -15,7 +16,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!user) return
@@ -34,6 +35,16 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
     setCurrentTracker(DEFAULT_TRACKER)
   }, [setCurrentTracker, user, setTrackersArray, setIsLoading])
 
+  const handleNavigateToTracker = useCallback((id: string) => {
+    const targetTracker = trackersArray.find(x => x.id === id)
+
+    if (!targetTracker) return
+
+    setCurrentTracker(targetTracker)
+
+    navigate(`${ERoute.EDIT_TRACKER}/${targetTracker.id}`, {state: {id: targetTracker.id}});
+  }, [trackersArray, navigate, setCurrentTracker])
+
   return (
     <div className='dashboard'>
       {isLoading && <Loader />}
@@ -43,10 +54,10 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
           return (
             <TrackerStamp
               key={tracker.id}
+              id={tracker.id}
               name={tracker.name}
-              startDate={tracker.timeFormatOptions.startDate}
-              endDate={tracker.timeFormatOptions.endDate}
               description={tracker.description}
+              onClick={handleNavigateToTracker}
             />
           )
         })}

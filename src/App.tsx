@@ -14,6 +14,7 @@ import { Login } from './pages/Auth/Login/Login'
 
 // External lib styles
 import 'react-toastify/dist/ReactToastify.css'
+import { EditTracker } from './pages/EditTracker/EditTracker'
 
 interface IAppProps {}
 
@@ -33,7 +34,7 @@ export const App: React.FC<IAppProps> = () => {
 
     setUser(user)
     navigate(ERoute.DASHBOARD)
-  }, [])
+  }, [setUser])
 
   return (
     <div className="app">
@@ -45,6 +46,7 @@ export const App: React.FC<IAppProps> = () => {
           <Route element={<Login />} path={ERoute.LOGIN} />
           <Route element={<Dashboard />} path={ERoute.DASHBOARD} />
           <Route element={<CreateTracker />} path={ERoute.CREATE_TRACKER} />
+          <Route element={<EditTracker />} path={`${ERoute.EDIT_TRACKER}/:id`} />
         </Routes>
       </main>
 

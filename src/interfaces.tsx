@@ -22,8 +22,8 @@ export interface IUser {
 
 {/* Date interface */}
 export interface IDateRange {
-  startDate:    Date | number | null
-  endDate:      Date | number | null
+  startDate:    Date | null
+  endDate:      Date | null
 }
 
 {/* Form interface */}
@@ -42,7 +42,7 @@ export interface ITracker {
   timeFormat:        ETimeFormat | null
   timeFormatOptions: IDateRange
   legend:            ILegend[]
-  timeData:          ITimeData[] | null
+  timeData:          ITimeData[]
 }
 export interface ILegend {
   id:                  string

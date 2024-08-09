@@ -19,3 +19,13 @@ export const getTrackers = ({userId}: {userId: string}) => {
     return res.json()
   })
 }
+
+export const editTracker = (tracker: ITracker) => {
+  return fetch(`${process.env.REACT_APP_BASE_URL}/tracker/edit-tracker`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({...tracker})
+  }).then(async res => {
+    return res.json()
+  })
+}

@@ -3,21 +3,21 @@ import './TrackerStamp.scss'
 import { GiTargetPrize } from "react-icons/gi";
 
 interface ITrackerStampProps {
+  id: string
   name: string
-  startDate: number | Date | null
-  endDate: number | Date | null
+  onClick: (id: string) => void
   description?: string
 }
 
-export const TrackerStamp: React.FC<ITrackerStampProps> = ({ name, startDate, endDate, description }) => {
-  const handleNavigateToTracker = useCallback(() => {
-    // navigation
-  }, [])
+export const TrackerStamp: React.FC<ITrackerStampProps> = ({ id, name, onClick, description }) => {
+  const handleOnClick = useCallback(() => {
+    onClick(id)
+  }, [onClick, id])
 
   return (
     <div
       className="tracker-stamp"
-      onClick={handleNavigateToTracker}
+      onClick={handleOnClick}
     >
       <div className="tracker-stamp__info">
         <div className="tracker-stamp__name">{name}</div>

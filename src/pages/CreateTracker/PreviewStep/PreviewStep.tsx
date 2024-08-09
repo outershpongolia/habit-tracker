@@ -7,7 +7,7 @@ interface IPreviewStepProps {}
 export const PreviewStep: React.FC<IPreviewStepProps> = () => {
   return (
     <div className="preview-step">
-      <Tracker />
+      <Tracker preview />
     </div>
   )
 }

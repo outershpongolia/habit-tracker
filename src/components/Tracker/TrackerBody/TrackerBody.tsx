@@ -15,11 +15,11 @@ export const TrackerBody: React.FC<ITrackerBodyProps> = ({ defaultActiveStartDat
   return (
     <div className="tracker-body">
       <Calendar
-        defaultActiveStartDate={defaultActiveStartDate}
         nextLabel={<MdArrowForwardIos className="tracker__arrow" />}
         prevLabel={<MdArrowBackIos className="tracker__arrow" />}
-        maxDate={maxDate}
-        minDate={minDate}
+        defaultActiveStartDate={new Date(defaultActiveStartDate)}
+        maxDate={new Date(maxDate)}
+        minDate={new Date(minDate)}
         tileClassName={tileClassName}
         tileContent={tileContent}
       />

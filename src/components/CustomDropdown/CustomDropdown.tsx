@@ -19,12 +19,12 @@ export const CustomDropdown: React.FC<ICustomDropdownProps> = ({ items, disabled
       menu={{ items: items }}
       disabled={disabled}
     >
-      <th
+      <div
         className="custom-dropdown__item"
         style={{ width: width }}
       >
         {children}
-      </th>
+      </div>
     </Dropdown>
   )
 }

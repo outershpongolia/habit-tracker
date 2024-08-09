@@ -6,6 +6,7 @@ export enum ERoute {
   CREATE_TRACKER = '/create-tracker',
   REGISTER = '/register',
   LOGIN = '/login',
+  EDIT_TRACKER = '/edit-tracker'
 }
 
 export enum EStatus {
@@ -58,7 +59,7 @@ export const DEFAULT_TRACKER: ITracker = {
     endDate: null
   },
   legend: [],
-  timeData: null
+  timeData: []
 }
 
 export const PREDEFINED_LEGEND_ARRAY: ILegend[] = [

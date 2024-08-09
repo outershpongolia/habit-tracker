@@ -11,7 +11,7 @@ export const TrackerLegend: React.FC<ITrackerLegendProps> = ({ selectedLegend })
     <div className="tracker-legend">
       {selectedLegend.map(x => {
         return (
-          <div className="tracker-legend__option">
+          <div key={x.id} className="tracker-legend__option">
             <div
               className="tracker-legend__color-circle"
               style={{backgroundColor: x.color}}

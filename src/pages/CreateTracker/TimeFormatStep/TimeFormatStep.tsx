@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from "react"
 import './TimeFormatStep.scss'
 import { TrackerContext } from "../../../context/TrackerContext"
-import { TimeFormatCard } from "../../../components/TimeFormatCard/TimeFormatCard"
+import { TimeFormatCard } from "./TimeFormatCard/TimeFormatCard"
 import { ETimeFormat, TIME_FORMAT_DATA } from "../../../constants"
 import { uniqueId } from "lodash"
 

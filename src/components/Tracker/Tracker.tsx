@@ -77,17 +77,14 @@ export const Tracker: React.FC<ITrackerProps> = ({ preview }) => {
 
   return (
     <div className="tracker">
-      <div className="tracker__title">
-        {currentTracker.name}
-
-        {currentTracker.description &&
-          <div className="tracker__description">
-            {currentTracker.description}
-          </div>
-        }
+      <div className="tracker__info">
+        <div className="tracker__habit">
+          <span>Tracking:</span> {currentTracker.habits[0]}
+        </div>
       </div>
 
-      <TrackerBody
+      <div className="tracker__body-wrapper">
+        <TrackerBody
         defaultActiveStartDate={currentTracker.timeFormatOptions.startDate as Date}
         maxDate={currentTracker.timeFormatOptions.endDate as Date}
         minDate={currentTracker.timeFormatOptions.startDate as Date}
@@ -95,13 +92,9 @@ export const Tracker: React.FC<ITrackerProps> = ({ preview }) => {
         tileContent={handleTileContent}
       />
 
-      <div className="tracker__habit">
-        <span>Tracking:</span> {currentTracker.habits[0]}
-      </div>
-
       <TrackerLegend
         selectedLegend={currentTracker.legend.filter(x => x.selected)}
-      />
+      /></div>
     </div>
   )
 }

@@ -1,0 +1,17 @@
+@import '../../../style/base';
+
+.menu-item {
+  &_active {
+    & svg {
+      & path {
+        color: $primary-color-light !important;
+      }
+    }
+  }
+  & svg {
+    font-size: 28px;
+    & path {
+      color: #ffffffb0;
+    }
+  }
+}

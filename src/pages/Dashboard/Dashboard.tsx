@@ -7,6 +7,8 @@ import { UserContext } from '../../context/UserContext'
 import { Loader } from '../../components/Loader/Loader'
 import { TrackerStamp } from '../../components/Tracker/TrackerStamp/TrackerStamp'
 import { useNavigate } from 'react-router-dom'
+import { Header } from '../../components/Header/Header'
+import { Button } from '../../components/Button/Button'
 
 interface IDashboardProps {}
 
@@ -45,23 +47,37 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
     navigate(`${ERoute.EDIT_TRACKER}/${targetTracker.id}`, {state: {id: targetTracker.id}});
   }, [trackersArray, navigate, setCurrentTracker])
 
-  return (
-    <div className='dashboard'>
-      {isLoading && <Loader />}
+  const handleNavigateToPage = useCallback(() => {
+    navigate(ERoute.CREATE_TRACKER)
+  }, [navigate])
 
-      <div className='dashboard__list'>
-        {trackersArray && trackersArray.map(tracker => {
-          return (
-            <TrackerStamp
-              key={tracker.id}
-              id={tracker.id}
-              name={tracker.name}
-              description={tracker.description}
-              onClick={handleNavigateToTracker}
-            />
-          )
-        })}
-      </div>
+  return (
+    <div className='dashboard page'>
+      <Header
+        label={`Hi ${user?.name}!`}
+      >
+        <Button
+          label="Create tracker"
+          onClick={handleNavigateToPage}
+        />
+      </Header>
+
+      {isLoading
+        ? <Loader />
+        : <div className='dashboard__list'>
+            {trackersArray && trackersArray.map(tracker => {
+              return (
+                <TrackerStamp
+                  key={tracker.id}
+                  id={tracker.id}
+                  name={tracker.name}
+                  description={tracker.description}
+                  onClick={handleNavigateToTracker}
+                />
+              )
+            })}
+          </div>
+        }
     </div>
   )
 }

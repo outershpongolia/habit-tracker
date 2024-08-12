@@ -5,11 +5,11 @@
   font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
-  padding: 8px 16px;
+  padding: 8px 40px;
   min-width: 200px;
   width: fit-content;
   border-radius: 24px;
-  background-color: #00000083;
+  background-color: $primary-color-dark;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,9 +17,11 @@
   color: #fff;
   border: 0;
   &_secondary {
-    background-color: transparent;
-    border: 2px solid #00000083;
-    color: #2c404c;
+    position: relative;
+    backdrop-filter: blur(22px);
+    z-index: 11;
+    transition: 0.5s all ease-in-out;
+    color: $primary-color-light;
   }
   &:disabled {
     pointer-events: none;

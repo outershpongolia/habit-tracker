@@ -7,6 +7,7 @@ import { TrackerContext } from "../../context/TrackerContext"
 import { EStatus } from "../../constants"
 import { useNavigate } from "react-router-dom"
 import { AlertContext } from "../../context/AlertContext"
+import { Header } from "../../components/Header/Header"
 
 interface IEditTrackerProps {}
 
@@ -26,13 +27,18 @@ export const EditTracker: React.FC<IEditTrackerProps> = () => {
   }, [currentTracker, handleToast, navigate])
 
   return (
-    <div className="edit-tracker">
-      <Tracker />
+    <div className="edit-tracker page">
+      <Header
+        label={currentTracker.name}
+      >
+        <Button
+          label="save changes"
+          variety="secondary"
+          onClick={handleEditTracker}
+        />
+      </Header>
 
-      <Button
-        label="submit changes"
-        onClick={handleEditTracker}
-      />
+      <Tracker />
     </div>
   )
 }

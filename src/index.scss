@@ -1,6 +1,6 @@
 @import './style/base';
 
-html, body, #root, .app, main {
+html, body, #root, main {
   height: 100%;
   width: 100%;
   position: relative;
@@ -8,7 +8,8 @@ html, body, #root, .app, main {
 body {
   padding: 0;
   margin: 0;
-  background-color: $primary-color-light;
+  background-color: transparent;
+  background: linear-gradient(300deg, rgba(214,230,242,1) 19%, rgba(235,217,243,1) 48%, rgba(235,217,243,1) 66%, rgba(214,230,242,1) 92%);
   * {
     box-sizing: border-box;
     font-family: $primaryFont;
@@ -16,12 +17,17 @@ body {
   }
 }
 .app {
+  width: 100%;
+  min-height: 100%;
+  position: relative;
   display: flex;
-  flex-direction: column;
-}
-main {
+  gap: 24px;
+  padding: 24px;
   max-width: $maxScreenWidth;
   margin: 0 auto;
+}
+main {
+  height: auto;
   flex: 1;
   display: flex;
 }

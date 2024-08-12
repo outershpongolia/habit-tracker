@@ -3,10 +3,13 @@ import { ITracker, IAuth, ILegend } from "./interfaces"
 
 export enum ERoute {
   DASHBOARD = '/',
-  CREATE_TRACKER = '/create-tracker',
-  REGISTER = '/register',
   LOGIN = '/login',
-  EDIT_TRACKER = '/edit-tracker'
+  REGISTER = '/register',
+  CREATE_TRACKER = '/create-tracker',
+  EDIT_TRACKER = '/edit-tracker',
+  ANALYTICS = '/analytics',
+  PROFILE = '/profile',
+  SETTINGS = '/settings'
 }
 
 export enum EStatus {

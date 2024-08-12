@@ -1,20 +1,19 @@
 import { useContext, useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import { ToastContainer } from 'react-toastify'
 import { ERoute } from './constants'
-import { Header } from './components/Header/Header'
 import { UserContext } from './context/UserContext'
+import { Menu } from './components/Menu/Menu'
 
 // Pages
 import { Dashboard } from './pages/Dashboard/Dashboard'
-import { CreateTracker } from './pages/CreateTracker/CreateTracker'
 import { Register } from './pages/Auth/Register/Register'
 import { Login } from './pages/Auth/Login/Login'
+import { CreateTracker } from './pages/CreateTracker/CreateTracker'
+import { EditTracker } from './pages/EditTracker/EditTracker'
 
 // External lib styles
 import 'react-toastify/dist/ReactToastify.css'
-import { EditTracker } from './pages/EditTracker/EditTracker'
 
 interface IAppProps {}
 
@@ -38,7 +37,7 @@ export const App: React.FC<IAppProps> = () => {
 
   return (
     <div className="app">
-      <Header />
+      <Menu />
 
       <main>
         <Routes>
@@ -49,8 +48,6 @@ export const App: React.FC<IAppProps> = () => {
           <Route element={<EditTracker />} path={`${ERoute.EDIT_TRACKER}/:id`} />
         </Routes>
       </main>
-
-      <ToastContainer />
     </div>
   )
 }

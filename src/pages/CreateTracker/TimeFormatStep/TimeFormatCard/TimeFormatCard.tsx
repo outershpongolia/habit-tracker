@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import './TimeFormatCard.scss'
-import { ETimeFormat } from "../../constants"
+import { ETimeFormat } from "../../../../constants"
 import clsx from "clsx"
 
 interface ITimeFormatCardProps {

@@ -1,3 +1,5 @@
+@import '../../../../style/base';
+
 .time-format-card {
   cursor: pointer;
   display: flex;
@@ -17,8 +19,8 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
   &_active {
-    background: linear-gradient(-300deg, rgba(26,52,66,1) 36%, rgba(41,62,74,1) 62%);
-    background-color: #00000049;
+    // background-color: #00000049;
+    background-color: $primary-color-highlight;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     scale: 1.01;
   }

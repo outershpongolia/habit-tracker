@@ -12,6 +12,7 @@ import { TimeRangeStep } from "./TimeRangeStep/TimeRangeStep"
 import { LegendStep } from "./LegendStep/LegendStep"
 import { UserContext } from "../../context/UserContext"
 import { addNewTracker } from "../../api/tracker"
+import { PREDEFINED_CATEGORIES } from "../../constants"
 
 interface ICreateTrackerProps {}
 
@@ -23,8 +24,8 @@ export const CreateTracker: React.FC<ICreateTrackerProps> = () => {
 
   const handleSubmitTracker = useCallback(async () => {
     if (!user) return null
-    
-    await addNewTracker({...currentTracker, userId: user.id})
+
+    await addNewTracker({...currentTracker, userId: user.id, categories: [PREDEFINED_CATEGORIES[0]]})
       .then(() => console.log('Success'))
       .catch(err => {
         throw new Error(err)

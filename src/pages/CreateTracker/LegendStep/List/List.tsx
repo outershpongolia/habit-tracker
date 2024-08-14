@@ -1,15 +1,15 @@
 import React, { useCallback, useContext, useState } from "react"
 import './List.scss'
-import { ListItem } from "./ListItem/ListItem"
 import { Color } from "antd/es/color-picker"
-import { Button } from "../Button/Button"
-import { Popup } from "../Popup/Popup"
-import { Input } from "../Input/Input"
-import { TrackerContext } from "../../context/TrackerContext"
+import { Button } from "../../../../components/Button/Button"
+import { Popup } from "../../../../components/Popup/Popup"
+import { Input } from "../../../../components/Input/Input"
+import { TrackerContext } from "../../../../context/TrackerContext"
 import { v4 } from "uuid"
 import { FiPlus } from "react-icons/fi";
-import { ILegend } from "../../interfaces"
-import { CustomColorPicker } from "../CustomColorPicker/CustomColorPicker"
+import { ILegend } from "../../../../interfaces"
+import { CustomColorPicker } from "../../../../components/CustomColorPicker/CustomColorPicker"
+import { ListItem } from "../ListItem/ListItem"
 
 interface IListProps {
   title: string
@@ -24,7 +24,7 @@ export enum EListType {
   CUSTOM = 'custom'
 }
 
-export const List: React.FC<IListProps> = ({ title, items, type, onChange }) => {
+export const List: React.FC<IListProps> = ({ title, items, type }) => {
   const { setCurrentTracker, setPredefinedLegend } = useContext(TrackerContext)
 
   const [ isPopupOpened, setIsPopupOpened ] = useState(false)

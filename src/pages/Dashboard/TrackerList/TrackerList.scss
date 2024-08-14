@@ -1,0 +1,30 @@
+@import '../../../style/base';
+
+.tracker-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  background-color: $primary-color-light;
+  width: 100%;
+  max-width: 800px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 14px;
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 320px);
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    padding-right: 8px;
+  }
+  &__dropdown-item {
+    width: fit-content;
+    border: 1.5px solid $primary-color-dark;
+    padding: 12px 14px;
+    border-radius: 14px;
+  }
+}

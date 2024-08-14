@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import './LegendStep.scss'
-import { EListType, List } from '../../../components/List/List'
+import { EListType, List } from './List/List'
 import { TrackerContext } from '../../../context/TrackerContext';
 
 interface ILegendStepProps {}

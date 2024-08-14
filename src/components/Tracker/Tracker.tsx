@@ -21,12 +21,15 @@ export const Tracker: React.FC<ITrackerProps> = ({ preview }) => {
 
       return {
         ...currentTracker,
+        dateUpdated: new Date(),
         timeData: !alreadyExists
           ? [...currentTracker.timeData, {status, color, date}]
           : currentTracker.timeData.map(x => x.date === date ? {...x, status, color} : x)
       }
     })
   }, [setCurrentTracker, preview])
+
+  console.log({currentTracker})
 
   const handleTileContent = useCallback(({ date, view }: { date: Date; view: string }) => {
     const tileExists = currentTracker.timeData.find(x => x.date === date.getTime())
@@ -58,6 +61,7 @@ export const Tracker: React.FC<ITrackerProps> = ({ preview }) => {
         style={{ backgroundColor: tileExists ? tileExists.color : 'transparent' }}
       >
         <CustomDropdown
+          itemClassName="tracker__dropdown"
           items={dropdownItemsArray as ItemType[]}
           disabled={false}
         />
@@ -85,16 +89,17 @@ export const Tracker: React.FC<ITrackerProps> = ({ preview }) => {
 
       <div className="tracker__body-wrapper">
         <TrackerBody
-        defaultActiveStartDate={currentTracker.timeFormatOptions.startDate as Date}
-        maxDate={currentTracker.timeFormatOptions.endDate as Date}
-        minDate={currentTracker.timeFormatOptions.startDate as Date}
-        tileClassName={handleTileClassName}
-        tileContent={handleTileContent}
-      />
+          defaultActiveStartDate={currentTracker.timeFormatOptions.startDate as Date}
+          maxDate={currentTracker.timeFormatOptions.endDate as Date}
+          minDate={currentTracker.timeFormatOptions.startDate as Date}
+          tileClassName={handleTileClassName}
+          tileContent={handleTileContent}
+        />
 
-      <TrackerLegend
-        selectedLegend={currentTracker.legend.filter(x => x.selected)}
-      /></div>
+        <TrackerLegend
+          selectedLegend={currentTracker.legend.filter(x => x.selected)}
+        />
+      </div>
     </div>
   )
 }

@@ -5,16 +5,16 @@ import { TrackerContext } from '../../context/TrackerContext'
 import { getTrackers } from '../../api/tracker'
 import { UserContext } from '../../context/UserContext'
 import { Loader } from '../../components/Loader/Loader'
-import { TrackerStamp } from '../../components/Tracker/TrackerStamp/TrackerStamp'
 import { useNavigate } from 'react-router-dom'
 import { Header } from '../../components/Header/Header'
 import { Button } from '../../components/Button/Button'
+import { TrackerList } from './TrackerList/TrackerList'
 
 interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
   const {user} = useContext(UserContext)
-  const {setCurrentTracker, setTrackersArray, trackersArray} = useContext(TrackerContext)
+  const {setCurrentTracker, setTrackersArray, trackersArray, categories} = useContext(TrackerContext)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -35,7 +35,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
       .finally(() => setIsLoading(false))
 
     setCurrentTracker(DEFAULT_TRACKER)
-  }, [setCurrentTracker, user, setTrackersArray, setIsLoading])
+  }, [setCurrentTracker, user, setTrackersArray, setIsLoading, categories])
 
   const handleNavigateToTracker = useCallback((id: string) => {
     const targetTracker = trackersArray.find(x => x.id === id)
@@ -64,19 +64,10 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
 
       {isLoading
         ? <Loader />
-        : <div className='dashboard__list'>
-            {trackersArray && trackersArray.map(tracker => {
-              return (
-                <TrackerStamp
-                  key={tracker.id}
-                  id={tracker.id}
-                  name={tracker.name}
-                  description={tracker.description}
-                  onClick={handleNavigateToTracker}
-                />
-              )
-            })}
-          </div>
+        : <TrackerList
+            trackers={trackersArray}
+            onClick={handleNavigateToTracker}
+          />
         }
     </div>
   )

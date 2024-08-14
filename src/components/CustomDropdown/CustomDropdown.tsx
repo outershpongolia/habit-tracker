@@ -8,21 +8,20 @@ interface ICustomDropdownProps extends PropsWithChildren {
   items: ItemType[]
   disabled: boolean
   className?: string
-  width?: number | string
+  itemClassName?: string
+  placement?: "topLeft" | "topCenter" | "topRight" | "bottomLeft" | "bottomCenter" | "bottomRight" | "top" | "bottom" | undefined
 }
 
-export const CustomDropdown: React.FC<ICustomDropdownProps> = ({ items, disabled, className, width, children }) => {
+export const CustomDropdown: React.FC<ICustomDropdownProps> = ({ items, disabled, className, itemClassName, children, placement }) => {
   return (
     <Dropdown
       className={clsx("custom-dropdown", className)}
       trigger={['click']}
       menu={{ items: items }}
       disabled={disabled}
+      placement={placement}
     >
-      <div
-        className="custom-dropdown__item"
-        style={{ width: width }}
-      >
+      <div className={clsx("custom-dropdown__item", itemClassName)}>
         {children}
       </div>
     </Dropdown>

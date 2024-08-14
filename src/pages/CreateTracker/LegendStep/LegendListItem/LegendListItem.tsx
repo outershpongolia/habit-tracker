@@ -1,21 +1,21 @@
 import React, { useCallback } from "react"
-import './ListItem.scss'
+import './LegendListItem.scss'
 import { Color } from "antd/es/color-picker"
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-import { EListType } from "../List/List";
+import { ELegendListType } from "../LegendList/LegendList";
 import { CustomColorPicker } from "../../../../components/CustomColorPicker/CustomColorPicker";
 
-interface IListItemProps {
+interface ILegendListItemProps {
   id: string
   status: string
   color: string
-  type: EListType
+  type: ELegendListType
   handleSelectOption?: (id: string) => void
-  handleRemoveOption?: (id: string, type: EListType) => void
+  handleRemoveOption?: (id: string, type: ELegendListType) => void
   handleChangeColor: (hex: string, id: string) => void
 }
 
-export const ListItem: React.FC<IListItemProps> = ({ id, status, color, type, handleSelectOption, handleRemoveOption, handleChangeColor }) => {
+export const LegendListItem: React.FC<ILegendListItemProps> = ({ id, status, color, type, handleSelectOption, handleRemoveOption, handleChangeColor }) => {
   const onSelectOption = useCallback(() => {
     if (handleSelectOption) {
       handleSelectOption(id)
@@ -34,15 +34,15 @@ export const ListItem: React.FC<IListItemProps> = ({ id, status, color, type, ha
 
   return (
     <div
-      className="list-item"
+      className="legend-list-item"
     >
-      <div className="list-item__icons">
-        {type !== EListType.SELECTED &&
-          <CiCirclePlus className='list-item__icon' onClick={onSelectOption} />
+      <div className="legend-list-item__icons">
+        {type !== ELegendListType.SELECTED &&
+          <CiCirclePlus className='legend-list-item__icon' onClick={onSelectOption} />
         }
 
-        {type !== EListType.PREDEFINED &&
-          <CiCircleMinus className='list-item__icon' onClick={onRemoveOption} />
+        {type !== ELegendListType.PREDEFINED &&
+          <CiCircleMinus className='legend-list-item__icon' onClick={onRemoveOption} />
         }
       </div>
 

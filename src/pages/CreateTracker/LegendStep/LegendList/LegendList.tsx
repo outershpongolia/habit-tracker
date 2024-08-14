@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from "react"
-import './List.scss'
+import './LegendList.scss'
 import { Color } from "antd/es/color-picker"
 import { Button } from "../../../../components/Button/Button"
 import { Popup } from "../../../../components/Popup/Popup"
@@ -9,22 +9,23 @@ import { v4 } from "uuid"
 import { FiPlus } from "react-icons/fi";
 import { ILegend } from "../../../../interfaces"
 import { CustomColorPicker } from "../../../../components/CustomColorPicker/CustomColorPicker"
-import { ListItem } from "../ListItem/ListItem"
+import { LegendListItem } from "../LegendListItem/LegendListItem"
 
-interface IListProps {
+
+interface ILegendListProps {
   title: string
   items: ILegend[]
-  type: EListType
+  type: ELegendListType
   onChange?: (value: Color, hex: string) => void
 }
 
-export enum EListType {
+export enum ELegendListType {
   SELECTED = 'selected',
   PREDEFINED = 'predefined',
   CUSTOM = 'custom'
 }
 
-export const List: React.FC<IListProps> = ({ title, items, type }) => {
+export const LegendList: React.FC<ILegendListProps> = ({ title, items, type }) => {
   const { setCurrentTracker, setPredefinedLegend } = useContext(TrackerContext)
 
   const [ isPopupOpened, setIsPopupOpened ] = useState(false)
@@ -85,7 +86,7 @@ export const List: React.FC<IListProps> = ({ title, items, type }) => {
     })
   }, [setCurrentTracker, customOption])
 
-  const handleDeleteCustomOption = useCallback((id: string, type: EListType) => {
+  const handleDeleteCustomOption = useCallback((id: string, type: ELegendListType) => {
     const targetSelectedOption = items.find(x => x.id === id)
 
     if (!targetSelectedOption) return
@@ -155,15 +156,15 @@ export const List: React.FC<IListProps> = ({ title, items, type }) => {
   }, [setCurrentTracker])
 
   return (
-    <div className="list">
-      <div className="list__header">
+    <div className="legend-list">
+      <div className="legend-list__header">
         {title}
       </div>
 
-      <div className="list__items">
-        {type === EListType.CUSTOM &&
+      <div className="legend-list__items">
+        {type === ELegendListType.CUSTOM &&
           <Button
-            className="list__button"
+            className="legend-list__button"
             label="Add custom option"
             variety="secondary"
             icon={<FiPlus className="button-icon" />}
@@ -173,7 +174,7 @@ export const List: React.FC<IListProps> = ({ title, items, type }) => {
 
         {items.map(item => {
           return (
-            <ListItem
+            <LegendListItem
               key={item.id}
               id={item.id}
               status={item.status}
@@ -189,7 +190,7 @@ export const List: React.FC<IListProps> = ({ title, items, type }) => {
 
       {isPopupOpened &&
         <Popup>
-          <div className="list-popup__title">Add custom option</div>
+          <div className="legend-list-popup__title">Add custom option</div>
 
           <Input
             value={customOption.status}
@@ -204,15 +205,15 @@ export const List: React.FC<IListProps> = ({ title, items, type }) => {
             onChange={handleAddColor}
           />
 
-          <div className="list-popup__buttons">
+          <div className="legend-list-popup__buttons">
             <Button
-              className="list-popup__button"
+              className="legend-list-popup__button"
               label="Add"
               onClick={handleAddCustomOption}
               isDisabled={!customOption.status || !customOption.color}
             />
             <Button
-              className="list-popup__button"
+              className="legend-list-popup__button"
               label="Cancel" 
               onClick={handleClosePopup}
             />

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import './LegendStep.scss'
-import { EListType, List } from './List/List'
+import { ELegendListType, LegendList } from './LegendList/LegendList'
 import { TrackerContext } from '../../../context/TrackerContext';
 
 interface ILegendStepProps {}
@@ -10,20 +10,20 @@ export const LegendStep: React.FC<ILegendStepProps> = () => {
 
   return (
     <div className='create-legend-step'>
-      <List
+      <LegendList
         title='selected'
         items={currentTracker.legend.filter(x => x.selected)}
-        type={EListType.SELECTED}
+        type={ELegendListType.SELECTED}
       />
-      <List
+      <LegendList
         title='predefined'
         items={predefinedLegend}
-        type={EListType.PREDEFINED}
+        type={ELegendListType.PREDEFINED}
       />
-      <List
+      <LegendList
         title='custom'
         items={currentTracker.legend.filter(x => !x.selected)}
-        type={EListType.CUSTOM}
+        type={ELegendListType.CUSTOM}
       />
     </div>
   )

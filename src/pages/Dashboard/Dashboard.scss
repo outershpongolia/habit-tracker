@@ -1,3 +1,15 @@
-.dashboard {
+@import '../../style/base';
 
+.dashboard {
+  &__main {
+    display: flex;
+    gap: 32px;
+  }
+  &__trackers {
+    width: 100%;
+    max-width: 840px;
+  }
+  &__progress {
+    flex: 1;
+  }
 }

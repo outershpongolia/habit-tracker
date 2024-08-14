@@ -95,3 +95,8 @@ export const PREDEFINED_CATEGORIES: ICategory[] = [
     color: 'green'
   }
 ]
+
+export const SORT_BY_OPTIONS = [
+  { value: 'ascending', label: 'ascending' },
+  { value: 'descending', label: 'descending' }
+]

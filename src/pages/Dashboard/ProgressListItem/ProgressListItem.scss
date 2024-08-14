@@ -1,0 +1,28 @@
+@import '../../../style/base';
+
+.progress-list-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0px;
+  background-color: transparent;
+  &__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-color-highlight;
+    font-size: 16px;
+  }
+  &__name {
+    width: fit-content;
+    font-size: 14px;
+  }
+  &__progress {
+    flex: 1;
+    height: fit-content;
+  }
+}

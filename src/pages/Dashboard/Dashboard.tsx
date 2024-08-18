@@ -163,6 +163,8 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
           />
         </DashboardList>
       </div>
+
+      <div className='dashboard__footer'></div>
     </div>
   )
 }

@@ -4,12 +4,21 @@
   &__main {
     display: flex;
     gap: 32px;
+    height: 100%;
+    flex: 1;
+    max-height: calc(100% - 40%);
   }
   &__trackers {
     width: 100%;
     max-width: 840px;
   }
   &__progress {
+    flex: 1;
+  }
+  &__footer {
+    width: 100%;
+    background-color: $secondary-color-highlight;
+    border-radius: 14px;
     flex: 1;
   }
 }

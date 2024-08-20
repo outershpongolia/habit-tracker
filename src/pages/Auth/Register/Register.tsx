@@ -34,6 +34,7 @@ export const Register: React.FC<IRegisterProps> = () => {
   return (
     <div className='auth'>
       <AuthForm
+        title='Register'
         onClick={handleSubmitForm}
         setInputValue={setInputValue}
         inputValue={inputValue}

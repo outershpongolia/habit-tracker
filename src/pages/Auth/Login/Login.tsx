@@ -38,6 +38,7 @@ export const Login: React.FC<ILoginProps> = () => {
   return (
     <div className='auth'>
       <AuthForm
+        title='Login'
         onClick={handleSubmitForm}
         setInputValue={setInputValue}
         inputValue={inputValue}

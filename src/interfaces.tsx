@@ -4,6 +4,7 @@ import { EStatus, ETimeFormat } from "./constants"
 export interface IAuth {
   email:             string
   password:          string
+  categories:        ICategory[]
   name?:             string
 }
 export interface IApiResponse<T=any> {
@@ -17,7 +18,7 @@ export interface IUser {
   id:                string
   email:             string
   name:              string
-  trackers:          ITracker[]
+  categories:        ICategory[]
 }
 
 {/* Date interface */}

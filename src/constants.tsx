@@ -22,6 +22,7 @@ export const DEFAULT_AUTH_OBJECT: IAuth = {
   email: '',
   password: '',
   name: '',
+  categories: []
 }
 
 export enum ETimeFormat {

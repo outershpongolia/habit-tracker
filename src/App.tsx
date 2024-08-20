@@ -11,6 +11,8 @@ import { Register } from './pages/Auth/Register/Register'
 import { Login } from './pages/Auth/Login/Login'
 import { CreateTracker } from './pages/CreateTracker/CreateTracker'
 import { EditTracker } from './pages/EditTracker/EditTracker'
+import { Profile } from './pages/Profile/Profile'
+import { Settings } from './pages/Settings/Settings'
 
 // External lib styles
 import 'react-toastify/dist/ReactToastify.css'
@@ -18,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css'
 interface IAppProps {}
 
 export const App: React.FC<IAppProps> = () => {
-  const { setUser } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   const navigate = useNavigate()
 
@@ -37,7 +39,7 @@ export const App: React.FC<IAppProps> = () => {
 
   return (
     <div className="app">
-      <Menu />
+      {user && <Menu />}
 
       <main>
         <Routes>
@@ -46,6 +48,8 @@ export const App: React.FC<IAppProps> = () => {
           <Route element={<Dashboard />} path={ERoute.DASHBOARD} />
           <Route element={<CreateTracker />} path={ERoute.CREATE_TRACKER} />
           <Route element={<EditTracker />} path={`${ERoute.EDIT_TRACKER}/:id`} />
+          <Route element={<Profile />} path={ERoute.PROFILE} />
+          <Route element={<Settings />} path={ERoute.SETTINGS} />
         </Routes>
       </main>
     </div>

@@ -12,7 +12,7 @@ interface IDashboardListProps extends PropsWithChildren {
 
 export const DashboardList: React.FC<IDashboardListProps> = ({ title, listItems, isLoading, className, children }) => {
   return (
-    <div className={clsx("dashboard-list", className)}>
+    <div className={clsx("dashboard-list", "white-container", className)}>
       <div className="dashboard-list__header">
         <div className="dashboard-list__title">{title}</div>
 

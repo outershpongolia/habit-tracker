@@ -13,7 +13,9 @@ export const UserContext = createContext<IUserContextProps>({
 })
 
 export const UserContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [ user, setUser ] = useState<IUser | null>(null)
+  const [user, setUser] = useState<IUser | null>(null)
+
+  console.log({user})
 
   return (
     <UserContext.Provider

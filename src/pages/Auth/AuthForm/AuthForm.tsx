@@ -5,6 +5,7 @@ import { Button } from '../../../components/Button/Button'
 import { AlertContext } from '../../../context/AlertContext'
 import { IAuth } from '../../../interfaces'
 interface IAuthFormProps {
+  title: string
   inputValue: IAuth
   setInputValue: React.Dispatch<React.SetStateAction<IAuth>>
   onClick: () => void
@@ -12,7 +13,7 @@ interface IAuthFormProps {
   onNavigate?: () => void
 }
 
-export const AuthForm: React.FC<IAuthFormProps> = ({ inputValue, setInputValue, onClick, isRegister, onNavigate }) => {
+export const AuthForm: React.FC<IAuthFormProps> = ({ title, inputValue, setInputValue, onClick, isRegister, onNavigate }) => {
   const { setErrorMessage } = useContext(AlertContext)
 
   const handleInputOnChange = useCallback((value: string, name: string) => {
@@ -28,11 +29,24 @@ export const AuthForm: React.FC<IAuthFormProps> = ({ inputValue, setInputValue, 
 
   return (
     <div className='auth-form'>
+      <div className='auth-form__title'>
+        {title}
+      </div>
+
+      {isRegister && (
+        <Input
+          value={inputValue.name || ''}
+          name='name'
+          onChange={handleInputOnChange}
+          label='name'
+        />
+      )}
+
       <Input
         value={inputValue.email}
         name='email'
         onChange={handleInputOnChange}
-        label='email:'
+        label='email'
         autoFocus
       />
 
@@ -40,17 +54,9 @@ export const AuthForm: React.FC<IAuthFormProps> = ({ inputValue, setInputValue, 
         value={inputValue.password}
         name='password'
         onChange={handleInputOnChange}
-        label='password:'
+        label='password'
+        type='password'
       />
-
-      {isRegister && (
-        <Input
-          value={inputValue.name || ''}
-          name='name'
-          onChange={handleInputOnChange}
-          label='name:'
-        />
-      )}
 
       <div className='auth-form__buttons'>
         {!isRegister && (

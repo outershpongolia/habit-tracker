@@ -18,7 +18,7 @@ interface IDashboardProps {}
 
 export const Dashboard: React.FC<IDashboardProps> = () => {
   const {user} = useContext(UserContext)
-  const {setCurrentTracker, setTrackersArray, trackersArray, categories} = useContext(TrackerContext)
+  const {setCurrentTracker, setTrackersArray, trackersArray} = useContext(TrackerContext)
 
   const [isLoading, setIsLoading] = useState(false)
   const [sortProgress, setSortProgress] = useState('descending')
@@ -40,7 +40,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
       .finally(() => setIsLoading(false))
 
     setCurrentTracker(DEFAULT_TRACKER)
-  }, [setCurrentTracker, user, setTrackersArray, setIsLoading, categories])
+  }, [setCurrentTracker, user, setTrackersArray, setIsLoading])
 
   const handleNavigateToTracker = useCallback((id: string) => {
     const targetTracker = trackersArray.find(x => x.id === id)
@@ -55,15 +55,6 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
   const handleNavigateToPage = useCallback(() => {
     navigate(ERoute.CREATE_TRACKER)
   }, [navigate])
-
-  const selectCategoryOptions = useMemo(() => {
-    return categories.map(x => {
-      return {
-        value: x.value,
-        label: x.value
-      } as ISelectOption
-    })
-  }, [categories])
 
   const trackerListItems = useMemo(() => {
     return (
@@ -139,7 +130,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
           />
 
           <CustomSelect
-            options={selectCategoryOptions}
+            options={[]} // TO DO: put user categories here
             placeholder='Select category'
             onChange={(value: string, option: ISelectOption | ISelectOption[]) => {
               console.log({value}, {option})

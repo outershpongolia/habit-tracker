@@ -29,8 +29,6 @@ export const Tracker: React.FC<ITrackerProps> = ({ preview }) => {
     })
   }, [setCurrentTracker, preview])
 
-  console.log({currentTracker})
-
   const handleTileContent = useCallback(({ date, view }: { date: Date; view: string }) => {
     const tileExists = currentTracker.timeData.find(x => x.date === date.getTime())
 

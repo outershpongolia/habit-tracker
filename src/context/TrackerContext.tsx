@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, createContext, useState } from "react"
-import { ICategory, ILegend, ITracker } from "../interfaces"
-import { DEFAULT_TRACKER, PREDEFINED_CATEGORIES, PREDEFINED_LEGEND_ARRAY } from "../constants"
+import { ILegend, ITracker } from "../interfaces"
+import { DEFAULT_TRACKER, PREDEFINED_LEGEND_ARRAY } from "../constants"
 import { noop } from "lodash"
 
 interface ITrackerContextProps {
@@ -10,8 +10,6 @@ interface ITrackerContextProps {
   setCurrentTracker: React.Dispatch<React.SetStateAction<ITracker>>
   predefinedLegend: ILegend[]
   setPredefinedLegend: React.Dispatch<React.SetStateAction<ILegend[]>>
-  categories: ICategory[]
-  setCategories: React.Dispatch<React.SetStateAction<ICategory[]>>
 }
 
 export const TrackerContext = createContext<ITrackerContextProps>({
@@ -20,17 +18,13 @@ export const TrackerContext = createContext<ITrackerContextProps>({
   currentTracker: DEFAULT_TRACKER,
   setCurrentTracker: noop,
   predefinedLegend: PREDEFINED_LEGEND_ARRAY,
-  setPredefinedLegend: noop,
-  categories: PREDEFINED_CATEGORIES,
-  setCategories: noop
+  setPredefinedLegend: noop
 })
 
 export const TrackerContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [trackersArray, setTrackersArray] = useState<ITracker[]>([])
   const [currentTracker, setCurrentTracker] = useState<ITracker>(DEFAULT_TRACKER)
   const [predefinedLegend, setPredefinedLegend] = useState<ILegend[]>(PREDEFINED_LEGEND_ARRAY)
-  const [categories, setCategories] = useState(PREDEFINED_CATEGORIES)
-  console.log({currentTracker})
 
   return (
     <TrackerContext.Provider
@@ -40,9 +34,7 @@ export const TrackerContextProvider: React.FC<PropsWithChildren> = ({ children }
         currentTracker,
         setCurrentTracker,
         predefinedLegend,
-        setPredefinedLegend,
-        categories,
-        setCategories
+        setPredefinedLegend
       }}
     >
       {children}

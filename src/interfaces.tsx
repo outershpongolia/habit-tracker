@@ -46,7 +46,7 @@ export interface ITracker {
   timeData:          ITimeData[]
   dateCreated:       Date
   dateUpdated:       Date
-  categories:        ICategory[]
+  category:          ICategory | null
 }
 export interface ILegend {
   id:                string

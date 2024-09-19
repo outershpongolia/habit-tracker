@@ -10,6 +10,7 @@ interface IInputProps {
   type?: string
   maxLength?: number
   autoFocus?: boolean
+  info?: string
   className?: string
 }
 
@@ -21,6 +22,7 @@ export const Input: React.FC<IInputProps> = ({
   onChange,
   autoFocus,
   label,
+  info,
   className
 }) => {
   const [focus, setFocus] = useState(false)
@@ -62,6 +64,13 @@ export const Input: React.FC<IInputProps> = ({
       {label &&
         <div className={clsx('input__label', focus && 'input__label_active')}>
           {label}
+        </div>
+      }
+
+      {info &&
+        // TO DO: add props object for info: {content, color, position??: left, right, center}
+        <div className="input__info">
+          {info}
         </div>
       }
     </div>

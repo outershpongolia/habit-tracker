@@ -1,5 +1,5 @@
 import { v4 } from "uuid"
-import { ITracker, IAuth, ILegend } from "./interfaces"
+import { ITracker, IAuth, ILegend, ICategory } from "./interfaces"
 
 export enum ERoute {
   DASHBOARD = '/',
@@ -90,3 +90,13 @@ export const SORT_BY_OPTIONS = [
   { value: 'ascending', label: 'ascending' },
   { value: 'descending', label: 'descending' }
 ]
+
+export const DEFAULT_CATEGORY_OBJECT: ICategory = {
+  id: '',
+  label: '',
+  value: '',
+  color: '',
+  description: ''
+}
+
+export const MAXIMUM_NUMBER_OF_CATEGORIES = 5

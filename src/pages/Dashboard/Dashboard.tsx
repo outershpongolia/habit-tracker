@@ -103,6 +103,14 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
     )
   }, [trackersArray, sortProgress])
 
+  const categoryOptions = useMemo(() => {
+    if (!user) return []
+
+    return user?.categories.map(x => {
+      return {label: x.label, value: x.value} as ISelectOption
+    }) as ISelectOption[]
+  }, [user])
+
   return (
     <div className='dashboard page'>
       <Header
@@ -130,7 +138,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
           />
 
           <CustomSelect
-            options={[]} // TO DO: put user categories here
+            options={categoryOptions}
             placeholder='Select category'
             onChange={(value: string, option: ISelectOption | ISelectOption[]) => {
               console.log({value}, {option})

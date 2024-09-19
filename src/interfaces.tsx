@@ -61,6 +61,9 @@ export interface ITimeData {
   date:              number
 }
 export interface ICategory {
+  id:                string
+  label:             string
   value:             string
   color:             string
+  description:       string
 }

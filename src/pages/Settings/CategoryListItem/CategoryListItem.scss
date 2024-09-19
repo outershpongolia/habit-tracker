@@ -1,1 +1,30 @@
-.category-list-item {}
+@import '../../../style/base';
+
+.category-list-item {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 14px;
+  &__main {
+    display: flex;
+    flex-direction: column;
+  }
+  &__title {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  &__icon {
+    cursor: pointer;
+  }
+  &__buttons {
+    display: flex;
+    gap: 8px;
+  }
+  &__button {
+    background-color: $primary-color-dark;
+    color: #fff;
+    border: 2px solid $primary-color-dark;
+  }
+}

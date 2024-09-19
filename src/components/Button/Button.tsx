@@ -14,7 +14,7 @@ interface IButtonProps {
 export const Button: React.FC<IButtonProps> = ({
   label,
   onClick,
-  variety,
+  variety='primary',
   icon,
   isDisabled,
   className

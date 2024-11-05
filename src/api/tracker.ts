@@ -20,8 +20,8 @@ export const getTrackers = ({userId}: {userId: string}) => {
   })
 }
 
-export const editTracker = (tracker: ITracker) => {
-  return fetch(`${process.env.REACT_APP_BASE_URL}/tracker/edit-tracker`, {
+export const updateTracker = (tracker: ITracker) => {
+  return fetch(`${process.env.REACT_APP_BASE_URL}/tracker/update-tracker`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({...tracker})

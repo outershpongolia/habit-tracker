@@ -1,24 +1,24 @@
 import React, { useCallback, useContext } from "react"
-import './EditTracker.scss'
+import './MyTracker.scss'
 import { Tracker } from "../../components/Tracker/Tracker"
 import { Button } from "../../components/Button/Button"
-import { editTracker } from "../../api/tracker"
+import { updateTracker } from "../../api/tracker"
 import { TrackerContext } from "../../context/TrackerContext"
 import { EStatus } from "../../constants"
 import { useNavigate } from "react-router-dom"
 import { AlertContext } from "../../context/AlertContext"
 import { Header } from "../../components/Header/Header"
 
-interface IEditTrackerProps {}
+interface IMyTrackerProps {}
 
-export const EditTracker: React.FC<IEditTrackerProps> = () => {
+export const MyTracker: React.FC<IMyTrackerProps> = () => {
   const { handleToast } = useContext(AlertContext)
   const {currentTracker} = useContext(TrackerContext)
 
   const navigate = useNavigate()
 
-  const handleEditTracker = useCallback(() => {
-    editTracker(currentTracker)
+  const handleUpdateTracker = useCallback(() => {
+    updateTracker(currentTracker)
       .then(() => {
         handleToast(EStatus.SUCCESS, "Tracker is edited successfully.")
       })
@@ -27,14 +27,14 @@ export const EditTracker: React.FC<IEditTrackerProps> = () => {
   }, [currentTracker, handleToast, navigate])
 
   return (
-    <div className="edit-tracker page">
+    <div className="my-tracker page">
       <Header
         label={currentTracker.name}
       >
         <Button
           label="save changes"
           variety="secondary"
-          onClick={handleEditTracker}
+          onClick={handleUpdateTracker}
         />
       </Header>
 

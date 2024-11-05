@@ -49,7 +49,7 @@ export const Dashboard: React.FC<IDashboardProps> = () => {
 
     setCurrentTracker(targetTracker)
 
-    navigate(`${ERoute.EDIT_TRACKER}/${targetTracker.id}`, {state: {id: targetTracker.id}});
+    navigate(`${ERoute.MY_TRACKER}/${targetTracker.id}`, {state: {id: targetTracker.id}});
   }, [trackersArray, navigate, setCurrentTracker])
 
   const handleNavigateToPage = useCallback(() => {

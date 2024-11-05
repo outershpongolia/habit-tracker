@@ -6,7 +6,7 @@ export enum ERoute {
   LOGIN = '/login',
   REGISTER = '/register',
   CREATE_TRACKER = '/create-tracker',
-  EDIT_TRACKER = '/edit-tracker',
+  MY_TRACKER = '/my-tracker',
   ANALYTICS = '/analytics',
   PROFILE = '/profile',
   SETTINGS = '/settings'

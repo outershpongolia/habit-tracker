@@ -10,7 +10,7 @@ import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Register } from './pages/Auth/Register/Register'
 import { Login } from './pages/Auth/Login/Login'
 import { CreateTracker } from './pages/CreateTracker/CreateTracker'
-import { EditTracker } from './pages/EditTracker/EditTracker'
+import { MyTracker } from './pages/MyTracker/MyTracker'
 import { Profile } from './pages/Profile/Profile'
 import { Settings } from './pages/Settings/Settings'
 
@@ -47,7 +47,7 @@ export const App: React.FC<IAppProps> = () => {
           <Route element={<Login />} path={ERoute.LOGIN} />
           <Route element={<Dashboard />} path={ERoute.DASHBOARD} />
           <Route element={<CreateTracker />} path={ERoute.CREATE_TRACKER} />
-          <Route element={<EditTracker />} path={`${ERoute.EDIT_TRACKER}/:id`} />
+          <Route element={<MyTracker />} path={`${ERoute.MY_TRACKER}/:id`} />
           <Route element={<Profile />} path={ERoute.PROFILE} />
           <Route element={<Settings />} path={ERoute.SETTINGS} />
         </Routes>
